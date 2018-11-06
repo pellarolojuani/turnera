@@ -8,14 +8,16 @@ public class TurnosDto {
 	private Date fecha;
 	private String especialidad;
 	private String estado;
+	private String medico;
 	
 	
-	public TurnosDto(Integer id,Date fecha, String especialidad, String estado) {
+	public TurnosDto(Integer id,Date fecha, String especialidad, String estado, String medico) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.especialidad = especialidad;
 		this.estado = estado;
+		this.medico = medico;
 	}
 	
 	
@@ -44,6 +46,16 @@ public class TurnosDto {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+
+	public String getMedico() {
+		return medico;
+	}
+
+
+	public void setMedico(String medico) {
+		this.medico = medico;
 	}
 
 }

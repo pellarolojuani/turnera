@@ -7,6 +7,7 @@
 			<thead>
 				<tr>
 					<th>Fecha</th>
+					<th>Medico</th>
 					<th>Especialidad</th>
 					<th>Estado</th>
 					<th></th>
@@ -17,6 +18,7 @@
 				<c:forEach items="${turnos}" var="turno">
 					<tr>
 						<td><fmt:formatDate value="${turno.fecha}" pattern="dd/MM/yyyy"/></td>
+						<td>${turno.medico}</td>
 						<td>${turno.especialidad}</td>
 						<td>${turno.estado}</td>
 						<td><a type="button" class="btn btn-warning"
