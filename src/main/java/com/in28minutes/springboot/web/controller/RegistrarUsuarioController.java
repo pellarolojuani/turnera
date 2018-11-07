@@ -33,7 +33,7 @@ public class RegistrarUsuarioController {
 	
 	
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/crearUsuario")
-	private void createCloudController(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void crearUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
 			//HARDCODEO
 			UsuarioDto usuario = new UsuarioDto();
