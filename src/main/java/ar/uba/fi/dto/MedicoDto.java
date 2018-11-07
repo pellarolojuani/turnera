@@ -1,4 +1,4 @@
-package ar.uba.fi.controller;
+package ar.uba.fi.dto;
 
 public class MedicoDto {
 	
