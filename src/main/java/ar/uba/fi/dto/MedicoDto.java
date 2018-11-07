@@ -1,11 +1,15 @@
 package ar.uba.fi.dto;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "medicos")
 public class MedicoDto {
-	
+	@Id
+	private String id;
 	private String especialidad;
 	private String nombre;
 	
-		
 	public MedicoDto(String especialidad, String nombre) {
 		super();
 		this.especialidad = especialidad;
@@ -23,5 +27,10 @@ public class MedicoDto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	public String getId() {
+		return this.id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 }

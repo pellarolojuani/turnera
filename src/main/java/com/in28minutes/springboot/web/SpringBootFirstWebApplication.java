@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import ar.uba.fi.mongo.repository.UserRepository;
+import ar.uba.fi.mongo.repository.UsuarioRepository;
 
 @SpringBootApplication(scanBasePackages={"com.in28minutes.springboot.web", "ar.uba.fi"})
 @ComponentScan({"com.in28minutes.springboot.web", "ar.uba.fi"})
-@EnableMongoRepositories(basePackageClasses = UserRepository.class)
+@EnableMongoRepositories(basePackageClasses = UsuarioRepository.class)
 public class SpringBootFirstWebApplication {
 
 	public static void main(String[] args) {

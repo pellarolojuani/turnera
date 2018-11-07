@@ -12,13 +12,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ar.uba.fi.dto.UsuarioDto;
-import ar.uba.fi.facade.UsersFacade;
+import ar.uba.fi.facade.UsuariosFacade;
 
 @Controller
 public class RegistrarUsuarioController {
 	
 	@Autowired
-	private UsersFacade usersFacade;
+	private UsuariosFacade usersFacade;
 	
 	@RequestMapping(value = "/registrarInit", method = RequestMethod.GET)
     public String init(Model model) {
@@ -36,11 +36,7 @@ public class RegistrarUsuarioController {
 	private void crearUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
 			//HARDCODEO
-			UsuarioDto usuario = new UsuarioDto();
-			usuario.setNombre("pepe");
-			usuario.setApellido("asd");
-			usuario.setDni(1233l);
-			usuario.setUsername("pepito");
+			UsuarioDto usuario = new UsuarioDto("pepito", "holachau");
 			usersFacade.crearUsuario(usuario);
 		} catch (Exception ex) {
 			ex.getMessage();

@@ -40,8 +40,8 @@ public class PacienteController {
 
 		// TODO aca deberia ir a la base y recuperar los turnos.
 		// definir si muestra o no lo turnos anulados(porque le podemos poner estados)
-		TurnosDto turno1 = new TurnosDto(1, new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
-		TurnosDto turno2 = new TurnosDto(2, new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
+		TurnosDto turno1 = new TurnosDto(new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
+		TurnosDto turno2 = new TurnosDto(new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
 		turnos.add(turno1);
 		turnos.add(turno2);

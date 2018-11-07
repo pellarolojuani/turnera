@@ -2,18 +2,21 @@ package ar.uba.fi.dto;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "turnos")
 public class TurnosDto {
-	
-	private Integer id;
+	@Id
+	private String id;
 	private Date fecha;
 	private String especialidad;
 	private String estado;
 	private String medico;
 	
 	
-	public TurnosDto(Integer id,Date fecha, String especialidad, String estado, String medico) {
+	public TurnosDto(Date fecha, String especialidad, String estado, String medico) {
 		super();
-		this.id = id;
 		this.fecha = fecha;
 		this.especialidad = especialidad;
 		this.estado = estado;
@@ -40,11 +43,11 @@ public class TurnosDto {
 		this.estado = estado;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
