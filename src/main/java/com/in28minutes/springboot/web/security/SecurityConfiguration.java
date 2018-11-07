@@ -15,14 +15,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .roles("USER", "ADMIN");
     }
 	
+//	@Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests().antMatchers("/login").permitAll()
+//                //.access("hasRole('USER')")
+//        		.and()
+//                .formLogin().loginPage("/login");
+//    }
+	
+	
+	//dejo este, provisorio, por q el otro no me manda al login de lucas!!!
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/login").permitAll()
-                //.access("hasRole('USER')")
-        		.and()
-                .formLogin().loginPage("/login");
+                .antMatchers("/", "/*todo*/**").access("hasRole('USER')").and()
+                .formLogin();
     }
-	
-	
 	
 }
