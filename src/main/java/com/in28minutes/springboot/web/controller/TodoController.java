@@ -51,6 +51,7 @@ public class TodoController {
 		String name = getLoggedInUserName(model);
 		
 		//TODO aca deberia ir a la base y recuperar los turnos.
+		//definir si muestra o no lo turnos anulados(porque le podemos poner estados)
 		TurnosDto turno1 = new TurnosDto(1,new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
 		TurnosDto turno2 = new TurnosDto(2,new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
@@ -60,6 +61,15 @@ public class TodoController {
 		
 		model.put("turnos", turnos);
 		return "misTurnos";
+	}
+	
+	@RequestMapping(value = "/anularTurno", method = RequestMethod.GET)
+	public String anularTurno(@RequestParam int id) {
+
+		//TODO aca voy a la base y le cambio el estado al turno.
+		//inyectar servicios
+		System.out.println("voy a anular el turno id:" + id);
+		return "redirect:/misTurnos";
 	}
 
 	private String getLoggedInUserName(ModelMap model) {

@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,6 +68,9 @@
 </head>
 <body>
 	<div class="login-form">
+		<c:if test="${not empty mensaje}">
+   			<div><a>${mensaje}</a></div> 
+		</c:if>
 		<form name='r' action="registrar" method='GET'>
 	        <div class="form-group">
 	        	<div class="input-group">
@@ -82,7 +87,7 @@
 	     	<div class="form-group">
 	            <div class="input-group">
 <!-- 	                <span class="input-group-addon"><i class="fa fa-lock"></i></span> -->
-	                <input type="text" class="form-control" name="nroAfilizado" placeholder="Numero Afiliado" required="required">				
+	                <input type="text" class="form-control" name="nroAfiliado" placeholder="Numero Afiliado" required="required">				
 	            </div>
 	        </div> 
             <div class="form-group">

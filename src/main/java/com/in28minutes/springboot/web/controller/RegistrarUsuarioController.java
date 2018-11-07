@@ -2,6 +2,7 @@ package com.in28minutes.springboot.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -14,8 +15,9 @@ public class RegistrarUsuarioController {
 	}
 		
 	@RequestMapping(value = "/registrar", method = RequestMethod.GET)
-    public void registrar(Model model) {
+    public void registrar(ModelMap model) {
 		System.out.println("aca logica para validar y registrar usuario");
+		model.put("mensaje", "El usuario se registro correctamente" );
 	}
 	
 

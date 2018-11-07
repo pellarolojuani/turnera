@@ -17,12 +17,12 @@
 			<tbody>
 				<c:forEach items="${turnos}" var="turno">
 					<tr>
-						<td><fmt:formatDate value="${turno.fecha}" pattern="dd/MM/yyyy"/></td>
+						<td><fmt:formatDate value="${turno.fecha}" pattern="dd/MM/yyyy HH:MM"/></td>
 						<td>${turno.medico}</td>
 						<td>${turno.especialidad}</td>
 						<td>${turno.estado}</td>
 						<td><a type="button" class="btn btn-warning"
-							href="/delete-todo?id=${todo.id}">Anular</a></td>
+							href="/anularTurno?id=${turno.id}">Anular</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
