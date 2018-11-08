@@ -1,20 +1,22 @@
 <%@ include file="common/header.jspf" %>
 <%@ include file="common/navigation.jspf" %>
-	
+
 	<div class="container">
-	<div class="span6">
+		<form name='r' action="buscarTurnosDisponibles" method='GET'>
+	<div class="span12">
 					<div class="control-group">
 						<label class="control-label">Especialidad:</label>
 						<div class="controls">
-							<form:select id="tipoDocumentoBusqueda" name="tipoDocumentoBusqueda" path="especialidad" class="selectBusqueda" margin-left="10%" title="Especialidad M&eacute;dica">
-<%-- 								<form:option value="0">CREDENCIAL</form:option> --%>
-<%-- 								<form:options items="${beneficiarioForm.documentoTipo}" --%>
-<%-- 									itemValue="id" itemLabel="abreviatura" /> --%>
-							</form:select>				
+							 <form:select path="especialidades" items="${especialidades}"/>
 						</div>
+						<div><label>FechaTurno: </label><input type="text" id="targetDate"></div>
 					</div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success login-btn btn-block">Buscar Turno</button>
+        	</div>
 				</div>
-	
+		</form>
+		<c:forEach items="${turnos}" var="turno">
 		<table class="table table-striped">
 			<caption>Your todos are</caption>
 			<thead>
@@ -27,7 +29,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${todos}" var="todo">
 					<tr>
 						<td>${todo.desc}</td>
 						<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy"/></td>
@@ -37,9 +38,9 @@
 						<td><a type="button" class="btn btn-warning"
 							href="/delete-todo?id=${todo.id}">Delete</a></td>
 					</tr>
-				</c:forEach>
 			</tbody>
 		</table>
+		</c:forEach>
 		<div>
 			<a class="button" href="/add-todo">Add a Todo</a>
 		</div>

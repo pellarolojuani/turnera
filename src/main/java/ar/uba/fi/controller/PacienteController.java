@@ -2,7 +2,9 @@ package ar.uba.fi.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +13,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.TurnosDto;
 
 @Controller
@@ -28,10 +32,21 @@ public class PacienteController {
 	}
 
 	@RequestMapping(value = "/solicitarTurno", method = RequestMethod.GET)
-	public String initSolicitarTurno(ModelMap model) {
+	public ModelAndView initSolicitarTurno(ModelMap model) {
 		String name = getLoggedInUserName(model);
-		// model.put("todos", service.retrieveTodos(name));
-		return "solicitarTurno";
+
+		//TODO aca cargar las especialidades que vienen de la db
+		EspecialidadDto esp1 = new EspecialidadDto("CAR", "Cardiologia");
+		EspecialidadDto esp2 = new EspecialidadDto("PSI", "Psiquiatria");
+
+		Map<String, String> especialidades = new HashMap<String, String>();
+		especialidades.put(esp1.getCodigo(), esp1.getDescripcion());
+		especialidades.put(esp2.getCodigo(), esp2.getDescripcion());
+
+		ModelAndView mv = new ModelAndView("solicitarTurno");
+		mv.addObject("especialidades", especialidades);
+
+		return mv;
 	}
 
 	@RequestMapping(value = "/misTurnos", method = RequestMethod.GET)
@@ -57,6 +72,11 @@ public class PacienteController {
 		// inyectar servicios
 		System.out.println("voy a anular el turno id:" + id);
 		return "redirect:/misTurnos";
+	}
+	
+	@RequestMapping(value = "/buscarTurnosDisponibles", method = RequestMethod.GET)
+	public void buscarTurnosDisponibles() {
+		
 	}
 
 }

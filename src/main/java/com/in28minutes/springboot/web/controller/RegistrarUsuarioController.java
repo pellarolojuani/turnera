@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.facade.UsuariosFacade;
 
@@ -25,10 +26,10 @@ public class RegistrarUsuarioController {
         return "registrarUsuario";
 	}
 		
-	@RequestMapping(value = "/registrar", method = RequestMethod.GET)
-    public void registrar(ModelMap model) {
+	@RequestMapping(value = "/registrar", method = RequestMethod.POST)
+    public void registrar(@ModelAttribute("usuario") UsuarioDto usuario) {
 		System.out.println("aca logica para validar y registrar usuario");
-		model.put("mensaje", "El usuario se registro correctamente" );
+		//model.put("mensaje", "El usuario se registro correctamente" );
 	}
 	
 	
