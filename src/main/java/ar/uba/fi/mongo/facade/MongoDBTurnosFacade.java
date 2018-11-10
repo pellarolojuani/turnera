@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
 
 import com.mongodb.MongoException;
 
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.mongo.repository.TurnoRepository;
 
+@Service
 public class MongoDBTurnosFacade {
 	@Autowired
 	private TurnoRepository turnoRepository;
