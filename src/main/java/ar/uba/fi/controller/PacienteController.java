@@ -56,7 +56,9 @@ public class PacienteController {
 		// TODO aca deberia ir a la base y recuperar los turnos.
 		// definir si muestra o no lo turnos anulados(porque le podemos poner estados)
 		TurnosDto turno1 = new TurnosDto(new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
+		turno1.setId("1");
 		TurnosDto turno2 = new TurnosDto(new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
+		turno2.setId("2");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
 		turnos.add(turno1);
 		turnos.add(turno2);
@@ -75,8 +77,29 @@ public class PacienteController {
 	}
 	
 	@RequestMapping(value = "/buscarTurnosDisponibles", method = RequestMethod.GET)
-	public void buscarTurnosDisponibles() {
+	public void buscarTurnosDisponibles(@RequestParam("fechaTurno") String fechaTurno,
+            @RequestParam("especialidad") String especialidad, ModelMap model) {
 		
+		TurnosDto turno1 = new TurnosDto(new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
+		turno1.setId("1");
+		TurnosDto turno2 = new TurnosDto(new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
+		turno2.setId("2");
+		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
+		turnos.add(turno1);
+		turnos.add(turno2);
+
+		model.put("turnos", turnos);
+			
+	//	return "redirect:/solicitarTurno";
+	}
+	
+	@RequestMapping(value = "/solicitar", method = RequestMethod.GET)
+	public String guardarTurno(@RequestParam int id) {
+
+		// TODO aca voy a la base y le cambio el estado al turno.
+		// inyectar servicios
+		System.out.println("voy a anular el turno id:" + id);
+		return "redirect:/solicitarTurno";
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.in28minutes.springboot.web.controller;
+package ar.uba.fi.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.in28minutes.springboot.web.controller;
+package ar.uba.fi.controller;
 
 import java.io.IOException;
 

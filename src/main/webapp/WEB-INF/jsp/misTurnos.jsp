@@ -21,8 +21,8 @@
 						<td>${turno.medico}</td>
 						<td>${turno.especialidad}</td>
 						<td>${turno.estado}</td>
-						<td><a type="button" class="btn btn-warning"
-							href="/anularTurno?id=${turno.id}">Anular</a></td>
+						<td><a type="button" class="btn btn-success"
+							href="/solicitar?id=${turno.id}">Solicitar</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

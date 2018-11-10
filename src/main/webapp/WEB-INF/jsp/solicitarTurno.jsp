@@ -7,9 +7,9 @@
 					<div class="control-group">
 						<label class="control-label">Especialidad:</label>
 						<div class="controls">
-							 <form:select path="especialidades" items="${especialidades}"/>
+							 <form:select name="especialidad" path="especialidades" items="${especialidades}"/>
 						</div>
-						<div><label>FechaTurno: </label><input type="text" id="targetDate"></div>
+						<div><label>FechaTurno: </label><input name="fechaTurno" type="text" id="targetDate"></div>
 					</div>
             <div class="form-group">
               <button type="submit" class="btn btn-success login-btn btn-block">Buscar Turno</button>
@@ -18,26 +18,28 @@
 		</form>
 		<c:forEach items="${turnos}" var="turno">
 		<table class="table table-striped">
-			<caption>Your todos are</caption>
+			<caption>Turnos</caption>
 			<thead>
 				<tr>
-					<th>Description</th>
-					<th>Target Date</th>
-					<th>Is it Done?</th>
+					<th>Fecha</th>
+					<th>Medico</th>
+					<th>Especialidad</th>
+					<th>Estado</th>
 					<th></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
+				<c:forEach items="${turnos}" var="turno">
 					<tr>
-						<td>${todo.desc}</td>
-						<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy"/></td>
-						<td>${todo.done}</td>
-						<td><a type="button" class="btn btn-success"
-							href="/update-todo?id=${todo.id}">Update</a></td>
+						<td><fmt:formatDate value="${turno.fecha}" pattern="dd/MM/yyyy HH:MM"/></td>
+						<td>${turno.medico}</td>
+						<td>${turno.especialidad}</td>
+						<td>${turno.estado}</td>
 						<td><a type="button" class="btn btn-warning"
-							href="/delete-todo?id=${todo.id}">Delete</a></td>
+							href="/anularTurno?id=${turno.id}">Anular</a></td>
 					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 		</c:forEach>
