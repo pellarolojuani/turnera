@@ -24,5 +24,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 	
 	
+	//dejo este, provisorio, por q el otro no me manda al login de lucas!!!
+//	@Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests().antMatchers("/login").permitAll()
+//                .antMatchers("/", "/*todo*/**").access("hasRole('USER')").and()
+//                .formLogin();
+//    }
 	
 }

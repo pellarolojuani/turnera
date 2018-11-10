@@ -1,4 +1,4 @@
-package com.in28minutes.springboot.web.controller;
+package ar.uba.fi.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,22 +44,6 @@ public class TodoController {
 		String name = getLoggedInUserName(model);
 		model.put("todos", service.retrieveTodos(name));
 		return "list-todos";
-	}
-	
-	@RequestMapping(value = "/misTurnos", method = RequestMethod.GET)
-	public String verTurnos(ModelMap model) {
-		String name = getLoggedInUserName(model);
-		
-		//TODO aca deberia ir a la base y recuperar los turnos.
-		TurnosDto turno1 = new TurnosDto(1,new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
-		TurnosDto turno2 = new TurnosDto(2,new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
-		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
-		turnos.add(turno1);
-		turnos.add(turno2);
-		
-		
-		model.put("turnos", turnos);
-		return "misTurnos";
 	}
 
 	private String getLoggedInUserName(ModelMap model) {

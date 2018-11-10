@@ -1,0 +1,56 @@
+package ar.uba.fi.facade;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ar.uba.fi.dto.TurnosDto;
+import ar.uba.fi.mongo.facade.MongoDBTurnosFacade;
+
+@Service
+public class TurnosFacade {
+	@Autowired
+	private MongoDBTurnosFacade turnoFacade;
+
+	public void crearTurno(TurnosDto turno) {
+		turnoFacade.crearTurno(turno);
+	}
+
+	public void editarTurno(TurnosDto turno) {
+		turnoFacade.editarTurno(turno);
+	}
+
+	public void removerTurno(TurnosDto turno) {
+		turnoFacade.removerTurno(turno);
+	}
+
+	public List<TurnosDto> getAllTurnos() {
+		return turnoFacade.getAllTurnos();
+	}
+
+	public TurnosDto getTurnoById(String id) {
+		return turnoFacade.getTurnoById(id);
+	}
+
+	public List<TurnosDto> getTurnosByDate(Date fecha) {
+		return turnoFacade.getTurnosByDate(fecha);
+	}
+
+	public List<TurnosDto> getTurnosBetweenDates(Date inicio, Date fin) {
+		return turnoFacade.getTurnosBetweenDates(inicio, fin);
+	}
+
+	public List<TurnosDto> getTurnosByEspecialidad(String especialidad) {
+		return turnoFacade.getTurnosByEspecialidad(especialidad);
+	}
+
+	public List<TurnosDto> getTurnosByEstado(String estado) {
+		return turnoFacade.getTurnosByEstado(estado);
+	}
+
+	public List<TurnosDto> getTurnosByMedico(String medico) {
+		return turnoFacade.getTurnosByMedico(medico);
+	}
+}
