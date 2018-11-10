@@ -1,6 +1,7 @@
 package com.in28minutes.springboot.web.model;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.validation.constraints.Size;
 
@@ -13,6 +14,7 @@ public class Todo {
 
     private Date targetDate;
     private boolean isDone;
+    private Map<String, String> especialidades;
 
     public Todo() {
     		super();
@@ -26,6 +28,17 @@ public class Todo {
         this.desc = desc;
         this.targetDate = targetDate;
         this.isDone = isDone;
+    }
+    
+    public Todo(int id, String user, String desc, Date targetDate,
+            boolean isDone, Map<String, String> especialidades) {
+        super();
+        this.id = id;
+        this.user = user;
+        this.desc = desc;
+        this.targetDate = targetDate;
+        this.isDone = isDone;
+        this.especialidades = especialidades;
     }
 
     public int getId() {
@@ -100,5 +113,13 @@ public class Todo {
                 "Todo [id=%s, user=%s, desc=%s, targetDate=%s, isDone=%s]", id,
                 user, desc, targetDate, isDone);
     }
+
+	public Map<String, String> getEspecialidades() {
+		return especialidades;
+	}
+
+	public void setEspecialidades(Map<String, String> especialidades) {
+		this.especialidades = especialidades;
+	}
 
 }

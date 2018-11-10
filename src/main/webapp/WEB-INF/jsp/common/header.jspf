@@ -5,9 +5,12 @@
 <html>
 
 <head>
-<title>First Web Application</title>
-<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
-	rel="stylesheet">
+<title>Centro M&eacute;dico</title>
+<link href="css/bootstrap.min.css"  rel="stylesheet">
+<link href="css/styles.css"  rel="stylesheet">
+<script src="js/jquery.min.js"></script>
+<script src="js/solicitarTurno.js"></script>
+
 
 </head>
 

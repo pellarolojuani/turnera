@@ -1,22 +1,28 @@
 package ar.uba.fi.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.TurnosDto;
+import ar.uba.fi.util.DateUtil;
 
 @Controller
 public class PacienteController {
@@ -29,6 +35,14 @@ public class PacienteController {
 		}
 
 		return principal.toString();
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		// Date - dd/MM/yyyy
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
 	}
 
 	@RequestMapping(value = "/solicitarTurno", method = RequestMethod.GET)
@@ -77,29 +91,35 @@ public class PacienteController {
 	}
 	
 	@RequestMapping(value = "/buscarTurnosDisponibles", method = RequestMethod.GET)
-	public void buscarTurnosDisponibles(@RequestParam("fechaTurno") String fechaTurno,
-            @RequestParam("especialidad") String especialidad, ModelMap model) {
+	public @ResponseBody List<TurnosDto> buscarTurnosDisponibles(@RequestParam(name = "especialidad") String especialidad,
+			@RequestParam(name = "fechaTurno") String fechaTurno) {
 		
-		TurnosDto turno1 = new TurnosDto(new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
+		//TODO aca voy a la base y traigo los turnos segun los parametros.
+		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), especialidad,  "Ezequiel Bergamo");
 		turno1.setId("1");
-		TurnosDto turno2 = new TurnosDto(new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
+		turno1.setFechaString(fechaTurno + " 11:00");
+		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), especialidad, "Rechazado", "Eze Bergamo");
 		turno2.setId("2");
+		turno2.setFechaString(fechaTurno + " 11:20");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
 		turnos.add(turno1);
 		turnos.add(turno2);
 
-		model.put("turnos", turnos);
-			
-	//	return "redirect:/solicitarTurno";
+		return turnos;
+	}
+	
+	@RequestMapping(value = "/prueba", method = RequestMethod.GET)
+	public String prueba() {
+		return "";
 	}
 	
 	@RequestMapping(value = "/solicitar", method = RequestMethod.GET)
-	public String guardarTurno(@RequestParam int id) {
+	public @ResponseBody Boolean guardarTurno(@RequestParam int id) {
 
-		// TODO aca voy a la base y le cambio el estado al turno.
-		// inyectar servicios
-		System.out.println("voy a anular el turno id:" + id);
-		return "redirect:/solicitarTurno";
+		// TODO voy a la base y le asociado el turno al paciente GUARDAR ID DE PACIENTE EN LA SESSION
+		System.out.println("voy a sacar el turno id:" + id);
+		//
+		return true;
 	}
 
 }
