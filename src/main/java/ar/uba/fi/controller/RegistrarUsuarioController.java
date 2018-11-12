@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.uba.fi.dto.RegistroUsuarioDto;
 import ar.uba.fi.dto.UsuarioDto;
+import ar.uba.fi.facade.RegistroUsuarioFacade;
 import ar.uba.fi.facade.UsuariosFacade;
 
 @Controller
@@ -23,6 +24,8 @@ public class RegistrarUsuarioController {
 	
 	@Autowired
 	private UsuariosFacade usersFacade;
+	@Autowired
+	private RegistroUsuarioFacade registroUsuarioFacade;
 	
 	@RequestMapping(value = "/registrarInit", method = RequestMethod.GET)
     public String init(Model model) {
@@ -34,6 +37,7 @@ public class RegistrarUsuarioController {
 		
 		//TODO aca registro el usuario y envio mensaje de creacion. 
 		//En caso de que por ejemplo el usuario ya esté registrado lo pongo en el mensaje tambien.
+		registroUsuarioFacade.crearRegistroUsuario(registroUsuario);
 		ModelAndView model = new ModelAndView();
 	    model.addObject("errMsg","El Usuario se registro correctamente.");
 	    model.setViewName("registrarUsuario");
