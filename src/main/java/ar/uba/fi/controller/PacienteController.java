@@ -3,10 +3,9 @@ package ar.uba.fi.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,10 +21,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.TurnosDto;
+import ar.uba.fi.facade.EspecialidadFacade;
+import ar.uba.fi.facade.TurnosFacade;
+import ar.uba.fi.mongo.repository.TurnoRepository;
 import ar.uba.fi.util.DateUtil;
 
 @Controller
 public class PacienteController {
+	@Autowired
+	private TurnosFacade turnosFacade;
+	@Autowired
+	private EspecialidadFacade especialidadFacade;
 
 	private String getLoggedInUserName(ModelMap model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -50,12 +56,15 @@ public class PacienteController {
 		String name = getLoggedInUserName(model);
 
 		//TODO aca cargar las especialidades que vienen de la db
-		EspecialidadDto esp1 = new EspecialidadDto("CAR", "Cardiologia");
-		EspecialidadDto esp2 = new EspecialidadDto("PSI", "Psiquiatria");
-
-		Map<String, String> especialidades = new HashMap<String, String>();
-		especialidades.put(esp1.getCodigo(), esp1.getDescripcion());
-		especialidades.put(esp2.getCodigo(), esp2.getDescripcion());
+//		EspecialidadDto esp1 = new EspecialidadDto("CAR", "Cardiologia");
+//		EspecialidadDto esp2 = new EspecialidadDto("PSI", "Psiquiatria");
+		
+//		Map<String, String> especialidades = new HashMap<String, String>();
+//		especialidades.put(esp1.getCodigo(), esp1.getDescripcion());
+//		especialidades.put(esp2.getCodigo(), esp2.getDescripcion());
+		
+		List<EspecialidadDto> especialidades = new ArrayList<EspecialidadDto>();
+		especialidades = especialidadFacade.getAllEspecialidads();
 
 		ModelAndView mv = new ModelAndView("solicitarTurno");
 		mv.addObject("especialidades", especialidades);
@@ -69,13 +78,15 @@ public class PacienteController {
 
 		// TODO aca deberia ir a la base y recuperar los turnos.
 		// definir si muestra o no lo turnos anulados(porque le podemos poner estados)
-		TurnosDto turno1 = new TurnosDto(new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
-		turno1.setId("1");
-		TurnosDto turno2 = new TurnosDto(new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
-		turno2.setId("2");
+//		TurnosDto turno1 = new TurnosDto(new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
+//		turno1.setId("1");
+//		TurnosDto turno2 = new TurnosDto(new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
+//		turno2.setId("2");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
-		turnos.add(turno1);
-		turnos.add(turno2);
+//		turnos.add(turno1);
+//		turnos.add(turno2);
+		
+		turnos = turnosFacade.getAllTurnos();	
 
 		model.put("turnos", turnos);
 		return "misTurnos";
@@ -110,15 +121,19 @@ public class PacienteController {
 	}
 	
 	@RequestMapping(value = "/anularTurno", method = RequestMethod.GET)
-	public @ResponseBody Boolean anularTurno(@RequestParam int id) {
+	public @ResponseBody Boolean anularTurno(@RequestParam String id) {
 
 		// TODO aca voy a la base y le cambio el estado al turno.
 		// inyectar servicios
 		System.out.println("voy a anular el turno id:" + id);
+		
+		TurnosDto turno = turnosFacade.getTurnoById(id);
+		turno.setEstado("???");
+		turnosFacade.editarTurno(turno);
+		
 		Boolean resultadoAnularTurno = true;
 		
 		return resultadoAnularTurno;
-		
 	}
 
 }
