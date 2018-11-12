@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.uba.fi.dto.PacienteDto;
 import ar.uba.fi.dto.RegistroUsuarioDto;
 import ar.uba.fi.dto.UsuarioDto;
-import ar.uba.fi.facade.RegistroUsuarioFacade;
+import ar.uba.fi.facade.PacientesFacade;
 import ar.uba.fi.facade.UsuariosFacade;
 
 @Controller
@@ -25,7 +26,7 @@ public class RegistrarUsuarioController {
 	@Autowired
 	private UsuariosFacade usersFacade;
 	@Autowired
-	private RegistroUsuarioFacade registroUsuarioFacade;
+	private PacientesFacade pacientesFacade;
 	
 	@RequestMapping(value = "/registrarInit", method = RequestMethod.GET)
     public String init(Model model) {
@@ -37,7 +38,15 @@ public class RegistrarUsuarioController {
 		
 		//TODO aca registro el usuario y envio mensaje de creacion. 
 		//En caso de que por ejemplo el usuario ya esté registrado lo pongo en el mensaje tambien.
-		registroUsuarioFacade.crearRegistroUsuario(registroUsuario);
+		UsuarioDto usuario = new UsuarioDto(registroUsuario.getNombreUsuario(), registroUsuario.getContrasenia());
+		usersFacade.crearUsuario(usuario);
+		PacienteDto paciente = new PacienteDto(registroUsuario.getTipoDocumento(), registroUsuario.getDocumento(), usuario);
+		paciente.setSexo(registroUsuario.getSexo());
+		paciente.setFechaNacimiento(registroUsuario.getFechaNacimiento());
+		pacientesFacade.crearPaciente(paciente);
+		//falta agrgar la logica para q le cargue el numero de afiliado
+		
+		
 		ModelAndView model = new ModelAndView();
 	    model.addObject("errMsg","El Usuario se registro correctamente.");
 	    model.setViewName("registrarUsuario");
