@@ -12,7 +12,7 @@
 <body>
 	<div class="usuario-form">
         <c:if test="${not empty errMsg}">
-            <h4 class="error message" style="width: 900px">${errMsg}</h4>
+            <h2 class="error message" style="width: 900px">${errMsg}</h2>
         </c:if>
 		<form:form  action="registrar" method='POST' modelAttribute="registroUsuario">
 	        <div class="form-group">
