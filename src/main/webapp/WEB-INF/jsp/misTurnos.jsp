@@ -21,14 +21,35 @@
 						<td>${turno.medico}</td>
 						<td>${turno.especialidad}</td>
 						<td>${turno.estado}</td>
-						<td><a type="button" class="btn btn-warning"
-							href="/anularTurno?id=${turno.id}">Anular</a></td>
+						<td><a type='button' class='btn btn-warning' onclick=anularTurno(${turno.id}) >Anular</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-<!-- 		<div> -->
-<!-- 			<a class="button" href="/add-todo">Add a Todo</a> -->
-<!-- 		</div> -->
 	</div>
+	
+<%@ include file="turnoAnuladoModal.jsp"%>
+<script type="text/javascript">
+function anularTurno(id){
+	$.ajax({
+		type : "GET",
+		contentType : "application/json",
+		url : "/anularTurno",
+		dataType : "json",
+		data : {
+			id : id
+		},
+		success : function(response) {
+			if(response){
+				$('#mensajeMisTurno').append("Su turno fue anulado con &eacute;xito.")
+				$('#turnoAnulado').modal('show');
+			}else {
+				$('#mensajeMisTurno').append("No se pudo anular el turno, por favor vuelva a intentarlo.")
+				$('#turnoAnulado').modal('show');
+			}
+		}
+	});
+	
+}
+</script>
 <%@ include file="common/footer.jspf" %>

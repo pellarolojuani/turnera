@@ -1,16 +1,39 @@
-<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script
-	src="webjars/bootstrap-datepicker/1.0.1/js/bootstrap-datepicker.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- <script src="js/jquery.min.js"></script> -->
+<!-- <link href="css/bootstrap.min.css"  rel="stylesheet"> -->
+
+	<script src="js/bootstrap-datepicker.js"></script>
+	<link href="css/bootstrap-datepicker.css"  rel="stylesheet">
+
 <script>
-	$('#targetDate').datepicker({
-		format : 'dd/mm/yyyy'
+
+
+	$('#datepickerSolicitar').datepicker({
+	  days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+	  daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+	  daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
+	  months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+	  monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+	  today: "Hoy",
+	  clear: "Borrar",
+	  format: "dd/mm/yyyy",
+	  titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */		 
+	  weekStart: 0
+
 	});
 	
-	$('#datepicker').datepicker({
-		format : 'dd/mm/yyyy'
-	});
+	$('#datepickerFechaNacimiento').datepicker({
+		  days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+		  daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+		  daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
+		  months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+		  monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+		  today: "Hoy",
+		  clear: "Borrar",
+		  format: "dd/mm/yyyy",
+		  titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */		 
+		  weekStart: 0
+
+		});
 	
 </script>
 

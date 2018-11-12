@@ -10,15 +10,13 @@
 <script src="js/jquery.min.js"></script>
 <!-- <script src="js/bootstrap.min.js"></script> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
 <style type="text/css">
  
 </style>
 </head>
 <body>
 <div class="login-form">
-    <form name='f' action="login" method='POST'>
+    <form name='userForm' modelAttribute="userForm" action="login" method='POST'>
         <h2 class="text-center">Bienvenido</h2>   
         <div class="form-group">
         	<div class="input-group">
@@ -41,7 +39,6 @@
         </div>
 
     </form>
-<!--     <p class="text-center text-muted small">Don't have an account? <a href="#">Sign up here!</a></p> -->
 </div>
 </body>
 </html> 

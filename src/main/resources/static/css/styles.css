@@ -1,5 +1,5 @@
 .usuario-form {
-	width: 385px;
+	width: 500px;
 	margin: 30px auto;
 }
    .usuario-form form {        
@@ -9,6 +9,9 @@
        padding: 30px;
    }
    
+   .usuario-form h2 {
+        margin: 0 0 15px;
+    }
    
   	.login-form {
 		width: 385px;

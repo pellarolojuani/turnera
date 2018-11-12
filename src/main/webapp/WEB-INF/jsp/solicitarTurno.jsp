@@ -1,5 +1,5 @@
-<%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
+<%@ include file="common/header.jspf"%>
 <div class="container">
 	<div class="form-group">
 		<label for="exampleFormControlSelect1">Especialidades</label>
@@ -11,7 +11,7 @@
 	<div class="form-group">
 		<!-- Date input -->
 		<label class="control-label" for="date">FechaTurno</label> <input
-			class="form-control" id="targetDate" name="fechaTurno"
+			class="form-control" id="datepickerSolicitar" name="fechaTurno"
 			placeholder="MM/DD/YYY" type="text" />
 	</div>
 	<div class="form-group">
@@ -36,11 +36,12 @@
 	</table>
 
 </div>
+<%@ include file="turnoSolicitadoModal.jsp"%>
 <script>
 
 	function buscarTurno() {
 		var especialidad = $('#especialidad').val();
-		var fechaTurno = $('#targetDate').val();
+		var fechaTurno = $('#datepickerSolicitar').val();
 		$("#tbodySolicitarTurno").empty();
 
 		$.ajax({
@@ -83,7 +84,11 @@
 			success : function(response) {
 				//TODO aca abro modal
 				if(response){
-					$('#myModal').modal('show');
+					$('#mensajeTurno').append("Su turno fue solicitado con &eacute;xito.")
+					$('#turnoSolicitado').modal('show');
+				}else {
+					$('#mensajeTurno').append("No se pudo solicitar el turno, por favor vuelva a intentarlo.")
+					$('#turnoSolicitado').modal('show');
 				}
 			}
 		});

@@ -80,15 +80,6 @@ public class PacienteController {
 		model.put("turnos", turnos);
 		return "misTurnos";
 	}
-
-	@RequestMapping(value = "/anularTurno", method = RequestMethod.GET)
-	public String anularTurno(@RequestParam int id) {
-
-		// TODO aca voy a la base y le cambio el estado al turno.
-		// inyectar servicios
-		System.out.println("voy a anular el turno id:" + id);
-		return "redirect:/misTurnos";
-	}
 	
 	@RequestMapping(value = "/buscarTurnosDisponibles", method = RequestMethod.GET)
 	public @ResponseBody List<TurnosDto> buscarTurnosDisponibles(@RequestParam(name = "especialidad") String especialidad,
@@ -108,18 +99,26 @@ public class PacienteController {
 		return turnos;
 	}
 	
-	@RequestMapping(value = "/prueba", method = RequestMethod.GET)
-	public String prueba() {
-		return "";
-	}
-	
 	@RequestMapping(value = "/solicitar", method = RequestMethod.GET)
 	public @ResponseBody Boolean guardarTurno(@RequestParam int id) {
 
 		// TODO voy a la base y le asociado el turno al paciente GUARDAR ID DE PACIENTE EN LA SESSION
 		System.out.println("voy a sacar el turno id:" + id);
-		//
-		return true;
+		Boolean resultadoGuardarTurno = false;
+		
+		return resultadoGuardarTurno;
+	}
+	
+	@RequestMapping(value = "/anularTurno", method = RequestMethod.GET)
+	public @ResponseBody Boolean anularTurno(@RequestParam int id) {
+
+		// TODO aca voy a la base y le cambio el estado al turno.
+		// inyectar servicios
+		System.out.println("voy a anular el turno id:" + id);
+		Boolean resultadoAnularTurno = true;
+		
+		return resultadoAnularTurno;
+		
 	}
 
 }

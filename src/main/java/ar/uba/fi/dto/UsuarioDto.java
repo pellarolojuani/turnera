@@ -15,6 +15,10 @@ public class UsuarioDto {
 		this.nombreUsuario = nombreUsuario;
 		this.contrasenia = contrasenia;
 	}
+	
+	public UsuarioDto() {
+		super();
+	}
 
 	
 	

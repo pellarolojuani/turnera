@@ -10,32 +10,68 @@
 	
 </head>
 <body>
-	<div class="login-form">
+	<div class="usuario-form">
 		<c:if test="${not empty mensaje}">
    			<div><a>${mensaje}</a></div> 
 		</c:if>
 		<form name='r' action="registrar" method='POST' modelAttribute="usuario">
 	        <div class="form-group">
 	        	<div class="input-group">
-<!-- 	                <span class="input-group-addon"><i class="fa fa-user"></i></span> -->
-	                <input type="text" class="form-control" name="nombreUsuario" placeholder="Usuario" required="required">				
+	        		<label class="control-label" for="date">Usuario</label>
+	                <input type="text" class="form-control" name="nombreUsuario"  required="required"  maxlength="10">				
 	            </div>
 	        </div>
 			<div class="form-group">
 	            <div class="input-group">
-<!-- 	                <span class="input-group-addon"><i class="fa fa-lock"></i></span> -->
-	                <input type="password" class="form-control" name="contrasenia" placeholder="Contraseña" required="required">				
+	           		<label class="control-label" for="date">Contraseña</label>
+	                <input type="password" class="form-control" name="contrasenia"  required="required"  maxlength="10">				
 	            </div>
 	        </div> 
-<!-- 	     	<div class="form-group"> -->
-<!-- 	            <div class="input-group"> -->
-<!-- 	                <input type="text" class="form-control" name="nroAfiliado" placeholder="Numero Afiliado" required="required">				 -->
-<!-- 	            </div> -->
-<!-- 	        </div>  -->
+	     	<div class="form-group">
+	            <div class="input-group">
+	            	<label class="control-label" for="date">Nombre y Apellido</label>
+	                <input type="text" class="form-control" name="nombreApellido"  required="required"  maxlength="100">				
+	            </div>
+	        </div> 
+			<div class="form-group">
+				<div class="input-group">
+					<label class="control-label" for="date">Sexo</label>
+					<select class="form-control" id="sexo" name="sexo">
+					   <option value="F">Femenino</option>
+					   <option value="M">Masculino</option>
+					   <option value="I">Indefinido</option>
+					</select>
+	            </div>
+			</div>
+			
+			<div class="form-group">
+				<div class="input-group">
+					<label class="control-label" for="date">Tipo Documento</label>
+					<select class="form-control" id="tipoDocumento" name="tipoDocumento" >
+					   <option value="DNI">DNI</option>
+					</select>
+	            </div>
+			</div>
+	     	<div class="form-group">
+	            <div class="input-group">
+	            	<label class="control-label" for="date">Número Documento</label>
+	                <input type="text" class="form-control" name="numeroDocumento"  required="required"  maxlength="8">				
+	            </div>
+	        </div> 	
+			<div class="form-group">
+				<label class="control-label" for="date">Fecha de Nacimiento</label> <input
+				class="form-control" id="datepickerFechaNacimiento" name="fechaNacimiento"
+				placeholder="MM/DD/YYY" type="text"  required="required" />
+			</div>
+			
             <div class="form-group">
-              <button type="submit" class="btn btn-success login-btn btn-block">Registrar</button>
+              <a type="button" class="btn btn-success login-btn btn-block">Registrar</a>
+        	</div>
+     	    <div class="form-group">
+              <a type='button' class="btn btn-danger login-btn btn-block" href="/login" >Volver</a>
         	</div>
 		</form>
 		</div>
+		<%@ include file="common/footer.jspf"%>
 	</body>
 </html> 
