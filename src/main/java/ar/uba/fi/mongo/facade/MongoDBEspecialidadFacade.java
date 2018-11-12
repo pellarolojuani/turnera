@@ -62,7 +62,7 @@ public class MongoDBEspecialidadFacade {
 	
 	public EspecialidadDto getEspecialidadByDescripcion(String descripcion) {
 		try {
-			return especialidadRepository.findOneByEspecialidad(descripcion);
+			return especialidadRepository.findOneByDescripcion(descripcion);
 		} catch (MongoException ex) {
 		}
 		return null;

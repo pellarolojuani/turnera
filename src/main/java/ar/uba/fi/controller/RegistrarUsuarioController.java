@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import ar.uba.fi.dto.RegistroUsuarioDto;
 import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.facade.UsuariosFacade;
 
@@ -26,13 +29,20 @@ public class RegistrarUsuarioController {
         return "registrarUsuario";
 	}
 		
-	@RequestMapping(value = "/registrar", method = RequestMethod.POST)
-    public void registrar(@ModelAttribute("usuario") UsuarioDto usuario) {
-		System.out.println("aca logica para validar y registrar usuario");
-		//model.put("mensaje", "El usuario se registro correctamente" );
+	@PostMapping("/registrar")
+    public ModelAndView registrar(@ModelAttribute("registroUsuario") RegistroUsuarioDto registroUsuario) {
+		
+		//TODO aca registro el usuario y envio mensaje de creacion. 
+		//En caso de que por ejemplo el usuario ya esté registrado lo pongo en el mensaje tambien.
+		ModelAndView model = new ModelAndView();
+	    model.addObject("errMsg","El Usuario se registro correctamente.");
+	    model.setViewName("registrarUsuario");
+//	    model.addObject("registroUsuario", registroUsuario);
+	    
+	    return model;
 	}
 	
-	
+
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/crearUsuario")
 	private void crearUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {

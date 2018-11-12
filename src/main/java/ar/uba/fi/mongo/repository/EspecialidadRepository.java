@@ -8,6 +8,8 @@ public interface EspecialidadRepository  extends MongoRepository<EspecialidadDto
 
 	public EspecialidadDto findOneByCodigo(String codigo);
 
-	public EspecialidadDto findOneByEspecialidad(String descripcion);
+	public EspecialidadDto findOneByDescripcion(String descripcion);
+	
+	
 
 }

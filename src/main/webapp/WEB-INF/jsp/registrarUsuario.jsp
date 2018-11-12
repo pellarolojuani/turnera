@@ -11,10 +11,10 @@
 </head>
 <body>
 	<div class="usuario-form">
-		<c:if test="${not empty mensaje}">
-   			<div><a>${mensaje}</a></div> 
-		</c:if>
-		<form name='r' action="registrar" method='POST' modelAttribute="usuario">
+        <c:if test="${not empty errMsg}">
+            <h4 class="error message" style="width: 900px">${errMsg}</h4>
+        </c:if>
+		<form:form  action="registrar" method='POST' modelAttribute="registroUsuario">
 	        <div class="form-group">
 	        	<div class="input-group">
 	        		<label class="control-label" for="date">Usuario</label>
@@ -55,7 +55,7 @@
 	     	<div class="form-group">
 	            <div class="input-group">
 	            	<label class="control-label" for="date">Número Documento</label>
-	                <input type="text" class="form-control" name="numeroDocumento"  required="required"  maxlength="8">				
+	                <input type="text" class="form-control" name="documento"  required="required"  maxlength="8">				
 	            </div>
 	        </div> 	
 			<div class="form-group">
@@ -65,12 +65,12 @@
 			</div>
 			
             <div class="form-group">
-              <a type="button" class="btn btn-success login-btn btn-block">Registrar</a>
+              <button type="submit" class="btn btn-success login-btn btn-block">Registrar</button>
         	</div>
      	    <div class="form-group">
               <a type='button' class="btn btn-danger login-btn btn-block" href="/login" >Volver</a>
         	</div>
-		</form>
+		</form:form>
 		</div>
 		<%@ include file="common/footer.jspf"%>
 	</body>
