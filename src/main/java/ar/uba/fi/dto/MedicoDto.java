@@ -11,6 +11,8 @@ public class MedicoDto {
 	private String nombre;
 	private String matricula;
 	
+	public MedicoDto() {}
+	
 	public String getMatricula() {
 		return matricula;
 	}
