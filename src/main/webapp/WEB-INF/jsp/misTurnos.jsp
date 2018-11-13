@@ -41,10 +41,10 @@ function anularTurno(id){
 		},
 		success : function(response) {
 			if(response){
-				$('#mensajeMisTurno').append("Su turno fue anulado con &eacute;xito.")
+				$('#mensajeMisTurno').text("Su turno fue anulado con éxito.")
 				$('#turnoAnulado').modal('show');
 			}else {
-				$('#mensajeMisTurno').append("No se pudo anular el turno, por favor vuelva a intentarlo.")
+				$('#mensajeMisTurno').text("No se pudo anular el turno, por favor vuelva a intentarlo.")
 				$('#turnoAnulado').modal('show');
 			}
 		}

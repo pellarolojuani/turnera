@@ -11,55 +11,40 @@
 	            </div>
 	        </div> 
 			<div class="form-group">
-				<label class="control-label" for="date">Fecha de Nacimiento</label> <input
-				class="form-control" id="datepickerFechaNacimiento" name="fechaNacimiento"
-				placeholder="MM/DD/YYY" type="text"  required="required" />
+				<label class="control-label" for="date">Fecha de Nacimiento</label>
+				<label id="fechaNacimientoLabel" class="form-control" ></label>	
 			</div>	
 			<div class="form-group">
 				<div class="input-group">
 					<label class="control-label" for="date">Tipo Documento</label>
-					<select class="form-control" id="tipoDocumento" name="tipoDocumento" >
-					   <option value="DNI">DNI</option>
-					</select>
+					<label id="tipoDocumentoFechaNacimientoLabel" class="form-control" ></label>	
 	            </div>
 			</div>
 	     	<div class="form-group">
 	            <div class="input-group">
 	            	<label class="control-label" for="date">N&uacute;mero Documento</label>
-	                <input type="text" class="form-control" name="documento"  required="required"  maxlength="8">				
+	                <label id="numeroDocumentoLabel" class="form-control" ></label>				
 	            </div>
 	        </div> 
    			<div class="form-group">
 				<div class="input-group">
 					<label class="control-label" for="date">Sexo</label>
-					<select class="form-control" id="sexo" name="sexo">
-					   <option value="F">Femenino</option>
-					   <option value="M">Masculino</option>
-					   <option value="I">Indefinido</option>
-					</select>
+					<label id="sexoLabel" class="form-control" ></label>
 	            </div>
 			</div>
       	     <div class="form-group">
 	            <div class="input-group">
 	            	<label class="control-label" for="date">Email</label>
-	                <input type="email" class="form-control" name="mail"  required="required" >				
+	                <label id="emailLabel" class="form-control" ></label>				
 	            </div>
 	        </div> 	
        	     <div class="form-group">
 	            <div class="input-group">
 	            	<label class="control-label" for="date">Tel&eacute;fono</label>
-	                <input type="text" class="form-control" name="telefono"  required="required" >				
+	                <label id="telefonoLabel" class="form-control" ></label>				
 	            </div>
 	        </div>
       </div>
-<!--       <div class="modal-footer"> -->
-<!--         <button type="button" class="btn btn-primary" onclick="regresarVerTurnos()">Aceptar</button> -->
-<!--       </div> -->
     </div>
   </div>
 </div>
-<script>
-// 	function regresarVerTurnos(){
-// 		location.href= "/verTurnos";
-// 	}
-</script>

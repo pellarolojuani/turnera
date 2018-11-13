@@ -21,7 +21,7 @@
 </div>
 <div class="form-group">
 	<table class="table table-striped">
-		<caption>Selecionar Turno</caption>
+<!-- 		<caption>Selecionar Turno</caption> -->
 		<thead>
 			<tr>
 				<th>Fecha</th>
@@ -87,15 +87,25 @@
 			success : function(response) {
 				//TODO aca abro modal
 				if(response){
-					$('#mensajeVerTurnos').append("El turno fue anulado con &eacute;xito.")
+					$('#mensajeVerTurnos').text("El turno fue anulado con éxito.")
 					$('#turnoAnuladoPorMedico').modal('show');
 				}else {
-					$('#mensajeVerTurnos').append("No se pudo anular el turno, por favor vuelva a intentarlo.")
+					$('#mensajeVerTurnos').text("No se pudo anular el turno, por favor vuelva a intentarlo.")
 					$('#turnoAnuladoPorMedico').modal('show');
 				}
 			}
 		});
 		
+	}
+	
+	function limiarModalMasInfo(){
+		$('#nombreLabel').text("");
+		$('#fechaNacimientoLabel').text("");
+		$('#tipoDocumentoFechaNacimientoLabel').text("");
+		$('#numeroDocumentoLabel').text("");
+		$('#sexoLabel').text("");
+		$('#emailLabel').text("");
+		$('#telefonoLabel').text("");	
 	}
 	
 	function masInfoPaciente(id){
@@ -110,6 +120,15 @@
 			success : function(response) {
 				//TODO aca abro modal
 				if(response != null){
+					limiarModalMasInfo();
+					$('#nombreLabel').text(response.nombreApellido);
+					$('#fechaNacimientoLabel').text(response.fechaNacimiento);
+					$('#tipoDocumentoFechaNacimientoLabel').text(response.tipoDocumento);
+					$('#numeroDocumentoLabel').text(response.documento);
+					$('#sexoLabel').text(response.sexo);
+					$('#emailLabel').text(response.mail);
+					$('#telefonoLabel').text(response.telefono);
+					
 					$('#infoPaciente').modal('show');
 				}
 			}

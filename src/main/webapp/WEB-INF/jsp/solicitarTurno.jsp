@@ -84,10 +84,10 @@
 			success : function(response) {
 				//TODO aca abro modal
 				if(response){
-					$('#mensajeTurno').append("Su turno fue solicitado con &eacute;xito.")
+					$('#mensajeTurno').text("Su turno fue solicitado con éxito.")
 					$('#turnoSolicitado').modal('show');
 				}else {
-					$('#mensajeTurno').append("No se pudo solicitar el turno, por favor vuelva a intentarlo.")
+					$('#mensajeTurno').text("No se pudo solicitar el turno, por favor vuelva a intentarlo.")
 					$('#turnoSolicitado').modal('show');
 				}
 			}
