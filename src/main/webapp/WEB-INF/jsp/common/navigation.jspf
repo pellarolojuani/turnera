@@ -8,6 +8,7 @@
 			<li class="active"><a href="/">Home</a></li>
 			<li><a href="/solicitarTurno">Solicitar Turno</a></li>
 			<li><a href="/misTurnos">Mis Turnos</a></li>
+			<li><a href="/verTurnos">Ver Turnos (Esto solo lo ve el medico)</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="/logout">Logout</a></li>

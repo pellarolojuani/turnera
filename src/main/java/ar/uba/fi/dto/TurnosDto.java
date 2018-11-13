@@ -14,6 +14,7 @@ public class TurnosDto {
 	private String estado;
 	private String medico;
 	private String fechaString;
+	private PacienteDto paciente;
 	
 	
 	public TurnosDto(Date fecha, String especialidad, String estado, String medico) {
@@ -23,6 +24,14 @@ public class TurnosDto {
 		this.estado = estado;
 		this.medico = medico;
 	}
+	
+	public TurnosDto(Date fecha, String estado, PacienteDto paciente) {
+		super();
+		this.fecha = fecha;
+		this.estado = estado;
+		this.paciente = paciente;
+	}
+	
 	
 	public TurnosDto(Date fecha, String especialidad, String medico) {
 		super();
@@ -76,6 +85,14 @@ public class TurnosDto {
 
 	public void setFechaString(String fechaString) {
 		this.fechaString = fechaString;
+	}
+
+	public PacienteDto getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(PacienteDto paciente) {
+		this.paciente = paciente;
 	}
 
 }

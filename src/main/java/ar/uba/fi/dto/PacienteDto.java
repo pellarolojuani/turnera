@@ -13,6 +13,9 @@ public class PacienteDto {
 	private String numeroAfiliado;
 	private String fechaNacimiento;
 	private UsuarioDto usuario;
+	private String nombreApellido;
+	private String mail;
+	private String telefono;
 	
 	
 	public PacienteDto(String tipoDocumento, String documento, UsuarioDto usuario) {
@@ -39,6 +42,33 @@ public class PacienteDto {
 		this.sexo = sexo;
 		this.fechaNacimiento = fechaNacimiento;
 		this.usuario = usuario;
+	}
+	
+	public PacienteDto(String id, String tipoDocumento, String documento, String sexo, String fechaNacimiento,
+			String nombreApellido) {
+		super();
+		this.id = id;
+		this.tipoDocumento = tipoDocumento;
+		this.documento = documento;
+		this.sexo = sexo;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nombreApellido = nombreApellido;
+	}
+
+
+	public PacienteDto(String id, String tipoDocumento, String documento, String sexo, String numeroAfiliado,
+			String fechaNacimiento, UsuarioDto usuario, String nombreApellido, String mail, String telefono) {
+		super();
+		this.id = id;
+		this.tipoDocumento = tipoDocumento;
+		this.documento = documento;
+		this.sexo = sexo;
+		this.numeroAfiliado = numeroAfiliado;
+		this.fechaNacimiento = fechaNacimiento;
+		this.usuario = usuario;
+		this.nombreApellido = nombreApellido;
+		this.mail = mail;
+		this.telefono = telefono;
 	}
 
 
@@ -95,6 +125,36 @@ public class PacienteDto {
 
 	public void setNumeroAfiliado(String numeroAfiliado) {
 		this.numeroAfiliado = numeroAfiliado;
+	}
+
+
+	public String getNombreApellido() {
+		return nombreApellido;
+	}
+
+
+	public void setNombreApellido(String nombreApellido) {
+		this.nombreApellido = nombreApellido;
+	}
+
+
+	public String getMail() {
+		return mail;
+	}
+
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 }

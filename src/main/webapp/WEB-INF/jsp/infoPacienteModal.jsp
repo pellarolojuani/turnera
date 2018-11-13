@@ -1,37 +1,13 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<link href="css/bootstrap.min.css"  rel="stylesheet">
-<link href="css/styles.css"  rel="stylesheet">
-<script src="js/jquery.min.js"></script>
-	
-</head>
-<body>
-	<div class="usuario-form">
-
-		<form:form  action="registrar" method='POST' modelAttribute="registroUsuario">
-	        <c:if test="${not empty errMsg}">
-            	<h4 class="error message" style="width: 800px">${errMsg}</h4>
-        	</c:if>
-	        <div class="form-group">
-	        	<div class="input-group">
-	        		<label class="control-label" for="date">Usuario</label>
-	                <input type="text" class="form-control" name="nombreUsuario"  required="required"  maxlength="10">				
-	            </div>
-	        </div>
-			<div class="form-group">
-	            <div class="input-group">
-	           		<label class="control-label" for="date">Contraseña</label>
-	                <input type="password" class="form-control" name="contrasenia"  required="required"  maxlength="10">				
-	            </div>
-	        </div> 
-	     	<div class="form-group">
+<div id="infoPaciente" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+      	<div class="form-group">
 	            <div class="input-group">
 	            	<label class="control-label" for="date">Nombre y Apellido</label>
-	                <input type="text" class="form-control" name="nombreApellido"  required="required"  maxlength="100">				
+	                <label id="nombreLabel" class="form-control" ></label>			
 	            </div>
 	        </div> 
 			<div class="form-group">
@@ -75,14 +51,15 @@
 	                <input type="text" class="form-control" name="telefono"  required="required" >				
 	            </div>
 	        </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-success login-btn btn-block">Registrar</button>
-        	</div>
-     	    <div class="form-group">
-              <a type='button' class="btn btn-danger login-btn btn-block" href="/login" >Volver</a>
-        	</div>
-		</form:form>
-		</div>
-		<%@ include file="common/footer.jspf"%>
-	</body>
-</html> 
+      </div>
+<!--       <div class="modal-footer"> -->
+<!--         <button type="button" class="btn btn-primary" onclick="regresarVerTurnos()">Aceptar</button> -->
+<!--       </div> -->
+    </div>
+  </div>
+</div>
+<script>
+// 	function regresarVerTurnos(){
+// 		location.href= "/verTurnos";
+// 	}
+</script>

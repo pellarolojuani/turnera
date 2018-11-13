@@ -19,7 +19,7 @@
 <body>
 <div class="login-form">
       <c:if test="${not empty errMsg}">
-         <h2 class="error message" style="width: 900px">${errMsg}</h2>
+         <h5 class="error message" style="width: 900px">${errMsg}</h5>
      </c:if>
     <form:form modelAttribute="userForm" action="checkearUsuario" method='POST'>
         <h2 class="text-center">Bienvenido</h2>   
