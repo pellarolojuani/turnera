@@ -14,6 +14,12 @@ public class PacientesFacade {
 	private MongoDBPacienteFacade pacienteFacade;
 
 	public void crearPaciente(PacienteDto paciente) {
+		Integer numeroAfiliado = obtenerNumeroAfiliado();
+		if (numeroAfiliado != null) {
+			paciente.setNumeroAfiliado(numeroAfiliado + 1);			
+		} else {
+			paciente.setNumeroAfiliado(1);
+		}
 		pacienteFacade.crearPaciente(paciente);
 	}
 
@@ -39,5 +45,13 @@ public class PacientesFacade {
 
 	public PacienteDto getPacienteByNumeroAfiliado(String numeroAfiliado) {
 		return pacienteFacade.getPacienteByNumeroAfiliado(numeroAfiliado);
+	}
+	
+	public Integer obtenerNumeroAfiliado() {
+		PacienteDto paciente = pacienteFacade.getUltimoPaciente();
+		if (paciente != null) {
+			return paciente.getNumeroAfiliado();
+		}
+		return null;
 	}
 }

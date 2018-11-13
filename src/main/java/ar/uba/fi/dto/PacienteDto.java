@@ -10,13 +10,16 @@ public class PacienteDto {
 	private String tipoDocumento;
 	private String documento;
 	private String sexo;
-	private String numeroAfiliado;
+	private Integer numeroAfiliado;
 	private String fechaNacimiento;
 	private UsuarioDto usuario;
 	private String nombreApellido;
 	private String mail;
 	private String telefono;
 	
+	
+	public PacienteDto() {
+	}
 	
 	public PacienteDto(String tipoDocumento, String documento, UsuarioDto usuario) {
 		super();
@@ -56,7 +59,7 @@ public class PacienteDto {
 	}
 
 
-	public PacienteDto(String id, String tipoDocumento, String documento, String sexo, String numeroAfiliado,
+	public PacienteDto(String id, String tipoDocumento, String documento, String sexo, Integer numeroAfiliado,
 			String fechaNacimiento, UsuarioDto usuario, String nombreApellido, String mail, String telefono) {
 		super();
 		this.id = id;
@@ -118,12 +121,12 @@ public class PacienteDto {
 	}
 
 
-	public String getNumeroAfiliado() {
+	public Integer getNumeroAfiliado() {
 		return numeroAfiliado;
 	}
 
 
-	public void setNumeroAfiliado(String numeroAfiliado) {
+	public void setNumeroAfiliado(Integer numeroAfiliado) {
 		this.numeroAfiliado = numeroAfiliado;
 	}
 

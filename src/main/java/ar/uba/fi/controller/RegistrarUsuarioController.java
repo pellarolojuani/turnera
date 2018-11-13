@@ -22,44 +22,43 @@ import ar.uba.fi.facade.UsuariosFacade;
 
 @Controller
 public class RegistrarUsuarioController {
-	
+
 	@Autowired
 	private UsuariosFacade usersFacade;
 	@Autowired
 	private PacientesFacade pacientesFacade;
-	
+
 	@RequestMapping(value = "/registrarInit", method = RequestMethod.GET)
-    public String init(Model model) {
-        return "registrarUsuario";
+	public String init(Model model) {
+		return "registrarUsuario";
 	}
-		
+
 	@PostMapping("/registrar")
     public ModelAndView registrar(@ModelAttribute("registroUsuario") RegistroUsuarioDto registroUsuario) {
-		
-		//TODO aca registro el usuario y envio mensaje de creacion. 
-		//En caso de que por ejemplo el usuario ya esté registrado lo pongo en el mensaje tambien.
-		UsuarioDto usuario = new UsuarioDto(registroUsuario.getNombreUsuario(), registroUsuario.getContrasenia());
-		usersFacade.crearUsuario(usuario);
-		PacienteDto paciente = new PacienteDto(registroUsuario.getTipoDocumento(), registroUsuario.getDocumento(), usuario);
-		paciente.setSexo(registroUsuario.getSexo());
-		paciente.setFechaNacimiento(registroUsuario.getFechaNacimiento());
-		pacientesFacade.crearPaciente(paciente);
-		//falta agrgar la logica para q le cargue el numero de afiliado
-		
-		
 		ModelAndView model = new ModelAndView();
-	    model.addObject("errMsg","El Usuario se registro correctamente.");
-	    model.setViewName("registrarUsuario");
+		try {
+			UsuarioDto usuario = new UsuarioDto(registroUsuario.getNombreUsuario(), registroUsuario.getContrasenia());
+			usersFacade.crearUsuario(usuario);
+			PacienteDto paciente = new PacienteDto(registroUsuario.getTipoDocumento(), registroUsuario.getDocumento(), usuario);
+			paciente.setSexo(registroUsuario.getSexo());
+			paciente.setFechaNacimiento(registroUsuario.getFechaNacimiento());
+			paciente.setMail(registroUsuario.getMail());
+			paciente.setTelefono(registroUsuario.getTelefono());
+			pacientesFacade.crearPaciente(paciente);
+			model.addObject("errMsg","El Usuario se registro correctamente.");
+			model.setViewName("registrarUsuario");
 //	    model.addObject("registroUsuario", registroUsuario);
-	    
-	    return model;
+			return model;	
+		} catch (Exception ex) {
+			model.addObject("errMsg","El usuario no ha sido registrado.");
+		}
+		return model;
 	}
-	
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/crearUsuario")
 	private void crearUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
-			//HARDCODEO
+			// HARDCODEO
 			UsuarioDto usuario = new UsuarioDto("pepito", "holachau");
 			usersFacade.crearUsuario(usuario);
 		} catch (Exception ex) {
@@ -68,6 +67,5 @@ public class RegistrarUsuarioController {
 			response.setContentType("application/json");
 		}
 	}
-	
 
 }

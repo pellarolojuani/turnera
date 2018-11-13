@@ -1,7 +1,12 @@
 package ar.uba.fi.dto;
 
-public class RegistroUsuarioDto {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "usuarios")
+public class RegistroUsuarioDto {
+	@Id
+	private String id;
 	private String nombreUsuario;
 	private String contrasenia;
 	private String tipoDocumento;

@@ -3,6 +3,8 @@ package ar.uba.fi.mongo.facade;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.mongodb.MongoException;
@@ -63,6 +65,17 @@ public class MongoDBPacienteFacade {
 	public PacienteDto getPacienteByNumeroAfiliado(String numeroAfiliado) {
 		try {
 			return pacienteRepository.findOneByNumeroAfiliado(numeroAfiliado);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+	
+	public PacienteDto getUltimoPaciente() {
+		try {
+			List<PacienteDto> listaPacientes = pacienteRepository.findAll(new Sort(Direction.DESC, "numeroAfiliado"));
+			if (listaPacientes != null && listaPacientes.size() != 0) {
+				return listaPacientes.get(0);				
+			}
 		} catch (MongoException ex) {
 		}
 		return null;
