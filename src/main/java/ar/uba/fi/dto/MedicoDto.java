@@ -9,7 +9,14 @@ public class MedicoDto {
 	private String id;
 	private String especialidad;
 	private String nombre;
+	private String matricula;
 	
+	public String getMatricula() {
+		return matricula;
+	}
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
 	public MedicoDto(String especialidad, String nombre) {
 		super();
 		this.especialidad = especialidad;

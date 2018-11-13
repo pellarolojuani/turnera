@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.PacienteDto;
 import ar.uba.fi.dto.TurnosDto;
-import ar.uba.fi.dto.UsuarioDto;
+import ar.uba.fi.facade.EspecialidadFacade;
 import ar.uba.fi.facade.TurnosFacade;
 
 @Controller
@@ -23,6 +24,8 @@ public class MedicoController {
 	
 	@Autowired
 	private TurnosFacade turnosFacade;
+	@Autowired
+	private EspecialidadFacade especialidadFacade;
 	
 	@RequestMapping(value = "/verTurnos", method = RequestMethod.GET)
 	public ModelAndView initSolicitarTurno(ModelMap model) {
@@ -79,6 +82,11 @@ public class MedicoController {
 		PacienteDto p1 = new PacienteDto("1", "DNI","22454666", "Masculino",null ,
 				"20/01/1965", null, "Jose Argento", "pepe@argento.com", "453543-45345");
 		return p1;
+	}
+	
+	@RequestMapping(value = "/cargarEspecialidades", method = RequestMethod.GET)
+	public @ResponseBody List<EspecialidadDto> cargarEspecialidades() {
+		return especialidadFacade.getAllEspecialidads();
 	}
 
 }
