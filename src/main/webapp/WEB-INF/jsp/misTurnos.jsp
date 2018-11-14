@@ -10,6 +10,7 @@
 					<th>Medico</th>
 					<th>Especialidad</th>
 					<th>Estado</th>
+					<th>Nro Comprobante</th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -18,9 +19,10 @@
 				<c:forEach items="${turnos}" var="turno">
 					<tr>
 						<td><fmt:formatDate value="${turno.fecha}" pattern="dd/MM/yyyy HH:MM"/></td>
-						<td>${turno.medico}</td>
-						<td>${turno.especialidad}</td>
+						<td>${turno.medico.nombre}</td>
+						<td>${turno.especialidad.descripcion}</td>
 						<td>${turno.estado}</td>
+						<td>${turno.numeroComprobante}</td>
 						<td><a type='button' class='btn btn-warning' onclick=anularTurno(${turno.id}) >Anular</a></td>
 					</tr>
 				</c:forEach>

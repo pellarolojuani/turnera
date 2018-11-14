@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,18 +21,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.uba.fi.dto.EspecialidadDto;
+import ar.uba.fi.dto.MedicoDto;
+import ar.uba.fi.dto.PacienteDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.facade.EspecialidadFacade;
+import ar.uba.fi.facade.MedicoFacade;
+import ar.uba.fi.facade.PacientesFacade;
 import ar.uba.fi.facade.TurnosFacade;
-import ar.uba.fi.mongo.repository.TurnoRepository;
 import ar.uba.fi.util.DateUtil;
 
 @Controller
 public class PacienteController {
 	@Autowired
 	private TurnosFacade turnosFacade;
+	
+	@Autowired
+	private PacientesFacade pacientesFacade;
+
 	@Autowired
 	private EspecialidadFacade especialidadFacade;
+	
+	@Autowired
+	private MedicoFacade medicoFacade;
 
 	private String getLoggedInUserName(ModelMap model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -54,6 +65,21 @@ public class PacienteController {
 	@RequestMapping(value = "/solicitarTurno", method = RequestMethod.GET)
 	public ModelAndView initSolicitarTurno(ModelMap model) {
 		String name = getLoggedInUserName(model);
+		
+		ObjectId id= new ObjectId("5bec9f5e401cf3214078550e");   
+		
+		PacienteDto pacienteDto = pacientesFacade.getPacienteById(id.toString());
+		
+		EspecialidadDto esp1 = new EspecialidadDto("PSI", "Pisiquiatria");
+		especialidadFacade.crearEspecialidad(esp1);
+		
+		MedicoDto medico = new MedicoDto(esp1, "Medico de Prueba 1", "45678");
+		medicoFacade.crearMedico(medico);
+		
+		
+		TurnosDto turno1 = new TurnosDto(new Date(),esp1, "Aprobado", medico, pacienteDto, "100");
+		
+		turnosFacade.crearTurno(turno1);
 
 		//TODO aca cargar las especialidades que vienen de la db
 //		EspecialidadDto esp1 = new EspecialidadDto("CAR", "Cardiologia");
@@ -83,8 +109,19 @@ public class PacienteController {
 //		TurnosDto turno2 = new TurnosDto(new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
 //		turno2.setId("2");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
+		List<EspecialidadDto> especialidades = new ArrayList<EspecialidadDto>();
+		List<MedicoDto> medicos = new ArrayList<MedicoDto>();
+		List<PacienteDto> pacientes = new ArrayList<PacienteDto>();
+		
 //		turnos.add(turno1);
 //		turnos.add(turno2);
+		
+		especialidades = especialidadFacade.getAllEspecialidads();
+		
+		medicos = medicoFacade.getAllMedicos();
+		
+		pacientes = pacientesFacade.getAllPacientes();
+		
 		
 		turnos = turnosFacade.getAllTurnos();	
 
@@ -97,15 +134,15 @@ public class PacienteController {
 			@RequestParam(name = "fechaTurno") String fechaTurno) {
 		
 		//TODO aca voy a la base y traigo los turnos segun los parametros.
-		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), especialidad,  "Ezequiel Bergamo");
-		turno1.setId("1");
-		turno1.setFechaString(fechaTurno + " 11:00");
-		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), especialidad, "Rechazado", "Eze Bergamo");
-		turno2.setId("2");
-		turno2.setFechaString(fechaTurno + " 11:20");
+//		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), especialidad,  "Ezequiel Bergamo");
+//		turno1.setId("1");
+//		turno1.setFechaString(fechaTurno + " 11:00");
+//		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), especialidad, "Rechazado", "Eze Bergamo");
+//		turno2.setId("2");
+//		turno2.setFechaString(fechaTurno + " 11:20");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
-		turnos.add(turno1);
-		turnos.add(turno2);
+//		turnos.add(turno1);
+//		turnos.add(turno2);
 
 		return turnos;
 	}
