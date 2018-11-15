@@ -28,7 +28,7 @@ public class RegistrarUsuarioController {
 	@Autowired
 	private PacientesFacade pacientesFacade;
 
-	@RequestMapping(value = "/registrarInit", method = RequestMethod.GET)
+	@RequestMapping(value = "/registrarUsuario", method = RequestMethod.GET)
 	public String init(Model model) {
 		return "registrarUsuario";
 	}

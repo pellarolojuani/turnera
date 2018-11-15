@@ -101,7 +101,6 @@
             cache : false,
             success : function (response) {
                 if (response.result !== null && response.result !== undefined) {
-                    debugger;
                     if (response.result) {
                         window.location.replace("/login");
                     } else {

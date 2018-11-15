@@ -41,7 +41,7 @@
         </div>
    		<br></br>
         <div class="clearfix">
-            <a href="registrarInit" class="pull-center">Registrar Usuario</a>
+            <a href="registrarUsuario" class="pull-center">Registrar Usuario</a>
         </div>
 
 <%--     </form:form> --%>
