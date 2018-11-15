@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.MedicoDto;
 import ar.uba.fi.dto.PacienteDto;
+import ar.uba.fi.dto.ResultadoDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.facade.EspecialidadFacade;
 import ar.uba.fi.facade.MedicoFacade;
@@ -71,10 +72,10 @@ public class PacienteController {
 		PacienteDto pacienteDto = pacientesFacade.getPacienteById(id.toString());
 		
 		EspecialidadDto esp1 = new EspecialidadDto("PSI", "Pisiquiatria");
-		especialidadFacade.crearEspecialidad(esp1);
+	//	especialidadFacade.crearEspecialidad(esp1);
 		
 		MedicoDto medico = new MedicoDto(esp1, "Medico de Prueba 1", "45678");
-		medicoFacade.crearMedico(medico);
+	//	medicoFacade.crearMedico(medico);
 		
 		
 		TurnosDto turno1 = new TurnosDto(new Date(),esp1, "Aprobado", medico, pacienteDto, "100");
@@ -134,31 +135,36 @@ public class PacienteController {
 			@RequestParam(name = "fechaTurno") String fechaTurno) {
 		
 		//TODO aca voy a la base y traigo los turnos segun los parametros.
-//		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), especialidad,  "Ezequiel Bergamo");
-//		turno1.setId("1");
-//		turno1.setFechaString(fechaTurno + " 11:00");
-//		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), especialidad, "Rechazado", "Eze Bergamo");
-//		turno2.setId("2");
-//		turno2.setFechaString(fechaTurno + " 11:20");
+		
+		EspecialidadDto esp1 = especialidadFacade.getEspecialidadById("5beca7db401cf325c03e1808");
+		MedicoDto medico = medicoFacade.getMedicoById("5beca7dd401cf325c03e1809");
+		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, medico);
+		turno1.setId("1");
+		turno1.setNumeroComprobante("101");
+		turno1.setFechaString(fechaTurno + " 11:00");
+		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, "Rechazado", medico);
+		turno2.setId("2");
+		turno1.setNumeroComprobante("102");
+		turno2.setFechaString(fechaTurno + " 11:20");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
-//		turnos.add(turno1);
-//		turnos.add(turno2);
+		turnos.add(turno1);
+		turnos.add(turno2);
 
 		return turnos;
 	}
 	
 	@RequestMapping(value = "/solicitar", method = RequestMethod.GET)
-	public @ResponseBody Boolean guardarTurno(@RequestParam int id) {
+	public @ResponseBody ResultadoDto guardarTurno(@RequestParam int id) {
 
 		// TODO voy a la base y le asociado el turno al paciente GUARDAR ID DE PACIENTE EN LA SESSION
 		System.out.println("voy a sacar el turno id:" + id);
-		Boolean resultadoGuardarTurno = false;
+		ResultadoDto resultado = new ResultadoDto(true, "101");
 		
-		return resultadoGuardarTurno;
+		return resultado;
 	}
 	
 	@RequestMapping(value = "/anularTurno", method = RequestMethod.GET)
-	public @ResponseBody Boolean anularTurno(@RequestParam String id) {
+	public @ResponseBody ResultadoDto anularTurno(@RequestParam String id) {
 
 		// TODO aca voy a la base y le cambio el estado al turno.
 		// inyectar servicios
@@ -169,8 +175,10 @@ public class PacienteController {
 		turnosFacade.editarTurno(turno);
 		
 		Boolean resultadoAnularTurno = true;
+		//aca le pasamos el número de comprobante
+		ResultadoDto resultado = new ResultadoDto(true, "101");
 		
-		return resultadoAnularTurno;
+		return resultado;
 	}
 
 }

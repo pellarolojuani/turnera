@@ -23,7 +23,7 @@
 						<td>${turno.especialidad.descripcion}</td>
 						<td>${turno.estado}</td>
 						<td>${turno.numeroComprobante}</td>
-						<td><a type='button' class='btn btn-warning' onclick=anularTurno(${turno.id}) >Anular</a></td>
+						<td><a type='button' class='btn btn-warning' onclick="anularTurno('${turno.id}')" >Anular</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -33,6 +33,7 @@
 <%@ include file="turnoAnuladoModal.jsp"%>
 <script type="text/javascript">
 function anularTurno(id){
+	debugger;
 	$.ajax({
 		type : "GET",
 		contentType : "application/json",
@@ -42,8 +43,8 @@ function anularTurno(id){
 			id : id
 		},
 		success : function(response) {
-			if(response){
-				$('#mensajeMisTurno').text("Su turno fue anulado con éxito.")
+			if(response.resultado){
+				$('#mensajeMisTurno').text("Su turno fue anulado con éxito. Comprobante: " + response.mensaje);
 				$('#turnoAnulado').modal('show');
 			}else {
 				$('#mensajeMisTurno').text("No se pudo anular el turno, por favor vuelva a intentarlo.")
