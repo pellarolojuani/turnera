@@ -48,6 +48,15 @@ public class MedicoController {
 
 		return mv;
 	}
+	
+	@RequestMapping(value = "/registrarTurnos", method = RequestMethod.GET)
+	public ModelAndView initRegistrarTurnos(ModelMap model) {
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("registrarTurnos");
+
+		return mv;
+	}
 
 	@RequestMapping(value = "/verProximosTurnos", method = RequestMethod.GET)
 	public @ResponseBody List<TurnosDto> verProximosTurnos(@RequestParam(name = "fechaDesde") String fechaDesde, @RequestParam(name = "fechaHasta") String fechaHasta) {
