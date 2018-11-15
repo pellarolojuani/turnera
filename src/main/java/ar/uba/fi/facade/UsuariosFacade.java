@@ -36,4 +36,8 @@ public class UsuariosFacade {
 	public UsuarioDto getUsuarioByNombreUsuario(String nombreUsuario) {
 		return mongoDBCUsersFacade.getUsuarioByNombreUsuario(nombreUsuario);
 	}
+	
+	public UsuarioDto getUsuarioByNombreUsuarioAndContrasenia(String nombreUsuario, String contrasenia) {
+		return mongoDBCUsersFacade.getUsuarioByNombreUsuarioAndContrasenia(nombreUsuario, contrasenia);
+	}
 }

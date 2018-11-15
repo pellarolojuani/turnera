@@ -24,11 +24,6 @@
 			<div class="form-group">
 				<div class="input-group">
 					<label class="control-label" for="especialidad">Especialidad:</label> <select class="form-control" id="especialidad" name="especialidad">
-						<!-- 					   <option value="CARD">Cardiologo</option> -->
-						<!-- 					   <option value="CIR">Cirujano</option> -->
-						<!-- 					   <option value="DEN">Dentista</option> -->
-						<!-- 					   <option value="CLI">Clinico</option> -->
-						<!-- 					   <option value="GIN">Ginecologo</option> -->
 					</select>
 				</div>
 			</div>

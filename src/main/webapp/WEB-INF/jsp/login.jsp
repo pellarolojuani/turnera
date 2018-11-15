@@ -21,29 +21,68 @@
       <c:if test="${not empty errMsg}">
          <h5 class="error message" style="width: 900px">${errMsg}</h5>
      </c:if>
-    <form:form modelAttribute="userForm" action="checkearUsuario" method='POST'>
+<%--     <form:form modelAttribute="userForm" action="checkearUsuario" method='POST'> --%>
         <h2 class="text-center">Bienvenido</h2>   
         <div class="form-group">
         	<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" name="nombreUsuario" placeholder="Usuario" required="required">				
+                <input type="text" class="form-control" id="nombreUsuario" placeholder="Usuario" required="required">				
             </div>
         </div>
 		<div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control" name="contrasenia" placeholder="Contraseña" required="required">				
+                <input type="password" class="form-control" id="contrasenia" placeholder="Contraseña" required="required">				
             </div>
         </div>        
         <div class="form-group">
-              <button type="submit" class="btn btn-primary login-btn btn-block">Ingresar</button>
+              <button type="submit" onclick="checkearUsuario();" class="btn btn-primary login-btn btn-block">Ingresar</button>
+              <label id="login-errorLabel" style="display: none;" class="alert alert-danger"></label>
         </div>
    		<br></br>
         <div class="clearfix">
             <a href="registrarInit" class="pull-center">Registrar Usuario</a>
         </div>
 
-    </form:form>
+<%--     </form:form> --%>
 </div>
 </body>
+
+<script>
+
+
+    $(document).ready(function () {
+        
+    });
+    
+    function checkearUsuario() {
+        $.ajax({
+            type : "GET",
+            contentType : "application/json",
+            data: {
+              "usuario" : $('#nombreUsuario').val(),
+              "contrasenia": $('#contrasenia').val()
+            },
+            url : "/checkearUsuario",
+            dataType : "json",
+            cache : false,
+            success : function (response) {
+                if (response.result !== null && response.result !== undefined) {
+                    localStorage.setItem("permiso",response.result.permiso);
+                    localStorage.setItem("nombreUsuario",response.result.nombreUsuario);
+                    window.location.replace("/welcome");
+                } else {
+                    $('#login-errorLabel').text(response.message);
+                    $('#login-errorLabel').show();
+                    setTimeout(function () {
+                        $('#login-errorLabel').hide();
+                    }, 5000);
+                }
+            }
+        });
+    }
+    
+    
+    
+</script>
 </html> 

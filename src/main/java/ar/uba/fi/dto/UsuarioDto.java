@@ -9,6 +9,7 @@ public class UsuarioDto {
 	private String id;
 	private String nombreUsuario;
 	private String contrasenia;
+	private String permiso;		// puede ser usuario, medico o admin
 	
 	public UsuarioDto(String nombreUsuario, String contrasenia) {
 		super();
@@ -19,9 +20,15 @@ public class UsuarioDto {
 	public UsuarioDto() {
 		super();
 	}
+	
+	public String getPermiso() {
+		return permiso;
+	}
 
-	
-	
+	public void setPermiso(String permiso) {
+		this.permiso = permiso;
+	}
+
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}

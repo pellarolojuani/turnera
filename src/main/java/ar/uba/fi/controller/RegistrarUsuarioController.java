@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import ar.uba.fi.dto.PacienteDto;
-import ar.uba.fi.dto.RegistroUsuarioDto;
 import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.facade.PacientesFacade;
 import ar.uba.fi.facade.UsuariosFacade;
+import ar.uba.fi.util.AjaxResult;
 
 @Controller
 public class RegistrarUsuarioController {
@@ -33,26 +33,44 @@ public class RegistrarUsuarioController {
 		return "registrarUsuario";
 	}
 
-	@PostMapping("/registrar")
-    public ModelAndView registrar(@ModelAttribute("registroUsuario") RegistroUsuarioDto registroUsuario) {
-		ModelAndView model = new ModelAndView();
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/registrar")
+	private void registrar(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws IOException {
+		AjaxResult result = new AjaxResult();
 		try {
-			UsuarioDto usuario = new UsuarioDto(registroUsuario.getNombreUsuario(), registroUsuario.getContrasenia());
-			usersFacade.crearUsuario(usuario);
-			PacienteDto paciente = new PacienteDto(registroUsuario.getTipoDocumento(), registroUsuario.getDocumento(), usuario);
-			paciente.setSexo(registroUsuario.getSexo());
-			paciente.setFechaNacimiento(registroUsuario.getFechaNacimiento());
-			paciente.setMail(registroUsuario.getMail());
-			paciente.setTelefono(registroUsuario.getTelefono());
-			pacientesFacade.crearPaciente(paciente);
-			model.addObject("errMsg","El Usuario se registro correctamente.");
-			model.setViewName("registrarUsuario");
-//	    model.addObject("registroUsuario", registroUsuario);
-			return model;	
+			String nombreUsuario = request.getParameter("usuario");
+			String contrasenia = request.getParameter("contrasenia");
+			String nombreApellido = request.getParameter("nombreApellido");
+			String fechaNacimiento = request.getParameter("fechaNacimiento");
+			String tipoDocumento = request.getParameter("tipoDocumento");
+			String documento = request.getParameter("documento");
+			String sexo = request.getParameter("sexo");
+			String mail = request.getParameter("mail");
+			String telefono = request.getParameter("telefono");
+			
+			if (usersFacade.getUsuarioByNombreUsuario(nombreUsuario) == null) {
+				UsuarioDto usuario = new UsuarioDto(nombreUsuario, contrasenia);
+				usuario.setPermiso("usuario");
+				usersFacade.crearUsuario(usuario);
+				PacienteDto paciente = new PacienteDto(tipoDocumento, documento, usuario);
+				paciente.setNombreApellido(nombreApellido);
+				paciente.setSexo(sexo);
+				paciente.setFechaNacimiento(fechaNacimiento);
+				paciente.setMail(mail);
+				paciente.setTelefono(telefono);
+				pacientesFacade.crearPaciente(paciente);
+				result.setResult(true);				
+			} else {
+				result.setResult(false);
+				result.setMessage("Usuario existente.");
+			}
 		} catch (Exception ex) {
-			model.addObject("errMsg","El usuario no ha sido registrado.");
+			result.setErrorCode(1);
+			result.setMessage("Error al crear el usuario. Verifique los datos ingresados.");
 		}
-		return model;
+		Gson gson = new Gson();
+		String json = gson.toJson(result);
+		response.setContentType("application/json");
+		response.getWriter().write(json);
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/crearUsuario")

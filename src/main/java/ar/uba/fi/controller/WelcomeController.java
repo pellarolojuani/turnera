@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class WelcomeController {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String showWelcomePage(ModelMap model) {
-		model.put("name", getLoggedinUserName());
+//		model.put("name", getLoggedinUserName());
 		return "welcome";
 	}
 
 	private String getLoggedinUserName() {
+		//quiero devolver el nombre de usuario!		
+//		return "Usuario";
 		Object principal = SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		
 		if (principal instanceof UserDetails) {
 			return ((UserDetails) principal).getUsername();
-		}
-		
+		}	
 		return principal.toString();
 	}
-
 }
