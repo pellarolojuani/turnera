@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="form-group">
 		<label for="exampleFormControlSelect1">Especialidades</label>
-		<form:select class="form-control" id="especialidad" name="especialidades" path="especialidades" >
+		<form:select class="form-control" id="especialidad" name="especialidades" path="especialidades" onchange="cargarMedicosPorEspecialidad();">
 		</form:select>
 	</div>
 	
@@ -49,6 +49,7 @@
             url : "/cargarEspecialidades",
             dataType : "json",
             cache : false,
+            async: false,
             success : function (response) {
                 if (response !== null && response !== undefined) {
                     $.each(response, function(index, value) {
@@ -57,23 +58,30 @@
                 }
             }
         });
-        
+        cargarMedicosPorEspecialidad();
+    });
+    
+    function cargarMedicosPorEspecialidad() {
         $.ajax({
             type : "GET",
+            async: false,
             contentType : "application/json",
+            data: {
+            	especialidad : $('#especialidad').val()  
+            },
             url : "/cargarMedicos",
             dataType : "json",
             cache : false,
             success : function (response) {
-                if (response !== null && response !== undefined) {
-                    $.each(response, function(index, value) {
-                    $("#medico").append(new Option(value.nombre, value.nombre));                        
+                if (response.result !== null && response.result !== undefined) {
+                    $("#medico").empty();
+                    $.each(response.result, function(index, value) {
+                    $("#medico").append(new Option(value.nombre, value.id));                        
                     });
                 }
             }
         });
-        
-    });
+    }
     
     
 

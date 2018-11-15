@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.MedicoDto;
 import ar.uba.fi.mongo.facade.MongoDBMedicoFacade;
 
@@ -37,7 +38,7 @@ public class MedicoFacade {
 		return medicoFacade.getMedicoByNombre(nombre);
 	}
 
-	public List<MedicoDto> getMedicoByEspecialidad(String especialidad) {
+	public List<MedicoDto> getMedicoByEspecialidad(EspecialidadDto especialidad) {
 		return medicoFacade.getMedicoByEspecialidad(especialidad);
 	}
 }
