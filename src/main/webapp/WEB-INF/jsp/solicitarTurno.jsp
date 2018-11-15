@@ -29,6 +29,7 @@
 				<th>Fecha</th>
 				<th>Medico</th>
 				<th>Especialidad</th>
+				<th>Duraci&oacute;n</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -99,7 +100,7 @@
                 if (response != null && filas > 0) {
 
                     for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
-                        var nuevafila = "<tr><td>" + response[i].fechaString + "</td><td>" + response[i].medico + "</td><td>" + response[i].especialidad + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
+                        var nuevafila = "<tr><td>" + response[i].fechaString + "</td><td>" + response[i].medico.nombre + "</td><td>" + response[i].especialidad.descripcion + "</td><td>" + response[i].duracion + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
 
                         $("#tbodySolicitarTurno").append(nuevafila);
                     }
