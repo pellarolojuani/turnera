@@ -16,6 +16,8 @@ public class TurnosDto {
 	private String fechaString;
 	private PacienteDto paciente;
 	private String numeroComprobante;
+	private String numeroComprobanteAnulado;
+	private String duracion;
 	
 	
 	public TurnosDto() {}
@@ -69,6 +71,20 @@ public class TurnosDto {
 		this.paciente = paciente;
 		this.numeroComprobante = numeroComprobante;
 	}
+
+	public TurnosDto(Date fecha, EspecialidadDto especialidad, String estado, MedicoDto medico, PacienteDto paciente,
+			String numeroComprobante, String numeroComprobanteAnulado, String duracion) {
+		super();
+		this.fecha = fecha;
+		this.especialidad = especialidad;
+		this.estado = estado;
+		this.medico = medico;
+		this.paciente = paciente;
+		this.numeroComprobante = numeroComprobante;
+		this.numeroComprobanteAnulado = numeroComprobanteAnulado;
+		this.duracion = duracion;
+	}
+
 
 	public Date getFecha() {
 		return fecha;
@@ -129,6 +145,26 @@ public class TurnosDto {
 
 	public void setNumeroComprobante(String numeroComprobante) {
 		this.numeroComprobante = numeroComprobante;
+	}
+
+
+	public String getNumeroComprobanteAnulado() {
+		return numeroComprobanteAnulado;
+	}
+
+
+	public void setNumeroComprobanteAnulado(String numeroComprobanteAnulado) {
+		this.numeroComprobanteAnulado = numeroComprobanteAnulado;
+	}
+
+
+	public String getDuracion() {
+		return duracion;
+	}
+
+
+	public void setDuracion(String duracion) {
+		this.duracion = duracion;
 	}
 
 }

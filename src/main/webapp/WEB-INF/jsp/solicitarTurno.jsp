@@ -3,7 +3,13 @@
 <div class="container">
 	<div class="form-group">
 		<label for="exampleFormControlSelect1">Especialidades</label>
-		<form:select class="form-control" id="especialidad" name="especialidades" path="especialidades" items="${especialidades}">
+		<form:select class="form-control" id="especialidad" name="especialidades" path="especialidades" >
+		</form:select>
+	</div>
+	
+	<div class="form-group">
+		<label for="exampleFormControlSelect2">Medicos</label>
+		<form:select class="form-control" id="medico" name="medicos" path="medicos">
 		</form:select>
 	</div>
 
@@ -23,6 +29,7 @@
 				<th>Fecha</th>
 				<th>Medico</th>
 				<th>Especialidad</th>
+				<th>Duraci&oacute;n</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -50,11 +57,31 @@
                 }
             }
         });
+        
+        $.ajax({
+            type : "GET",
+            contentType : "application/json",
+            url : "/cargarMedicos",
+            dataType : "json",
+            cache : false,
+            success : function (response) {
+                if (response !== null && response !== undefined) {
+                    $.each(response, function(index, value) {
+                    $("#medico").append(new Option(value.nombre, value.nombre));                        
+                    });
+                }
+            }
+        });
+        
     });
+    
+    
+
 
     function buscarTurno() {
         var especialidad = $('#especialidad').val();
         var fechaTurno = $('#datepickerSolicitar').val();
+        var medico =  $('#medico').val();
         $("#tbodySolicitarTurno").empty();
 
         $.ajax({
@@ -64,7 +91,8 @@
             dataType : "json",
             data : {
                 especialidad : especialidad,
-                fechaTurno : fechaTurno
+                fechaTurno : fechaTurno,
+                medico: medico
             },
             cache : false,
             success : function (response) {
@@ -72,7 +100,7 @@
                 if (response != null && filas > 0) {
 
                     for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
-                        var nuevafila = "<tr><td>" + response[i].fechaString + "</td><td>" + response[i].medico + "</td><td>" + response[i].especialidad + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
+                        var nuevafila = "<tr><td>" + response[i].fechaString + "</td><td>" + response[i].medico.nombre + "</td><td>" + response[i].especialidad.descripcion + "</td><td>" + response[i].duracion + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
 
                         $("#tbodySolicitarTurno").append(nuevafila);
                     }

@@ -26,6 +26,12 @@ public class MedicoDto {
 		this.matricula = matricula;
 	}
 
+	public MedicoDto(String nombre, String matricula) {
+		super();
+		this.nombre = nombre;
+		this.matricula = matricula;
+	}
+
 	public MedicoDto() {}
 	
 	public String getMatricula() {
