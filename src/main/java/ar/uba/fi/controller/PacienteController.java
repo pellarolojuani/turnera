@@ -71,16 +71,16 @@ public class PacienteController {
 		
 		PacienteDto pacienteDto = pacientesFacade.getPacienteById(id.toString());
 		
-		EspecialidadDto esp1 = new EspecialidadDto("PSI", "Pisiquiatria");
+		//EspecialidadDto esp1 = new EspecialidadDto("PSI", "Pisiquiatria");
 	//	especialidadFacade.crearEspecialidad(esp1);
 		
-		MedicoDto medico = new MedicoDto(esp1, "Medico de Prueba 1", "45678");
+		//MedicoDto medico = new MedicoDto(esp1, "Medico de Prueba 1", "45678");
 	//	medicoFacade.crearMedico(medico);
 		
 		
-		TurnosDto turno1 = new TurnosDto(new Date(),esp1, "Aprobado", medico, pacienteDto, "100");
+		//TurnosDto turno1 = new TurnosDto(new Date(),esp1, "Aprobado", medico, pacienteDto, "100");
 		
-		turnosFacade.crearTurno(turno1);
+		//turnosFacade.crearTurno(turno1);
 
 		//TODO aca cargar las especialidades que vienen de la db
 //		EspecialidadDto esp1 = new EspecialidadDto("CAR", "Cardiologia");
@@ -90,11 +90,17 @@ public class PacienteController {
 //		especialidades.put(esp1.getCodigo(), esp1.getDescripcion());
 //		especialidades.put(esp2.getCodigo(), esp2.getDescripcion());
 		
-		List<EspecialidadDto> especialidades = new ArrayList<EspecialidadDto>();
-		especialidades = especialidadFacade.getAllEspecialidads();
+		//especialidades = especialidadFacade.getAllEspecialidads();
+		
+		//medicos = medicoFacade.getAllMedicos();
 
 		ModelAndView mv = new ModelAndView("solicitarTurno");
+		
+		//TODO las especialidades y medicos se cargar por ajax, pero esto tiene que estar!!!!
+		List<EspecialidadDto> especialidades = new ArrayList<EspecialidadDto>();
+		List<MedicoDto> medicos = new ArrayList<MedicoDto>();
 		mv.addObject("especialidades", especialidades);
+		mv.addObject("medicos", medicos);
 
 		return mv;
 	}
@@ -132,17 +138,17 @@ public class PacienteController {
 	
 	@RequestMapping(value = "/buscarTurnosDisponibles", method = RequestMethod.GET)
 	public @ResponseBody List<TurnosDto> buscarTurnosDisponibles(@RequestParam(name = "especialidad") String especialidad,
-			@RequestParam(name = "fechaTurno") String fechaTurno) {
+			@RequestParam(name = "fechaTurno") String fechaTurno, @RequestParam(name = "medico") String medico ) {
 		
 		//TODO aca voy a la base y traigo los turnos segun los parametros.
 		
 		EspecialidadDto esp1 = especialidadFacade.getEspecialidadById("5beca7db401cf325c03e1808");
-		MedicoDto medico = medicoFacade.getMedicoById("5beca7dd401cf325c03e1809");
-		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, medico);
+		MedicoDto medico2 = medicoFacade.getMedicoById("5beca7dd401cf325c03e1809");
+		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, medico2);
 		turno1.setId("1");
 		turno1.setNumeroComprobante("101");
 		turno1.setFechaString(fechaTurno + " 11:00");
-		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, "Rechazado", medico);
+		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, "Rechazado", medico2);
 		turno2.setId("2");
 		turno1.setNumeroComprobante("102");
 		turno2.setFechaString(fechaTurno + " 11:20");

@@ -3,7 +3,13 @@
 <div class="container">
 	<div class="form-group">
 		<label for="exampleFormControlSelect1">Especialidades</label>
-		<form:select class="form-control" id="especialidad" name="especialidades" path="especialidades" items="${especialidades}">
+		<form:select class="form-control" id="especialidad" name="especialidades" path="especialidades" >
+		</form:select>
+	</div>
+	
+	<div class="form-group">
+		<label for="exampleFormControlSelect2">Medicos</label>
+		<form:select class="form-control" id="medico" name="medicos" path="medicos">
 		</form:select>
 	</div>
 
@@ -50,11 +56,31 @@
                 }
             }
         });
+        
+        $.ajax({
+            type : "GET",
+            contentType : "application/json",
+            url : "/cargarMedicos",
+            dataType : "json",
+            cache : false,
+            success : function (response) {
+                if (response !== null && response !== undefined) {
+                    $.each(response, function(index, value) {
+                    $("#medico").append(new Option(value.nombre, value.nombre));                        
+                    });
+                }
+            }
+        });
+        
     });
+    
+    
+
 
     function buscarTurno() {
         var especialidad = $('#especialidad').val();
         var fechaTurno = $('#datepickerSolicitar').val();
+        var medico =  $('#medico').val();
         $("#tbodySolicitarTurno").empty();
 
         $.ajax({
@@ -64,7 +90,8 @@
             dataType : "json",
             data : {
                 especialidad : especialidad,
-                fechaTurno : fechaTurno
+                fechaTurno : fechaTurno,
+                medico: medico
             },
             cache : false,
             success : function (response) {
