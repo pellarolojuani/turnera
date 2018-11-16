@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.mongodb.MongoException;
 
+import ar.uba.fi.dto.EspecialidadDto;
+import ar.uba.fi.dto.MedicoDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.mongo.repository.TurnoRepository;
 
@@ -90,7 +92,7 @@ public class MongoDBTurnosFacade {
 		return mongoTemplate.find(query, TurnosDto.class);
 	}
 	
-	public List<TurnosDto> getTurnosByEspecialidad(String especialidad) {
+	public List<TurnosDto> getTurnosByEspecialidad(EspecialidadDto especialidad) {
 		try {
 			return turnoRepository.findByEspecialidad(especialidad);
 		} catch (MongoException ex) {
@@ -106,9 +108,28 @@ public class MongoDBTurnosFacade {
 		return null;
 	}
 	
-	public List<TurnosDto> getTurnosByMedico(String medico) {
+	public List<TurnosDto> getTurnosByMedico(MedicoDto medico) {
 		try {
 			return turnoRepository.findByMedico(medico);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+	
+	public List<TurnosDto> getTurnosByMedicoAndEstado(MedicoDto medico, Boolean estado) {
+		try {
+			if (estado) {
+				return turnoRepository.findByMedicoAndEstadoIsTrue(medico);				
+			}
+			return turnoRepository.findByMedicoAndEstadoIsFalse(medico);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+
+	public List<TurnosDto> getTurnosLibresByMedicoAndDate(MedicoDto medico, Date date) {
+		try {
+			return turnoRepository.findByMedicoAndFechaAndEstadoIsFalse(medico, date);
 		} catch (MongoException ex) {
 		}
 		return null;

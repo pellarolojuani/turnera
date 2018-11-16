@@ -129,13 +129,23 @@ public class MedicoController {
 		Date targetTimeFecha = DateUtil.stringToDate(fechaRegistroTurno, "dd/MM/yyyy");
 		MedicoDto medico = medicoFacade.getMedicoByUsuario(nombreUsuario);
 		if (medico != null) {
+			//*
+			//*
 			// LUCAS: LEERRRRRRRR!!!
+			//*
+			//*
 			//con tu permiso, voy a hardcodear un poquito!
 			// saque la hora del Date tambien... y puse hora y minuto como atributos separados..... considerando q nadie nos va a ver el codigo, creo q va a ser mas facil
 			// de manipular de esta manera..
 			// Otra cosa, no se cual era tu idea del atributo "estado", de los turnos.. pero lo cambie a true o false, considerando que indica si el turno ya esta
 			// tomado o no. Si no es asi, volve a cambiarlo como estaba antes. 
 			// y la idea es que, cuando un paciente selecciona un turno, el estado pasa a true y se carga el paciente en su respectivo atributo en el turno, no?
+			
+			//
+			//Una cosa mas, fijate que en turnosFacade ya hice varios metodos para consultar turnos por medico, turnos libres, turnos between fechas.. etc... 
+			//Igual estan sin probar, asique no pongo las manos en el fuego con esos queries.... Asique en la medida q se van usando los vamos probando y de ultima los arreglo.
+			//no se me ocurre, pero cualquier otro que necesites y no este, anotamelo y lo hago!
+			//
 			if (duracionInt == 10) {
 				for (Integer i = horaDesde; i < horaHasta; i++) {
 					TurnosDto turno1 = new TurnosDto();

@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.uba.fi.dto.EspecialidadDto;
+import ar.uba.fi.dto.MedicoDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.mongo.facade.MongoDBTurnosFacade;
 
@@ -37,12 +39,16 @@ public class TurnosFacade {
 	public List<TurnosDto> getTurnosByDate(Date fecha) {
 		return turnoFacade.getTurnosByDate(fecha);
 	}
+	
+	public List<TurnosDto> getTurnosLibresByMedicoAndDate(MedicoDto medico, Date date) {
+		return turnoFacade.getTurnosLibresByMedicoAndDate(medico, date);
+	}
 
 	public List<TurnosDto> getTurnosBetweenDates(Date inicio, Date fin) {
 		return turnoFacade.getTurnosBetweenDates(inicio, fin);
 	}
 
-	public List<TurnosDto> getTurnosByEspecialidad(String especialidad) {
+	public List<TurnosDto> getTurnosByEspecialidad(EspecialidadDto especialidad) {
 		return turnoFacade.getTurnosByEspecialidad(especialidad);
 	}
 
@@ -50,7 +56,11 @@ public class TurnosFacade {
 		return turnoFacade.getTurnosByEstado(estado);
 	}
 
-	public List<TurnosDto> getTurnosByMedico(String medico) {
+	public List<TurnosDto> getTurnosByMedico(MedicoDto medico) {
 		return turnoFacade.getTurnosByMedico(medico);
+	}
+	
+	public List<TurnosDto> getTurnosByMedicoAndEstado(MedicoDto medico, Boolean estado) {
+		return turnoFacade.getTurnosByMedicoAndEstado(medico, estado);
 	}
 }
