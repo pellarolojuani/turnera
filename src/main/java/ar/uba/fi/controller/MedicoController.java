@@ -20,12 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import ar.uba.fi.dto.EspecialidadDto;
+import ar.uba.fi.dto.MedicoDto;
 import ar.uba.fi.dto.PacienteDto;
+import ar.uba.fi.dto.ResultadoDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.facade.EspecialidadFacade;
 import ar.uba.fi.facade.MedicoFacade;
 import ar.uba.fi.facade.TurnosFacade;
 import ar.uba.fi.util.AjaxResult;
+import ar.uba.fi.util.DateUtil;
 
 @Controller
 public class MedicoController {
@@ -34,7 +37,6 @@ public class MedicoController {
 	private TurnosFacade turnosFacade;
 	@Autowired
 	private EspecialidadFacade especialidadFacade;
-
 	@Autowired
 	private MedicoFacade medicoFacade;
 
@@ -43,6 +45,14 @@ public class MedicoController {
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("verTurnos");
+		return mv;
+	}
+
+	@RequestMapping(value = "/registrarTurnosInit", method = RequestMethod.GET)
+	public ModelAndView initRegistrarTurnos(ModelMap model) {
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("registrarTurnos");
 
 		return mv;
 	}
@@ -55,10 +65,10 @@ public class MedicoController {
 		PacienteDto p2 = new PacienteDto("2", "DNI", "26455666", "Femenino", null, "30/03/1970", null, "Moni Argento", "moni@argento.com", "453543-45345");
 
 		// TODO aca voy a la base y traigo los turnos segun los parametros.
-		TurnosDto turno1 = new TurnosDto(new Date(), "Aprobado", p1);
+		TurnosDto turno1 = new TurnosDto(new Date(), true, p1);
 		turno1.setId("1");
 		turno1.setFechaString("20/12/2018" + " 11:00");
-		TurnosDto turno2 = new TurnosDto(new Date(), "Aprobado", p2);
+		TurnosDto turno2 = new TurnosDto(new Date(), true, p2);
 		turno2.setId("2");
 		turno2.setFechaString("21/12/2018" + " 11:20");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
@@ -111,6 +121,83 @@ public class MedicoController {
 		String json = gson.toJson(result);
 		response.setContentType("application/json");
 		response.getWriter().write(json);
+	}
+
+	@RequestMapping(value = "/registrarTurnosNuevos", method = RequestMethod.GET)
+	public @ResponseBody ResultadoDto registrarTurnos(@RequestParam(name = "horaDesde", required = false) Integer horaDesde, @RequestParam(name = "horaHasta", required = false) Integer horaHasta, @RequestParam(name = "fechaRegistroTurno", required = false) String fechaRegistroTurno, @RequestParam(name = "duracionTurno", required = false) String duracionTurno, @RequestParam(name = "nombreUsuario", required = false) String nombreUsuario) {
+
+//		private String fechaString;
+//		private PacienteDto paciente;
+//		private String numeroComprobante;
+//		private String numeroComprobanteAnulado;
+//		private String duracion;
+		
+		Integer duracionInt = Integer.valueOf(duracionTurno);
+		Date targetTimeFecha = DateUtil.stringToDate(fechaRegistroTurno, "dd/MM/yyyy");
+		MedicoDto medico = medicoFacade.getMedicoByUsuario(nombreUsuario);
+		if (medico != null) {
+			// LUCAS: con tu permiso, voy a hardcodear un poquito!
+			// saque la hora del Date tambien... y puse hora y minuto como atributos separados..... considerando q nadie nos va a ver el codigo, creo q va a ser mas facil
+			// de manipular de esta manera..
+			if (duracionInt == 10) {
+				for (Integer i = horaDesde; i <= horaHasta; i++) {
+					TurnosDto turno1 = new TurnosDto();
+					turno1.setMedico(medico);
+					turno1.setEspecialidad(medico.getEspecialidad());
+					turno1.setEstado(false);
+					turno1.setFecha(targetTimeFecha);
+					turno1.setHora(i);
+					turno1.setMinutos(0);
+					turno1.setDuracion(10);
+					
+					turnosFacade.crearTurno(turno1);
+					TurnosDto turno2 = new TurnosDto();
+
+					turnosFacade.crearTurno(turno2);
+					TurnosDto turno3 = new TurnosDto();
+
+					turnosFacade.crearTurno(turno3);
+					TurnosDto turno4 = new TurnosDto();
+
+					turnosFacade.crearTurno(turno4);
+					TurnosDto turno5 = new TurnosDto();
+
+					turnosFacade.crearTurno(turno5);
+				}
+			} else if (duracionInt == 15) {
+				TurnosDto turno1 = new TurnosDto();
+
+				turnosFacade.crearTurno(turno1);
+				TurnosDto turno2 = new TurnosDto();
+
+				turnosFacade.crearTurno(turno2);
+				TurnosDto turno3 = new TurnosDto();
+
+				turnosFacade.crearTurno(turno3);
+				TurnosDto turno4 = new TurnosDto();
+
+				turnosFacade.crearTurno(turno4);
+			} else if (duracionInt == 20) {
+				TurnosDto turno1 = new TurnosDto();
+
+				turnosFacade.crearTurno(turno1);
+				TurnosDto turno2 = new TurnosDto();
+
+				turnosFacade.crearTurno(turno2);
+				TurnosDto turno3 = new TurnosDto();
+
+				turnosFacade.crearTurno(turno3);
+			} else if (duracionInt == 30) {
+				TurnosDto turno1 = new TurnosDto();
+
+				turnosFacade.crearTurno(turno1);
+				TurnosDto turno2 = new TurnosDto();
+
+				turnosFacade.crearTurno(turno2);
+			}
+		}
+		return null;
+
 	}
 
 }

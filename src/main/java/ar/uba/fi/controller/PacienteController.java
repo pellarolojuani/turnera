@@ -147,11 +147,11 @@ public class PacienteController {
 		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, medico2);
 		turno1.setId("1");
 		turno1.setNumeroComprobante("101");
-		turno1.setDuracion("20");
+		turno1.setDuracion(20);
 		turno1.setFechaString(fechaTurno + " 11:00");
-		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, "Rechazado", medico2);
+		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, false, medico2);
 		turno2.setId("2");
-		turno2.setDuracion("15");
+		turno2.setDuracion(15);
 		turno2.setNumeroComprobante("102");
 		turno2.setFechaString(fechaTurno + " 11:20");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
@@ -179,7 +179,7 @@ public class PacienteController {
 		System.out.println("voy a anular el turno id:" + id);
 		
 		TurnosDto turno = turnosFacade.getTurnoById(id);
-		turno.setEstado("???");
+		turno.setEstado(true);
 		turnosFacade.editarTurno(turno);
 		
 		Boolean resultadoAnularTurno = true;

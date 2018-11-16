@@ -13,4 +13,6 @@ public interface MedicoRepository  extends MongoRepository<MedicoDto, String>{
 
 	public List<MedicoDto> findByEspecialidad(EspecialidadDto especialidad);
 
+	public MedicoDto findByUsuario(String usuario);
+
 }

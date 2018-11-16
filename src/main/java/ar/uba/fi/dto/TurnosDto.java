@@ -10,20 +10,22 @@ public class TurnosDto {
 	@Id
 	private String id;
 	private Date fecha;
+	private Integer hora;
+	private Integer minutos;
 	private EspecialidadDto especialidad;
-	private String estado;
+	private Boolean estado;
 	private MedicoDto medico;
 	private String fechaString;
 	private PacienteDto paciente;
 	private String numeroComprobante;
 	private String numeroComprobanteAnulado;
-	private String duracion;
+	private Integer duracion;
 	
 	
 	public TurnosDto() {}
 	
 	
-	public TurnosDto(Date fecha, EspecialidadDto especialidad, String estado, MedicoDto medico) {
+	public TurnosDto(Date fecha, EspecialidadDto especialidad, Boolean estado, MedicoDto medico) {
 		super();
 		this.fecha = fecha;
 		this.especialidad = especialidad;
@@ -31,7 +33,7 @@ public class TurnosDto {
 		this.medico = medico;
 	}
 	
-	public TurnosDto(Date fecha, String estado, PacienteDto paciente) {
+	public TurnosDto(Date fecha, Boolean estado, PacienteDto paciente) {
 		super();
 		this.fecha = fecha;
 		this.estado = estado;
@@ -48,7 +50,7 @@ public class TurnosDto {
 	
 	
 	
-	public TurnosDto(Date fecha, EspecialidadDto especialidad, String estado, MedicoDto medico, PacienteDto paciente,
+	public TurnosDto(Date fecha, EspecialidadDto especialidad, Boolean estado, MedicoDto medico, PacienteDto paciente,
 			String numeroComprobante) {
 		super();
 		this.fecha = fecha;
@@ -59,7 +61,7 @@ public class TurnosDto {
 		this.numeroComprobante = numeroComprobante;
 	}
 
-	public TurnosDto(String id, Date fecha, EspecialidadDto especialidad, String estado, MedicoDto medico,
+	public TurnosDto(String id, Date fecha, EspecialidadDto especialidad, Boolean estado, MedicoDto medico,
 			String fechaString, PacienteDto paciente, String numeroComprobante) {
 		super();
 		this.id = id;
@@ -72,8 +74,8 @@ public class TurnosDto {
 		this.numeroComprobante = numeroComprobante;
 	}
 
-	public TurnosDto(Date fecha, EspecialidadDto especialidad, String estado, MedicoDto medico, PacienteDto paciente,
-			String numeroComprobante, String numeroComprobanteAnulado, String duracion) {
+	public TurnosDto(Date fecha, EspecialidadDto especialidad, Boolean estado, MedicoDto medico, PacienteDto paciente,
+			String numeroComprobante, String numeroComprobanteAnulado, Integer duracion) {
 		super();
 		this.fecha = fecha;
 		this.especialidad = especialidad;
@@ -98,10 +100,10 @@ public class TurnosDto {
 	public void setEspecialidad(EspecialidadDto espacialidad) {
 		this.especialidad = espacialidad;
 	}
-	public String getEstado() {
+	public Boolean getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 
@@ -158,13 +160,33 @@ public class TurnosDto {
 	}
 
 
-	public String getDuracion() {
+	public Integer getDuracion() {
 		return duracion;
 	}
 
 
-	public void setDuracion(String duracion) {
+	public void setDuracion(Integer duracion) {
 		this.duracion = duracion;
 	}
 
+
+	public Integer getHora() {
+		return hora;
+	}
+
+
+	public void setHora(Integer hora) {
+		this.hora = hora;
+	}
+
+
+	public Integer getMinutos() {
+		return minutos;
+	}
+
+
+	public void setMinutos(Integer minutos) {
+		this.minutos = minutos;
+	}
+	
 }

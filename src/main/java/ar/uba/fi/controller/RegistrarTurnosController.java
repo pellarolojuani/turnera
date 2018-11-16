@@ -19,32 +19,32 @@ import ar.uba.fi.util.AjaxResult;
 @Controller
 public class RegistrarTurnosController {
 
-	@RequestMapping(value = "/registrarTurnos", method = RequestMethod.GET)
-	public ModelAndView initRegistrarTurnos(ModelMap model) {
-
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("registrarTurnos");
-
-		return mv;
-	}
-
-	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/registrarTurnos")
-	private void registrarTurnos(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws IOException {
-		AjaxResult result = new AjaxResult();
-		try {
-			//Aca vamos a hardcodear un poquito...
-			TurnosTodosDto turnos = new TurnosTodosDto();
-				
-			result.setResult(true);
-			result.setMessage("Turnos registrados correctamente.");
-		} catch (Exception ex) {
-			result.setErrorCode(1);
-			result.setMessage("Error al registrar turnos. Verifique los datos ingresados.");
-		}
-		Gson gson = new Gson();
-		String json = gson.toJson(result);
-		response.setContentType("application/json");
-		response.getWriter().write(json);
-	}
+//	@RequestMapping(value = "/registrarTurnos", method = RequestMethod.GET)
+//	public ModelAndView initRegistrarTurnos(ModelMap model) {
+//
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("registrarTurnos");
+//
+//		return mv;
+//	}
+//
+//	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/registrarTurnos")
+//	private void registrarTurnos(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws IOException {
+//		AjaxResult result = new AjaxResult();
+//		try {
+//			//Aca vamos a hardcodear un poquito...
+//			TurnosTodosDto turnos = new TurnosTodosDto();
+//				
+//			result.setResult(true);
+//			result.setMessage("Turnos registrados correctamente.");
+//		} catch (Exception ex) {
+//			result.setErrorCode(1);
+//			result.setMessage("Error al registrar turnos. Verifique los datos ingresados.");
+//		}
+//		Gson gson = new Gson();
+//		String json = gson.toJson(result);
+//		response.setContentType("application/json");
+//		response.getWriter().write(json);
+//	}
 
 }

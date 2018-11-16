@@ -61,6 +61,14 @@ public class MongoDBMedicoFacade {
 		return null;
 	}
 	
+	public MedicoDto getMedicoByUsuario(String usuario) {
+		try {
+			return medicoRepository.findByUsuario(usuario);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+	
 	public List<MedicoDto> getMedicoByEspecialidad(EspecialidadDto especialidad) {
 		try {
 			return medicoRepository.findByEspecialidad(especialidad);
