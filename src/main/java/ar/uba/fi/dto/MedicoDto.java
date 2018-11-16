@@ -10,7 +10,7 @@ public class MedicoDto {
 	private EspecialidadDto especialidad;
 	private String nombre;
 	private String matricula;
-	private String usuario;
+	private UsuarioDto usuario;
 	
 	public MedicoDto(String id, EspecialidadDto especialidad, String nombre, String matricula) {
 		super();
@@ -36,11 +36,11 @@ public class MedicoDto {
 	public MedicoDto() {}
 	
 	
-	public String getUsuario() {
+	public UsuarioDto getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(String usuario) {
+	public void setUsuario(UsuarioDto usuario) {
 		this.usuario = usuario;
 	}
 

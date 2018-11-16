@@ -24,6 +24,7 @@ import ar.uba.fi.dto.MedicoDto;
 import ar.uba.fi.dto.PacienteDto;
 import ar.uba.fi.dto.ResultadoDto;
 import ar.uba.fi.dto.TurnosDto;
+import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.facade.EspecialidadFacade;
 import ar.uba.fi.facade.MedicoFacade;
 import ar.uba.fi.facade.TurnosFacade;
@@ -136,9 +137,8 @@ public class MedicoController {
 			@RequestParam(name = "duracionTurno", required = false) String duracionTurno,HttpServletRequest request) {
 		Integer duracionInt = Integer.valueOf(duracionTurno);
 		Date targetTimeFecha = DateUtil.stringToDate(fechaRegistroTurno, "dd/MM/yyyy");
-		request.getAttribute("usuario");
-		//MedicoDto medico = medicoFacade.getMedicoByUsuario(nombreUsuario);
-		MedicoDto medico = null;
+		UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuario");
+		MedicoDto medico = medicoFacade.getMedicoByUsuario(usuario);
 		if (medico != null) {
 			// *
 			// *

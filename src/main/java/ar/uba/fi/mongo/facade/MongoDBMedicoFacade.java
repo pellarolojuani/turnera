@@ -9,6 +9,7 @@ import com.mongodb.MongoException;
 
 import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.MedicoDto;
+import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.mongo.repository.MedicoRepository;
 
 @Service
@@ -61,7 +62,7 @@ public class MongoDBMedicoFacade {
 		return null;
 	}
 	
-	public MedicoDto getMedicoByUsuario(String usuario) {
+	public MedicoDto getMedicoByUsuario(UsuarioDto usuario) {
 		try {
 			return medicoRepository.findByUsuario(usuario);
 		} catch (MongoException ex) {

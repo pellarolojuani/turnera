@@ -64,6 +64,35 @@
         });
         cargarMedicosPorEspecialidad();
     });
+    
+    function formattedDate(d, hora, minuto) {
+  		debugger;
+//   		  console.log(d);
+//   		console.log(hora);
+//   		console.log(minuto);
+    	  let month = String(d.getMonth() + 1);
+    	  let day = String(d.getDate());
+    	  const year = String(d.getFullYear());
+
+    	  if (month.length < 2) month = '0' + month;
+    	  if (day.length < 2) day = '0' + day;
+    	  
+    	  let hour = hora;
+    	  if (hour< 2) hour =  '0' + hour;
+    	  
+    	  let minute = minuto;
+    	  if (minute < 2) minute =  '0' + minute;
+
+  		  console.log(day);
+    		console.log(month);
+    		console.log(year);
+    
+    	  		console.log(hour);
+    	  		console.log(minute);
+    	  
+    	  return day +"/"+ month +"/"+ year +" "+hour +":" +minute;
+    	  
+    	}
 
     function cargarMedicosPorEspecialidad() {
         $.ajax({
@@ -109,7 +138,11 @@
                 if (response != null && filas > 0) {
 
                     for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
-                        var nuevafila = "<tr><td>" + response[i].fechaString + "</td><td>" + response[i].medico.nombre + "</td><td>" + response[i].especialidad.descripcion + "</td><td>" + response[i].duracion + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
+                    	debugger;
+                		var fecha = new Date(response[i].fecha);
+                		var fechaString = formattedDate(fecha,response[i].hora,response[i].minutos);
+                    	
+                        var nuevafila = "<tr><td>" + fechaString + "</td><td>" + response[i].medico.nombre + "</td><td>" + response[i].especialidad.descripcion + "</td><td>" + response[i].duracion + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
 
                         $("#tbodySolicitarTurno").append(nuevafila);
                     }

@@ -63,4 +63,8 @@ public class TurnosFacade {
 	public List<TurnosDto> getTurnosByMedicoAndEstado(MedicoDto medico, Boolean estado) {
 		return turnoFacade.getTurnosByMedicoAndEstado(medico, estado);
 	}
+	
+	public List<TurnosDto> getTurnosByMedicoAndEstadoAndEspecialidadAndFecha(MedicoDto medico, Boolean estado, EspecialidadDto especialidad, Date fecha) {
+		return turnoFacade.getTurnosByMedicoAndEstadoAndEspecialidadAndFecha(medico, estado,especialidad, fecha );
+	}
 }

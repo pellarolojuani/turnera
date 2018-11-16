@@ -38,6 +38,7 @@ public class LoginController {
 			if (usuario != null) {
 				model.put("name", usuario.getNombreUsuario());
 				result.setResult(usuario);
+				request.getSession().setAttribute("usuario", usuario);
 			} else {
 				result.setMessage("Usuario y/o contrasenia incorrectos.");
 			}

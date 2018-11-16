@@ -126,6 +126,18 @@ public class MongoDBTurnosFacade {
 		}
 		return null;
 	}
+	
+	
+	public List<TurnosDto> getTurnosByMedicoAndEstadoAndEspecialidadAndFecha(MedicoDto medico, Boolean estado, EspecialidadDto especialidad, Date fecha) {
+		try {
+			if (estado) {
+				return turnoRepository.findByMedicoAndFechaAndAndEspecialidadAndEstadoIsTrue(medico,fecha,especialidad);				
+			}
+			return turnoRepository.findByMedicoAndFechaAndAndEspecialidadAndEstadoIsFalse(medico,fecha,especialidad);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
 
 	public List<TurnosDto> getTurnosLibresByMedicoAndDate(MedicoDto medico, Date date) {
 		try {

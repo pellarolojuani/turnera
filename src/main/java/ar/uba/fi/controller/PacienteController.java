@@ -138,26 +138,33 @@ public class PacienteController {
 	
 	@RequestMapping(value = "/buscarTurnosDisponibles", method = RequestMethod.GET)
 	public @ResponseBody List<TurnosDto> buscarTurnosDisponibles(@RequestParam(name = "especialidad") String especialidad,
-			@RequestParam(name = "fechaTurno") String fechaTurno, @RequestParam(name = "medico") String medico ) {
+			@RequestParam(name = "fechaTurno") String fechaTurno, @RequestParam(name = "medico") String medicoId ) {
 		
 		//TODO aca voy a la base y traigo los turnos segun los parametros.
 		
-		EspecialidadDto esp1 = especialidadFacade.getEspecialidadById("5beca7db401cf325c03e1808");
-		MedicoDto medico2 = medicoFacade.getMedicoById("5beca7dd401cf325c03e1809");
-		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, medico2);
-		turno1.setId("1");
-		turno1.setNumeroComprobante("101");
-		turno1.setDuracion(20);
-		turno1.setFechaString(fechaTurno + " 11:00");
-		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, false, medico2);
-		turno2.setId("2");
-		turno2.setDuracion(15);
-		turno2.setNumeroComprobante("102");
-		turno2.setFechaString(fechaTurno + " 11:20");
-		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
-		turnos.add(turno1);
-		turnos.add(turno2);
-
+//		EspecialidadDto esp1 = especialidadFacade.getEspecialidadById("5beca7db401cf325c03e1808");
+//		MedicoDto medico2 = medicoFacade.getMedicoById("5beca7dd401cf325c03e1809");
+//		TurnosDto turno1 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, medico2);
+//		turno1.setId("1");
+//		turno1.setNumeroComprobante("101");
+//		turno1.setDuracion(20);
+//		turno1.setFechaString(fechaTurno + " 11:00");
+//		TurnosDto turno2 = new TurnosDto(DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy"), esp1, false, medico2);
+//		turno2.setId("2");
+//		turno2.setDuracion(15);
+//		turno2.setNumeroComprobante("102");
+//		turno2.setFechaString(fechaTurno + " 11:20");
+		List<TurnosDto> turnos = null;
+//		turnos.add(turno1);
+//		turnos.add(turno2);
+		
+		Date fechaDate = DateUtil.stringToDate(fechaTurno, "dd/MM/yyyy");
+		
+		EspecialidadDto esp = especialidadFacade.getEspecialidadByCodigo(especialidad);
+		MedicoDto medico = medicoFacade.getMedicoById(medicoId);
+		
+		turnos = turnosFacade.getTurnosByMedicoAndEstadoAndEspecialidadAndFecha(medico, false, esp, fechaDate);
+		
 		return turnos;
 	}
 	

@@ -5,10 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mongodb.MongoException;
-
 import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.MedicoDto;
+import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.mongo.facade.MongoDBMedicoFacade;
 
 @Service
@@ -44,7 +43,7 @@ public class MedicoFacade {
 		return medicoFacade.getMedicoByEspecialidad(especialidad);
 	}
 
-	public MedicoDto getMedicoByUsuario(String usuario) {
+	public MedicoDto getMedicoByUsuario(UsuarioDto usuario) {
 		return medicoFacade.getMedicoByUsuario(usuario);
 	}
 }

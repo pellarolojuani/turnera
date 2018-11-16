@@ -77,7 +77,6 @@ function registrarTurnos() {
          url : "/registrarTurnosNuevos",
          dataType : "json",
          data : {
-             nombreUsuario : localStorage.getItem("nombreUsuario"),
              horaDesde : horaDesde,
         	 horaHasta : horaHasta,
              fechaRegistroTurno : fechaRegistroTurno,

@@ -27,5 +27,9 @@ public interface TurnoRepository  extends MongoRepository<TurnosDto, String>{
 	public List<TurnosDto> findByMedicoAndEstadoIsFalse(MedicoDto medico);
 
 	public List<TurnosDto> findByMedicoAndFechaAndEstadoIsFalse(MedicoDto medico, Date date);
+	
+	public List<TurnosDto> findByMedicoAndFechaAndAndEspecialidadAndEstadoIsFalse(MedicoDto medico, Date date, EspecialidadDto especialidad);
+	
+	public List<TurnosDto> findByMedicoAndFechaAndAndEspecialidadAndEstadoIsTrue(MedicoDto medico, Date date, EspecialidadDto especialidad);
 
 }
