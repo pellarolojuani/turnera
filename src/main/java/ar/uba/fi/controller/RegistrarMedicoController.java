@@ -50,7 +50,7 @@ public class RegistrarMedicoController {
 				usuario.setPermiso("medico");
 				MedicoDto medico = new MedicoDto();
 				medico.setNombre(nombreApellido);
-				medico.setUsuario(nombreUsuario);
+				medico.setUsuario(usuario);
 				medico.setMatricula(matricula);
 				medico.setEspecialidad(especialidadFacade.getEspecialidadByCodigo(especialidad));
 				usuarioFacade.crearUsuario(usuario);

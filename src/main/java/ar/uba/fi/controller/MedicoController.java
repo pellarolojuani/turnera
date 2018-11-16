@@ -58,11 +58,14 @@ public class MedicoController {
 	}
 
 	@RequestMapping(value = "/verProximosTurnos", method = RequestMethod.GET)
-	public @ResponseBody List<TurnosDto> verProximosTurnos(@RequestParam(name = "fechaDesde") String fechaDesde, @RequestParam(name = "fechaHasta") String fechaHasta) {
+	public @ResponseBody List<TurnosDto> verProximosTurnos(@RequestParam(name = "fechaDesde") String fechaDesde,
+			@RequestParam(name = "fechaHasta") String fechaHasta) {
 
-		PacienteDto p1 = new PacienteDto("1", "DNI", "22454666", "Masculino", null, "20/01/1965", null, "Jose Argento", "pepe@argento.com", "453543-45345");
+		PacienteDto p1 = new PacienteDto("1", "DNI", "22454666", "Masculino", null, "20/01/1965", null, "Jose Argento",
+				"pepe@argento.com", "453543-45345");
 
-		PacienteDto p2 = new PacienteDto("2", "DNI", "26455666", "Femenino", null, "30/03/1970", null, "Moni Argento", "moni@argento.com", "453543-45345");
+		PacienteDto p2 = new PacienteDto("2", "DNI", "26455666", "Femenino", null, "30/03/1970", null, "Moni Argento",
+				"moni@argento.com", "453543-45345");
 
 		// TODO aca voy a la base y traigo los turnos segun los parametros.
 		TurnosDto turno1 = new TurnosDto(new Date(), true, p1);
@@ -96,7 +99,8 @@ public class MedicoController {
 
 	@RequestMapping(value = "/infoPaciente", method = RequestMethod.GET)
 	public @ResponseBody PacienteDto infoPaciente(@RequestParam String id) {
-		PacienteDto p1 = new PacienteDto("1", "DNI", "22454666", "Masculino", null, "20/01/1965", null, "Jose Argento", "pepe@argento.com", "453543-45345");
+		PacienteDto p1 = new PacienteDto("1", "DNI", "22454666", "Masculino", null, "20/01/1965", null, "Jose Argento",
+				"pepe@argento.com", "453543-45345");
 		return p1;
 	}
 
@@ -106,7 +110,8 @@ public class MedicoController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/cargarMedicos")
-	private void registrar(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws IOException {
+	private void registrar(HttpServletRequest request, HttpServletResponse response, ModelMap model)
+			throws IOException {
 		AjaxResult result = new AjaxResult();
 		try {
 			String codEspecialidad = request.getParameter("especialidad");
@@ -124,27 +129,41 @@ public class MedicoController {
 	}
 
 	@RequestMapping(value = "/registrarTurnosNuevos", method = RequestMethod.GET)
-	public @ResponseBody ResultadoDto registrarTurnos(@RequestParam(name = "horaDesde", required = false) Integer horaDesde, @RequestParam(name = "horaHasta", required = false) Integer horaHasta, @RequestParam(name = "fechaRegistroTurno", required = false) String fechaRegistroTurno, @RequestParam(name = "duracionTurno", required = false) String duracionTurno, @RequestParam(name = "nombreUsuario", required = false) String nombreUsuario) {		
+	public @ResponseBody ResultadoDto registrarTurnos(
+			@RequestParam(name = "horaDesde", required = false) Integer horaDesde,
+			@RequestParam(name = "horaHasta", required = false) Integer horaHasta,
+			@RequestParam(name = "fechaRegistroTurno", required = false) String fechaRegistroTurno,
+			@RequestParam(name = "duracionTurno", required = false) String duracionTurno,HttpServletRequest request) {
 		Integer duracionInt = Integer.valueOf(duracionTurno);
 		Date targetTimeFecha = DateUtil.stringToDate(fechaRegistroTurno, "dd/MM/yyyy");
-		MedicoDto medico = medicoFacade.getMedicoByUsuario(nombreUsuario);
+		request.getAttribute("usuario");
+		//MedicoDto medico = medicoFacade.getMedicoByUsuario(nombreUsuario);
+		MedicoDto medico = null;
 		if (medico != null) {
-			//*
-			//*
+			// *
+			// *
 			// LUCAS: LEERRRRRRRR!!!
-			//*
-			//*
-			//con tu permiso, voy a hardcodear un poquito!
-			// saque la hora del Date tambien... y puse hora y minuto como atributos separados..... considerando q nadie nos va a ver el codigo, creo q va a ser mas facil
+			// *
+			// *
+			// con tu permiso, voy a hardcodear un poquito!
+			// saque la hora del Date tambien... y puse hora y minuto como atributos
+			// separados..... considerando q nadie nos va a ver el codigo, creo q va a ser
+			// mas facil
 			// de manipular de esta manera..
-			// Otra cosa, no se cual era tu idea del atributo "estado", de los turnos.. pero lo cambie a true o false, considerando que indica si el turno ya esta
-			// tomado o no. Si no es asi, volve a cambiarlo como estaba antes. 
-			// y la idea es que, cuando un paciente selecciona un turno, el estado pasa a true y se carga el paciente en su respectivo atributo en el turno, no?
-			
+			// Otra cosa, no se cual era tu idea del atributo "estado", de los turnos.. pero
+			// lo cambie a true o false, considerando que indica si el turno ya esta
+			// tomado o no. Si no es asi, volve a cambiarlo como estaba antes.
+			// y la idea es que, cuando un paciente selecciona un turno, el estado pasa a
+			// true y se carga el paciente en su respectivo atributo en el turno, no?
+
 			//
-			//Una cosa mas, fijate que en turnosFacade ya hice varios metodos para consultar turnos por medico, turnos libres, turnos between fechas.. etc... 
-			//Igual estan sin probar, asique no pongo las manos en el fuego con esos queries.... Asique en la medida q se van usando los vamos probando y de ultima los arreglo.
-			//no se me ocurre, pero cualquier otro que necesites y no este, anotamelo y lo hago!
+			// Una cosa mas, fijate que en turnosFacade ya hice varios metodos para
+			// consultar turnos por medico, turnos libres, turnos between fechas.. etc...
+			// Igual estan sin probar, asique no pongo las manos en el fuego con esos
+			// queries.... Asique en la medida q se van usando los vamos probando y de
+			// ultima los arreglo.
+			// no se me ocurre, pero cualquier otro que necesites y no este, anotamelo y lo
+			// hago!
 			//
 			if (duracionInt == 10) {
 				for (Integer i = horaDesde; i < horaHasta; i++) {
