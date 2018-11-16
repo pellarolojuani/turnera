@@ -6,7 +6,7 @@
 		<form:select class="form-control" id="especialidad" name="especialidades" path="especialidades" onchange="cargarMedicosPorEspecialidad();">
 		</form:select>
 	</div>
-	
+
 	<div class="form-group">
 		<label for="exampleFormControlSelect2">Medicos</label>
 		<form:select class="form-control" id="medico" name="medicos" path="medicos">
@@ -41,33 +41,37 @@
 </div>
 <%@ include file="turnoSolicitadoModal.jsp"%>
 <script>
-
     $(document).ready(function () {
+        if (localStorage.getItem("permiso") === "medico") {
+            $("#tabOptions").append('<li><a href="/verTurnos">Ver Turnos</a></li>');
+            $("#tabOptions").append('<li><a href="/registrarTurnos">Registrar Turnos</a></li>');
+        }
+        
         $.ajax({
             type : "GET",
             contentType : "application/json",
             url : "/cargarEspecialidades",
             dataType : "json",
             cache : false,
-            async: false,
+            async : false,
             success : function (response) {
                 if (response !== null && response !== undefined) {
-                    $.each(response, function(index, value) {
-                    $("#especialidad").append(new Option(value.descripcion, value.codigo));                        
+                    $.each(response, function (index, value) {
+                        $("#especialidad").append(new Option(value.descripcion, value.codigo));
                     });
                 }
             }
         });
         cargarMedicosPorEspecialidad();
     });
-    
+
     function cargarMedicosPorEspecialidad() {
         $.ajax({
             type : "GET",
-            async: false,
+            async : false,
             contentType : "application/json",
-            data: {
-            	especialidad : $('#especialidad').val()  
+            data : {
+                especialidad : $('#especialidad').val()
             },
             url : "/cargarMedicos",
             dataType : "json",
@@ -75,21 +79,18 @@
             success : function (response) {
                 if (response.result !== null && response.result !== undefined) {
                     $("#medico").empty();
-                    $.each(response.result, function(index, value) {
-                    $("#medico").append(new Option(value.nombre, value.id));                        
+                    $.each(response.result, function (index, value) {
+                        $("#medico").append(new Option(value.nombre, value.id));
                     });
                 }
             }
         });
     }
-    
-    
-
 
     function buscarTurno() {
         var especialidad = $('#especialidad').val();
         var fechaTurno = $('#datepickerSolicitar').val();
-        var medico =  $('#medico').val();
+        var medico = $('#medico').val();
         $("#tbodySolicitarTurno").empty();
 
         $.ajax({
@@ -100,7 +101,7 @@
             data : {
                 especialidad : especialidad,
                 fechaTurno : fechaTurno,
-                medico: medico
+                medico : medico
             },
             cache : false,
             success : function (response) {

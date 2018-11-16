@@ -32,8 +32,15 @@
 	
 <%@ include file="turnoAnuladoModal.jsp"%>
 <script type="text/javascript">
+
+$(document).ready(function () {
+    if (localStorage.getItem("permiso") === "medico") {
+        $("#tabOptions").append('<li><a href="/verTurnos">Ver Turnos</a></li>');
+        $("#tabOptions").append('<li><a href="/registrarTurnos">Registrar Turnos</a></li>');
+    }
+});
+
 function anularTurno(id){
-	debugger;
 	$.ajax({
 		type : "GET",
 		contentType : "application/json",

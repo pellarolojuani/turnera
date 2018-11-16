@@ -20,10 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import ar.uba.fi.dto.EspecialidadDto;
-import ar.uba.fi.dto.MedicoDto;
 import ar.uba.fi.dto.PacienteDto;
 import ar.uba.fi.dto.TurnosDto;
-import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.facade.EspecialidadFacade;
 import ar.uba.fi.facade.MedicoFacade;
 import ar.uba.fi.facade.TurnosFacade;
@@ -45,15 +43,6 @@ public class MedicoController {
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("verTurnos");
-
-		return mv;
-	}
-	
-	@RequestMapping(value = "/registrarTurnos", method = RequestMethod.GET)
-	public ModelAndView initRegistrarTurnos(ModelMap model) {
-
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("registrarTurnos");
 
 		return mv;
 	}

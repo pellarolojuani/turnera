@@ -40,6 +40,13 @@
 <%@ include file="infoPacienteModal.jsp"%>
 <script>
 
+$(document).ready(function () {
+    if (localStorage.getItem("permiso") === "medico") {
+        $("#tabOptions").append('<li><a href="/verTurnos">Ver Turnos</a></li>');
+        $("#tabOptions").append('<li><a href="/registrarTurnos">Registrar Turnos</a></li>');
+    }
+});
+
 	function buscarTurnoMedico() {
 
 		var fechaDesde = $('#datepickerFechaDesde').val();
