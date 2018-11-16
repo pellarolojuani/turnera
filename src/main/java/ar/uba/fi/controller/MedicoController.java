@@ -124,23 +124,20 @@ public class MedicoController {
 	}
 
 	@RequestMapping(value = "/registrarTurnosNuevos", method = RequestMethod.GET)
-	public @ResponseBody ResultadoDto registrarTurnos(@RequestParam(name = "horaDesde", required = false) Integer horaDesde, @RequestParam(name = "horaHasta", required = false) Integer horaHasta, @RequestParam(name = "fechaRegistroTurno", required = false) String fechaRegistroTurno, @RequestParam(name = "duracionTurno", required = false) String duracionTurno, @RequestParam(name = "nombreUsuario", required = false) String nombreUsuario) {
-
-//		private String fechaString;
-//		private PacienteDto paciente;
-//		private String numeroComprobante;
-//		private String numeroComprobanteAnulado;
-//		private String duracion;
-		
+	public @ResponseBody ResultadoDto registrarTurnos(@RequestParam(name = "horaDesde", required = false) Integer horaDesde, @RequestParam(name = "horaHasta", required = false) Integer horaHasta, @RequestParam(name = "fechaRegistroTurno", required = false) String fechaRegistroTurno, @RequestParam(name = "duracionTurno", required = false) String duracionTurno, @RequestParam(name = "nombreUsuario", required = false) String nombreUsuario) {		
 		Integer duracionInt = Integer.valueOf(duracionTurno);
 		Date targetTimeFecha = DateUtil.stringToDate(fechaRegistroTurno, "dd/MM/yyyy");
 		MedicoDto medico = medicoFacade.getMedicoByUsuario(nombreUsuario);
 		if (medico != null) {
-			// LUCAS: con tu permiso, voy a hardcodear un poquito!
+			// LUCAS: LEERRRRRRRR!!!
+			//con tu permiso, voy a hardcodear un poquito!
 			// saque la hora del Date tambien... y puse hora y minuto como atributos separados..... considerando q nadie nos va a ver el codigo, creo q va a ser mas facil
 			// de manipular de esta manera..
+			// Otra cosa, no se cual era tu idea del atributo "estado", de los turnos.. pero lo cambie a true o false, considerando que indica si el turno ya esta
+			// tomado o no. Si no es asi, volve a cambiarlo como estaba antes. 
+			// y la idea es que, cuando un paciente selecciona un turno, el estado pasa a true y se carga el paciente en su respectivo atributo en el turno, no?
 			if (duracionInt == 10) {
-				for (Integer i = horaDesde; i <= horaHasta; i++) {
+				for (Integer i = horaDesde; i < horaHasta; i++) {
 					TurnosDto turno1 = new TurnosDto();
 					turno1.setMedico(medico);
 					turno1.setEspecialidad(medico.getEspecialidad());
@@ -149,55 +146,146 @@ public class MedicoController {
 					turno1.setHora(i);
 					turno1.setMinutos(0);
 					turno1.setDuracion(10);
-					
 					turnosFacade.crearTurno(turno1);
 					TurnosDto turno2 = new TurnosDto();
-
+					turno2.setMedico(medico);
+					turno2.setEspecialidad(medico.getEspecialidad());
+					turno2.setEstado(false);
+					turno2.setFecha(targetTimeFecha);
+					turno2.setHora(i);
+					turno2.setMinutos(10);
+					turno2.setDuracion(10);
 					turnosFacade.crearTurno(turno2);
 					TurnosDto turno3 = new TurnosDto();
-
+					turno3.setMedico(medico);
+					turno3.setEspecialidad(medico.getEspecialidad());
+					turno3.setEstado(false);
+					turno3.setFecha(targetTimeFecha);
+					turno3.setHora(i);
+					turno3.setMinutos(20);
+					turno3.setDuracion(10);
 					turnosFacade.crearTurno(turno3);
 					TurnosDto turno4 = new TurnosDto();
-
+					turno4.setMedico(medico);
+					turno4.setEspecialidad(medico.getEspecialidad());
+					turno4.setEstado(false);
+					turno4.setFecha(targetTimeFecha);
+					turno4.setHora(i);
+					turno4.setMinutos(30);
+					turno4.setDuracion(10);
 					turnosFacade.crearTurno(turno4);
 					TurnosDto turno5 = new TurnosDto();
-
+					turno5.setMedico(medico);
+					turno5.setEspecialidad(medico.getEspecialidad());
+					turno5.setEstado(false);
+					turno5.setFecha(targetTimeFecha);
+					turno5.setHora(i);
+					turno5.setMinutos(40);
+					turno5.setDuracion(10);
+					turnosFacade.crearTurno(turno5);
+					TurnosDto turno6 = new TurnosDto();
+					turno6.setMedico(medico);
+					turno6.setEspecialidad(medico.getEspecialidad());
+					turno6.setEstado(false);
+					turno6.setFecha(targetTimeFecha);
+					turno6.setHora(i);
+					turno6.setMinutos(60);
+					turno6.setDuracion(10);
 					turnosFacade.crearTurno(turno5);
 				}
 			} else if (duracionInt == 15) {
-				TurnosDto turno1 = new TurnosDto();
-
-				turnosFacade.crearTurno(turno1);
-				TurnosDto turno2 = new TurnosDto();
-
-				turnosFacade.crearTurno(turno2);
-				TurnosDto turno3 = new TurnosDto();
-
-				turnosFacade.crearTurno(turno3);
-				TurnosDto turno4 = new TurnosDto();
-
-				turnosFacade.crearTurno(turno4);
+				for (Integer i = horaDesde; i <= horaHasta; i++) {
+					TurnosDto turno1 = new TurnosDto();
+					turno1.setMedico(medico);
+					turno1.setEspecialidad(medico.getEspecialidad());
+					turno1.setEstado(false);
+					turno1.setFecha(targetTimeFecha);
+					turno1.setHora(i);
+					turno1.setMinutos(0);
+					turno1.setDuracion(15);
+					turnosFacade.crearTurno(turno1);
+					TurnosDto turno2 = new TurnosDto();
+					turno2.setMedico(medico);
+					turno2.setEspecialidad(medico.getEspecialidad());
+					turno2.setEstado(false);
+					turno2.setFecha(targetTimeFecha);
+					turno2.setHora(i);
+					turno2.setMinutos(15);
+					turno2.setDuracion(15);
+					turnosFacade.crearTurno(turno2);
+					TurnosDto turno3 = new TurnosDto();
+					turno3.setMedico(medico);
+					turno3.setEspecialidad(medico.getEspecialidad());
+					turno3.setEstado(false);
+					turno3.setFecha(targetTimeFecha);
+					turno3.setHora(i);
+					turno3.setMinutos(30);
+					turno3.setDuracion(15);
+					turnosFacade.crearTurno(turno3);
+					TurnosDto turno4 = new TurnosDto();
+					turno4.setMedico(medico);
+					turno4.setEspecialidad(medico.getEspecialidad());
+					turno4.setEstado(false);
+					turno4.setFecha(targetTimeFecha);
+					turno4.setHora(i);
+					turno4.setMinutos(45);
+					turno4.setDuracion(15);
+					turnosFacade.crearTurno(turno4);
+				}
 			} else if (duracionInt == 20) {
-				TurnosDto turno1 = new TurnosDto();
-
-				turnosFacade.crearTurno(turno1);
-				TurnosDto turno2 = new TurnosDto();
-
-				turnosFacade.crearTurno(turno2);
-				TurnosDto turno3 = new TurnosDto();
-
-				turnosFacade.crearTurno(turno3);
+				for (Integer i = horaDesde; i <= horaHasta; i++) {
+					TurnosDto turno1 = new TurnosDto();
+					turno1.setMedico(medico);
+					turno1.setEspecialidad(medico.getEspecialidad());
+					turno1.setEstado(false);
+					turno1.setFecha(targetTimeFecha);
+					turno1.setHora(i);
+					turno1.setMinutos(0);
+					turno1.setDuracion(20);
+					turnosFacade.crearTurno(turno1);
+					TurnosDto turno2 = new TurnosDto();
+					turno2.setMedico(medico);
+					turno2.setEspecialidad(medico.getEspecialidad());
+					turno2.setEstado(false);
+					turno2.setFecha(targetTimeFecha);
+					turno2.setHora(i);
+					turno2.setMinutos(20);
+					turno2.setDuracion(20);
+					turnosFacade.crearTurno(turno2);
+					TurnosDto turno3 = new TurnosDto();
+					turno3.setMedico(medico);
+					turno3.setEspecialidad(medico.getEspecialidad());
+					turno3.setEstado(false);
+					turno3.setFecha(targetTimeFecha);
+					turno3.setHora(i);
+					turno3.setMinutos(40);
+					turno3.setDuracion(20);
+					turnosFacade.crearTurno(turno3);
+				}
 			} else if (duracionInt == 30) {
-				TurnosDto turno1 = new TurnosDto();
-
-				turnosFacade.crearTurno(turno1);
-				TurnosDto turno2 = new TurnosDto();
-
-				turnosFacade.crearTurno(turno2);
+				for (Integer i = horaDesde; i <= horaHasta; i++) {
+					TurnosDto turno1 = new TurnosDto();
+					turno1.setMedico(medico);
+					turno1.setEspecialidad(medico.getEspecialidad());
+					turno1.setEstado(false);
+					turno1.setFecha(targetTimeFecha);
+					turno1.setHora(i);
+					turno1.setMinutos(0);
+					turno1.setDuracion(30);
+					turnosFacade.crearTurno(turno1);
+					TurnosDto turno2 = new TurnosDto();
+					turno2.setMedico(medico);
+					turno2.setEspecialidad(medico.getEspecialidad());
+					turno2.setEstado(false);
+					turno2.setFecha(targetTimeFecha);
+					turno2.setHora(i);
+					turno2.setMinutos(30);
+					turno2.setDuracion(30);
+					turnosFacade.crearTurno(turno2);
+				}
 			}
 		}
 		return null;
-
 	}
 
 }
