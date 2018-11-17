@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.mongodb.MongoException;
 
 import ar.uba.fi.dto.PacienteDto;
+import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.mongo.repository.PacienteRepository;
 
 @Service
@@ -80,4 +81,14 @@ public class MongoDBPacienteFacade {
 		}
 		return null;
 	}
+	
+	public PacienteDto getPacienteByUsuario(UsuarioDto usuario) {
+		try {
+			return pacienteRepository.findOneByUsuario(usuario);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+	
+	
 }

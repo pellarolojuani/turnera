@@ -163,7 +163,7 @@
             success : function (response) {
                 //TODO aca abro modal
                 if (response.resultado) {
-                    $('#mensajeTurno').text("Su turno fue solicitado con éxito. Comprobante" + response.mensaje)
+                    $('#mensajeTurno').text("Su turno fue solicitado con éxito. Comprobante: " + response.mensaje)
                     $('#turnoSolicitado').modal('show');
                 } else {
                     $('#mensajeTurno').text("No se pudo solicitar el turno, por favor vuelva a intentarlo.")

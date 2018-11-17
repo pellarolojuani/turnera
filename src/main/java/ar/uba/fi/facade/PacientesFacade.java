@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.uba.fi.dto.PacienteDto;
+import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.mongo.facade.MongoDBPacienteFacade;
 
 @Service
@@ -53,5 +54,9 @@ public class PacientesFacade {
 			return paciente.getNumeroAfiliado();
 		}
 		return null;
+	}
+	
+	public PacienteDto getPacienteByUsuario(UsuarioDto usuario) {
+		return pacienteFacade.getPacienteByUsuario(usuario);
 	}
 }
