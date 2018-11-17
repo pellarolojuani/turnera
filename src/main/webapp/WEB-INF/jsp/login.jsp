@@ -18,11 +18,10 @@
 </head>
 <body>
 <div class="login-form">
-      <c:if test="${not empty errMsg}">
-         <h5 class="error message" style="width: 900px">${errMsg}</h5>
-     </c:if>
+     	
 <%--     <form:form modelAttribute="userForm" action="checkearUsuario" method='POST'> --%>
-        <h2 class="text-center">Bienvenido</h2>   
+        <h2 class="text-center">Bienvenido</h2>  
+        <label id="login-errorLabel" style="display: none;" class="alert alert-danger"></label> 
         <div class="form-group">
         	<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -37,7 +36,6 @@
         </div>        
         <div class="form-group">
               <button type="submit" onclick="checkearUsuario();" class="btn btn-primary login-btn btn-block">Ingresar</button>
-              <label id="login-errorLabel" style="display: none;" class="alert alert-danger"></label>
         </div>
    		<br></br>
         <div class="clearfix">
