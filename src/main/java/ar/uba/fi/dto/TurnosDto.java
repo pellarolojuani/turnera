@@ -20,6 +20,10 @@ public class TurnosDto {
 	private String numeroComprobante;
 	private String numeroComprobanteAnulado;
 	private Integer duracion;
+	//TODO este dato no hace falta que este en la base.
+	private String estadoMostrar;
+	private Boolean mostrarBotonAnular;
+	
 	
 	
 	public TurnosDto() {}
@@ -189,4 +193,21 @@ public class TurnosDto {
 		this.minutos = minutos;
 	}
 	
+	public String getEstadoMostrar() {
+		return estadoMostrar;
+	}
+
+	public void setEstadoMostrar(String estadoMostrar) {
+		this.estadoMostrar = estadoMostrar;
+	}
+
+
+	public Boolean getMostrarBotonAnular() {
+		return mostrarBotonAnular;
+	}
+
+
+	public void setMostrarBotonAnular(Boolean mostrarBotonAnular) {
+		this.mostrarBotonAnular = mostrarBotonAnular;
+	}
 }

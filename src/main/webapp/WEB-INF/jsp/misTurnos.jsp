@@ -18,12 +18,16 @@
 			<tbody>
 				<c:forEach items="${turnos}" var="turno">
 					<tr>
-						<td><fmt:formatDate value="${turno.fecha}" pattern="dd/MM/yyyy HH:MM"/></td>
+						<td>${turno.fechaString}</td>
 						<td>${turno.medico.nombre}</td>
 						<td>${turno.especialidad.descripcion}</td>
-						<td>${turno.estado}</td>
+						<td>${turno.estadoMostrar}</td>
 						<td>${turno.numeroComprobante}</td>
-						<td><a type='button' class='btn btn-warning' onclick="anularTurno('${turno.id}')" >Anular</a></td>
+						<td>
+						<c:if test = "${turno.mostrarBotonAnular}">
+							<button type='button' class='btn btn-warning' onclick="anularTurno('${turno.id}')" >Anular</button>
+						</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

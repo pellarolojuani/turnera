@@ -17,7 +17,6 @@ public class PacienteDto {
 	private String mail;
 	private String telefono;
 	
-	
 	public PacienteDto() {
 	}
 	

@@ -23,7 +23,7 @@ public class MongoDBComprobanteFacade {
 	
 	public ComprobanteDto getMaxComprobante() {		
 		try {
-			return comprobanteRepository.findFirstByOrderByContador();
+			return comprobanteRepository.findFirstByOrderByContadorDesc();
 		} catch (MongoException ex) {
 		}
 		return null;

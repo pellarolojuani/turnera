@@ -6,6 +6,6 @@ import ar.uba.fi.dto.ComprobanteDto;
 
 public interface ComprobanteRepository extends MongoRepository<ComprobanteDto, String>{
 	
-	public ComprobanteDto findFirstByOrderByContador();
-
+	public ComprobanteDto findFirstByOrderByContadorDesc();
+	
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.MedicoDto;
+import ar.uba.fi.dto.PacienteDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.mongo.facade.MongoDBTurnosFacade;
 
@@ -67,4 +68,9 @@ public class TurnosFacade {
 	public List<TurnosDto> getTurnosByMedicoAndEstadoAndEspecialidadAndFecha(MedicoDto medico, Boolean estado, EspecialidadDto especialidad, Date fecha) {
 		return turnoFacade.getTurnosByMedicoAndEstadoAndEspecialidadAndFecha(medico, estado,especialidad, fecha );
 	}
+	
+	public List<TurnosDto> getTurnosByPacienteAndEstadoIsTrue(PacienteDto paciente) {
+		return turnoFacade.getTurnosByPacienteAndEstadoIsTrue(paciente);
+	}
+	
 }

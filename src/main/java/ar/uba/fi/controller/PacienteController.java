@@ -75,33 +75,6 @@ public class PacienteController {
 	public ModelAndView initSolicitarTurno(ModelMap model) {
 		String name = getLoggedInUserName(model);
 		
-		ObjectId id= new ObjectId("5bec9f5e401cf3214078550e");   
-		
-		PacienteDto pacienteDto = pacientesFacade.getPacienteById(id.toString());
-		
-		//EspecialidadDto esp1 = new EspecialidadDto("PSI", "Pisiquiatria");
-	//	especialidadFacade.crearEspecialidad(esp1);
-		
-		//MedicoDto medico = new MedicoDto(esp1, "Medico de Prueba 1", "45678");
-	//	medicoFacade.crearMedico(medico);
-		
-		
-		//TurnosDto turno1 = new TurnosDto(new Date(),esp1, "Aprobado", medico, pacienteDto, "100");
-		
-		//turnosFacade.crearTurno(turno1);
-
-		//TODO aca cargar las especialidades que vienen de la db
-//		EspecialidadDto esp1 = new EspecialidadDto("CAR", "Cardiologia");
-//		EspecialidadDto esp2 = new EspecialidadDto("PSI", "Psiquiatria");
-		
-//		Map<String, String> especialidades = new HashMap<String, String>();
-//		especialidades.put(esp1.getCodigo(), esp1.getDescripcion());
-//		especialidades.put(esp2.getCodigo(), esp2.getDescripcion());
-		
-		//especialidades = especialidadFacade.getAllEspecialidads();
-		
-		//medicos = medicoFacade.getAllMedicos();
-
 		ModelAndView mv = new ModelAndView("solicitarTurno");
 		
 		//TODO las especialidades y medicos se cargar por ajax, pero esto tiene que estar!!!!
@@ -114,31 +87,17 @@ public class PacienteController {
 	}
 
 	@RequestMapping(value = "/misTurnos", method = RequestMethod.GET)
-	public String verTurnos(ModelMap model) {
+	public String verTurnos(ModelMap model,HttpServletRequest request) {
 		String name = getLoggedInUserName(model);
 
-		// TODO aca deberia ir a la base y recuperar los turnos.
-		// definir si muestra o no lo turnos anulados(porque le podemos poner estados)
-//		TurnosDto turno1 = new TurnosDto(new Date(), "Médico Clínico", "Aprobado", "Ezequiel Bergamo");
-//		turno1.setId("1");
-//		TurnosDto turno2 = new TurnosDto(new Date(), "Cardiología", "Rechazado", "Eze Bergamo");
-//		turno2.setId("2");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
-		List<EspecialidadDto> especialidades = new ArrayList<EspecialidadDto>();
-		List<MedicoDto> medicos = new ArrayList<MedicoDto>();
-		List<PacienteDto> pacientes = new ArrayList<PacienteDto>();
-		
-//		turnos.add(turno1);
-//		turnos.add(turno2);
-		
-		especialidades = especialidadFacade.getAllEspecialidads();
-		
-		medicos = medicoFacade.getAllMedicos();
-		
-		pacientes = pacientesFacade.getAllPacientes();
+		UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuario");
+		PacienteDto paciente = pacientesFacade.getPacienteByUsuario(usuario);
+
 		
 		
-		turnos = turnosFacade.getAllTurnos();	
+		turnos = turnosFacade.getTurnosByPacienteAndEstadoIsTrue(paciente);
+		this.turnosAMostrarEnMisTurnos(turnos);
 
 		model.put("turnos", turnos);
 		return "misTurnos";
@@ -173,13 +132,15 @@ public class PacienteController {
 		if(comprobante == null) {
 			 comprobanteNuevo = new ComprobanteDto(1);
 		} else {
-			 comprobanteNuevo = new ComprobanteDto(comprobante.getContador()+1);
+			Integer contador = comprobante.getContador() + 1;
+			 comprobanteNuevo = new ComprobanteDto(contador);
 		}
 		comprobanteFacade.crearComprobante(comprobanteNuevo);
 		TurnosDto turno = turnosFacade.getTurnoById(id);
 		turno.setEstado(true);
 		turno.setPaciente(paciente);
 		turno.setNumeroComprobante(comprobanteNuevo.getContador().toString());
+		turno.setNumeroComprobanteAnulado(null);
 		turnosFacade.editarTurno(turno);
 	
 		
@@ -189,21 +150,50 @@ public class PacienteController {
 	}
 	
 	@RequestMapping(value = "/anularTurno", method = RequestMethod.GET)
-	public @ResponseBody ResultadoDto anularTurno(@RequestParam String id) {
+	public @ResponseBody ResultadoDto anularTurno(@RequestParam String id, HttpServletRequest request) {
 
-		// TODO aca voy a la base y le cambio el estado al turno.
-		// inyectar servicios
-		System.out.println("voy a anular el turno id:" + id);
+		UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuario");
+		//PacienteDto paciente = pacientesFacade.getPacienteByUsuario(usuario);
 		
+		ComprobanteDto comprobante = comprobanteFacade.getMaxComprobante();
+		ComprobanteDto comprobanteNuevo = null;
+		
+		if(comprobante == null) {
+			 comprobanteNuevo = new ComprobanteDto(1);
+		} else {
+			 Integer contador = comprobante.getContador() + 1;
+			 comprobanteNuevo = new ComprobanteDto(contador);
+		}
+		comprobanteFacade.crearComprobante(comprobanteNuevo);
 		TurnosDto turno = turnosFacade.getTurnoById(id);
-		turno.setEstado(true);
+		turno.setEstado(false);
+		turno.setPaciente(null);
+		turno.setNumeroComprobanteAnulado(comprobanteNuevo.getContador().toString());
 		turnosFacade.editarTurno(turno);
+	
 		
-		Boolean resultadoAnularTurno = true;
-		//aca le pasamos el número de comprobante
-		ResultadoDto resultado = new ResultadoDto(true, "101");
+		ResultadoDto resultado = new ResultadoDto(true,turno.getNumeroComprobanteAnulado());
 		
 		return resultado;
+	}
+	
+	
+	private void turnosAMostrarEnMisTurnos(List<TurnosDto> turnos){
+		
+		for(TurnosDto turno: turnos) {
+			
+			turno.setFechaString(DateUtil.dateToStringHoraMinuto(turno.getFecha(), "dd/MM/yyyy", turno.getHora(), turno.getMinutos()));
+
+			if(DateUtil.isFechaAnteriorAFechaHoy(DateUtil.stringToDate(turno.getFechaString(), "dd/MM/yyyy HH:mm"), new Date())) {
+				//En este caso la consulta ya fue realizada.
+				turno.setEstadoMostrar("Consumido");
+				turno.setMostrarBotonAnular(false);
+			} else {
+				turno.setEstadoMostrar("Pendiente");
+				turno.setMostrarBotonAnular(true);
+			}
+			
+		}
 	}
 
 }

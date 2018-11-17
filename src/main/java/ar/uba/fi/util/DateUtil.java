@@ -20,14 +20,32 @@ public class DateUtil {
 	}
 
 	public static String addNMinutesToTime(Calendar date, String minutes) {
-				SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-				int minutesToAdd = Integer.valueOf(minutes);
-				System.out.println("Initial Time: " + df.format(date.getTime()));
-				Calendar startTime = date;
-				startTime.add(date.MINUTE, minutesToAdd);
-				String dateStr = df.format(startTime.getTime());
-				System.out.println("After Time : " + dateStr + "\n");
-				return dateStr;
-			}
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		int minutesToAdd = Integer.valueOf(minutes);
+		System.out.println("Initial Time: " + df.format(date.getTime()));
+		Calendar startTime = date;
+		startTime.add(date.MINUTE, minutesToAdd);
+		String dateStr = df.format(startTime.getTime());
+		System.out.println("After Time : " + dateStr + "\n");
+		return dateStr;
+	}
+
+	public static String dateToStringHoraMinuto(Date fecha, String formato, Integer hora, Integer minuto) {
+		SimpleDateFormat df = new SimpleDateFormat(formato);
+
+		String fechaString = df.format(fecha);
+		
+		String horaS = hora.toString();
+		String minutoS = minuto.toString();
+		
+		if(horaS.length() < 2) horaS = "0" + horaS;
+		if(minutoS.length() < 2) minutoS = "0" + minutoS;
+
+		return fechaString +" " +horaS +":" +minutoS ;
+	}
+	
+	public static Boolean isFechaAnteriorAFechaHoy(Date fecha, Date fechaHoy) {
+		return fecha.before(fechaHoy);
+	}
 
 }

@@ -13,6 +13,7 @@ import com.mongodb.MongoException;
 
 import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.MedicoDto;
+import ar.uba.fi.dto.PacienteDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.mongo.repository.TurnoRepository;
 
@@ -146,4 +147,13 @@ public class MongoDBTurnosFacade {
 		}
 		return null;
 	}
+	
+	public List<TurnosDto> getTurnosByPacienteAndEstadoIsTrue(PacienteDto paciente) {
+		try {
+			return turnoRepository.findByPacienteAndAndEstadoIsTrue(paciente);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+	
 }
