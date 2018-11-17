@@ -2,6 +2,9 @@
 <%@ include file="common/header.jspf"%>
 <div class="container">
 	<div class="form-group">
+		<label id="login-errorLabel" style="display: none;" class="alert alert-danger"></label>
+	</div> 
+	<div class="form-group">
 		<!-- Date input -->
 		<label class="control-label" for="date">FechaTurno</label> <input class="form-control" id="datepickerRegistrar" name="fechaRegistroTurno" placeholder="MM/DD/YYY" type="text" />
 	</div>
@@ -67,34 +70,47 @@ function registrarTurnos() {
 	 var horaHasta = $('#horaHasta').val();
      var fechaRegistroTurno = $('#datepickerRegistrar').val();
      var duracionTurno =  $('#duracionTurno').val();
-    // $("#tbodySolicitarTurno").empty();
-    debugger;
-    //TODO validar que hasta sea mayor a desde
-
-     $.ajax({
-         type : "GET",
-         contentType : "application/json",
-         url : "/registrarTurnosNuevos",
-         dataType : "json",
-         data : {
-             horaDesde : horaDesde,
-        	 horaHasta : horaHasta,
-             fechaRegistroTurno : fechaRegistroTurno,
-             duracionTurno: duracionTurno
-         },
-         cache : false,
-         success : function (response) {
-//             var filas = response.length;
-//              if (response != null && filas > 0) {
-
-//                  for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
-//                      var nuevafila = "<tr><td>" + response[i].fechaString + "</td><td>" + response[i].medico.nombre + "</td><td>" + response[i].especialidad.descripcion + "</td><td>" + response[i].duracion + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
-
-//                      $("#tbodySolicitarTurno").append(nuevafila);
-//                  }
-//              }
-         }
-     });
+	 debugger;
+     if(parseInt(horaHasta) > parseInt(horaDesde)  ){
+    	 if(fechaRegistroTurno != null && fechaRegistroTurno != ''){
+	     $.ajax({
+	         type : "GET",
+	         contentType : "application/json",
+	         url : "/registrarTurnosNuevos",
+	         dataType : "json",
+	         data : {
+	             horaDesde : horaDesde,
+	        	 horaHasta : horaHasta,
+	             fechaRegistroTurno : fechaRegistroTurno,
+	             duracionTurno: duracionTurno
+	         },
+	         cache : false,
+	         success : function (response) {
+	//             var filas = response.length;
+	//              if (response != null && filas > 0) {
+	
+	//                  for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
+	//                      var nuevafila = "<tr><td>" + response[i].fechaString + "</td><td>" + response[i].medico.nombre + "</td><td>" + response[i].especialidad.descripcion + "</td><td>" + response[i].duracion + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
+	
+	//                      $("#tbodySolicitarTurno").append(nuevafila);
+	//                  }
+	//              }
+	         }
+	     });
+    	 } else{
+    	  	 $('#login-errorLabel').text("Debe seleccionar una fecha de turno.");
+             $('#login-errorLabel').show();
+             setTimeout(function () {
+                 $('#login-errorLabel').hide();
+             }, 5000); 
+    	 }
+     } else {
+    	 $('#login-errorLabel').text("La hora hasta debe ser mayor a la hora desde.");
+         $('#login-errorLabel').show();
+         setTimeout(function () {
+             $('#login-errorLabel').hide();
+         }, 5000);
+     }
 }
 
 </script>
