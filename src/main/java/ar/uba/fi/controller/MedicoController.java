@@ -130,7 +130,7 @@ public class MedicoController {
 	}
 
 	@RequestMapping(value = "/registrarTurnosNuevos", method = RequestMethod.GET)
-	public @ResponseBody ResultadoDto registrarTurnos(
+	public @ResponseBody List<TurnosDto> registrarTurnos(
 			@RequestParam(name = "horaDesde", required = false) Integer horaDesde,
 			@RequestParam(name = "horaHasta", required = false) Integer horaHasta,
 			@RequestParam(name = "fechaRegistroTurno", required = false) String fechaRegistroTurno,
@@ -139,6 +139,7 @@ public class MedicoController {
 		Date targetTimeFecha = DateUtil.stringToDate(fechaRegistroTurno, "dd/MM/yyyy");
 		UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuario");
 		MedicoDto medico = medicoFacade.getMedicoByUsuario(usuario);
+		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
 		if (medico != null) {
 			if (duracionInt == 10) {
 				for (Integer i = horaDesde; i < horaHasta; i++) {
@@ -150,6 +151,7 @@ public class MedicoController {
 					turno1.setHora(i);
 					turno1.setMinutos(0);
 					turno1.setDuracion(10);
+					turnos.add(turno1);
 					turnosFacade.crearTurno(turno1);
 					TurnosDto turno2 = new TurnosDto();
 					turno2.setMedico(medico);
@@ -159,6 +161,7 @@ public class MedicoController {
 					turno2.setHora(i);
 					turno2.setMinutos(10);
 					turno2.setDuracion(10);
+					turnos.add(turno2);
 					turnosFacade.crearTurno(turno2);
 					TurnosDto turno3 = new TurnosDto();
 					turno3.setMedico(medico);
@@ -168,6 +171,7 @@ public class MedicoController {
 					turno3.setHora(i);
 					turno3.setMinutos(20);
 					turno3.setDuracion(10);
+					turnos.add(turno3);
 					turnosFacade.crearTurno(turno3);
 					TurnosDto turno4 = new TurnosDto();
 					turno4.setMedico(medico);
@@ -177,6 +181,7 @@ public class MedicoController {
 					turno4.setHora(i);
 					turno4.setMinutos(30);
 					turno4.setDuracion(10);
+					turnos.add(turno4);
 					turnosFacade.crearTurno(turno4);
 					TurnosDto turno5 = new TurnosDto();
 					turno5.setMedico(medico);
@@ -186,6 +191,7 @@ public class MedicoController {
 					turno5.setHora(i);
 					turno5.setMinutos(40);
 					turno5.setDuracion(10);
+					turnos.add(turno5);
 					turnosFacade.crearTurno(turno5);
 					TurnosDto turno6 = new TurnosDto();
 					turno6.setMedico(medico);
@@ -195,7 +201,8 @@ public class MedicoController {
 					turno6.setHora(i);
 					turno6.setMinutos(60);
 					turno6.setDuracion(10);
-					turnosFacade.crearTurno(turno5);
+					turnos.add(turno6);
+					turnosFacade.crearTurno(turno6);
 				}
 			} else if (duracionInt == 15) {
 				for (Integer i = horaDesde; i <= horaHasta; i++) {
@@ -207,6 +214,7 @@ public class MedicoController {
 					turno1.setHora(i);
 					turno1.setMinutos(0);
 					turno1.setDuracion(15);
+					turnos.add(turno1);
 					turnosFacade.crearTurno(turno1);
 					TurnosDto turno2 = new TurnosDto();
 					turno2.setMedico(medico);
@@ -216,6 +224,7 @@ public class MedicoController {
 					turno2.setHora(i);
 					turno2.setMinutos(15);
 					turno2.setDuracion(15);
+					turnos.add(turno2);
 					turnosFacade.crearTurno(turno2);
 					TurnosDto turno3 = new TurnosDto();
 					turno3.setMedico(medico);
@@ -225,6 +234,7 @@ public class MedicoController {
 					turno3.setHora(i);
 					turno3.setMinutos(30);
 					turno3.setDuracion(15);
+					turnos.add(turno3);
 					turnosFacade.crearTurno(turno3);
 					TurnosDto turno4 = new TurnosDto();
 					turno4.setMedico(medico);
@@ -234,6 +244,7 @@ public class MedicoController {
 					turno4.setHora(i);
 					turno4.setMinutos(45);
 					turno4.setDuracion(15);
+					turnos.add(turno4);
 					turnosFacade.crearTurno(turno4);
 				}
 			} else if (duracionInt == 20) {
@@ -246,6 +257,7 @@ public class MedicoController {
 					turno1.setHora(i);
 					turno1.setMinutos(0);
 					turno1.setDuracion(20);
+					turnos.add(turno1);
 					turnosFacade.crearTurno(turno1);
 					TurnosDto turno2 = new TurnosDto();
 					turno2.setMedico(medico);
@@ -255,6 +267,7 @@ public class MedicoController {
 					turno2.setHora(i);
 					turno2.setMinutos(20);
 					turno2.setDuracion(20);
+					turnos.add(turno2);
 					turnosFacade.crearTurno(turno2);
 					TurnosDto turno3 = new TurnosDto();
 					turno3.setMedico(medico);
@@ -264,6 +277,7 @@ public class MedicoController {
 					turno3.setHora(i);
 					turno3.setMinutos(40);
 					turno3.setDuracion(20);
+					turnos.add(turno3);
 					turnosFacade.crearTurno(turno3);
 				}
 			} else if (duracionInt == 30) {
@@ -276,6 +290,7 @@ public class MedicoController {
 					turno1.setHora(i);
 					turno1.setMinutos(0);
 					turno1.setDuracion(30);
+					turnos.add(turno1);
 					turnosFacade.crearTurno(turno1);
 					TurnosDto turno2 = new TurnosDto();
 					turno2.setMedico(medico);
@@ -285,11 +300,12 @@ public class MedicoController {
 					turno2.setHora(i);
 					turno2.setMinutos(30);
 					turno2.setDuracion(30);
+					turnos.add(turno2);
 					turnosFacade.crearTurno(turno2);
 				}
 			}
 		}
-		return null;
+		return turnos;
 	}
 
 }

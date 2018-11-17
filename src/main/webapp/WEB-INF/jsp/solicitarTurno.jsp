@@ -66,10 +66,6 @@
     });
     
     function formattedDate(d, hora, minuto) {
-  		debugger;
-//   		  console.log(d);
-//   		console.log(hora);
-//   		console.log(minuto);
     	  let month = String(d.getMonth() + 1);
     	  let day = String(d.getDate());
     	  const year = String(d.getFullYear());
@@ -82,16 +78,7 @@
     	  
     	  let minute = minuto;
     	  if (minute < 2) minute =  '0' + minute;
-
-  		  console.log(day);
-    		console.log(month);
-    		console.log(year);
-    
-    	  		console.log(hour);
-    	  		console.log(minute);
-    	  
-    	  return day +"/"+ month +"/"+ year +" "+hour +":" +minute;
-    	  
+    	  return day +"/"+ month +"/"+ year +" "+hour +":" +minute;	  
     	}
 
     function cargarMedicosPorEspecialidad() {
@@ -138,7 +125,6 @@
                 if (response != null && filas > 0) {
 
                     for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
-                    	debugger;
                 		var fecha = new Date(response[i].fecha);
                 		var fechaString = formattedDate(fecha,response[i].hora,response[i].minutos);
                     	
