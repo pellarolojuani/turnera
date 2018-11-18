@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.mongodb.MongoException;
 
+import ar.uba.fi.dto.EspecialidadDto;
+import ar.uba.fi.dto.MedicoDto;
+import ar.uba.fi.dto.PacienteDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.mongo.repository.TurnoRepository;
 
@@ -66,7 +69,7 @@ public class MongoDBTurnosFacade {
 		}
 		return null;
 	}
-	
+
 	public List<TurnosDto> getTurnosBetweenDates(Date inicio, Date fin) {
 		Criteria cri = null;
 		if (inicio != null) {
@@ -89,15 +92,15 @@ public class MongoDBTurnosFacade {
 		}
 		return mongoTemplate.find(query, TurnosDto.class);
 	}
-	
-	public List<TurnosDto> getTurnosByEspecialidad(String especialidad) {
+
+	public List<TurnosDto> getTurnosByEspecialidad(EspecialidadDto especialidad) {
 		try {
 			return turnoRepository.findByEspecialidad(especialidad);
 		} catch (MongoException ex) {
 		}
 		return null;
 	}
-	
+
 	public List<TurnosDto> getTurnosByEstado(String estado) {
 		try {
 			return turnoRepository.findByEstado(estado);
@@ -105,12 +108,68 @@ public class MongoDBTurnosFacade {
 		}
 		return null;
 	}
-	
-	public List<TurnosDto> getTurnosByMedico(String medico) {
+
+	public List<TurnosDto> getTurnosByMedico(MedicoDto medico) {
 		try {
 			return turnoRepository.findByMedico(medico);
 		} catch (MongoException ex) {
 		}
 		return null;
 	}
+
+	public List<TurnosDto> getTurnosByMedicoAndEstado(MedicoDto medico, Boolean estado) {
+		try {
+			if (estado) {
+				return turnoRepository.findByMedicoAndEstadoIsTrue(medico);
+			}
+			return turnoRepository.findByMedicoAndEstadoIsFalse(medico);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+
+	public List<TurnosDto> getTurnosByMedicoAndEstadoAndEspecialidadAndFecha(MedicoDto medico, Boolean estado,
+			EspecialidadDto especialidad, Date fecha) {
+		try {
+			if (estado) {
+				return turnoRepository.findByMedicoAndFechaAndAndEspecialidadAndEstadoIsTrue(medico, fecha,
+						especialidad);
+			}
+			return turnoRepository.findByMedicoAndFechaAndAndEspecialidadAndEstadoIsFalse(medico, fecha, especialidad);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+
+	public List<TurnosDto> getTurnosLibresByMedicoAndDate(MedicoDto medico, Date date) {
+		try {
+			return turnoRepository.findByMedicoAndFechaAndEstadoIsFalse(medico, date);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+
+	public List<TurnosDto> getTurnosByPacienteAndEstadoIsTrue(PacienteDto paciente) {
+		try {
+			return turnoRepository.findByPacienteAndAndEstadoIsTrue(paciente);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+		
+	public List<TurnosDto> getTurnosByMedicoAndEstadoAndEspecialidad(MedicoDto medico, Boolean estado,
+			EspecialidadDto especialidad) {
+		try {
+			if (estado) {
+				return turnoRepository.findByMedicoAndEspecialidadAndEstadoIsTrue(medico,
+						especialidad);
+			}
+			return turnoRepository.findByMedicoAndEspecialidadAndEstadoIsFalse(medico, especialidad);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+	
+	
+
 }

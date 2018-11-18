@@ -3,11 +3,14 @@ package ar.uba.fi.mongo.facade;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.mongodb.MongoException;
 
 import ar.uba.fi.dto.PacienteDto;
+import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.mongo.repository.PacienteRepository;
 
 @Service
@@ -67,4 +70,25 @@ public class MongoDBPacienteFacade {
 		}
 		return null;
 	}
+	
+	public PacienteDto getUltimoPaciente() {
+		try {
+			List<PacienteDto> listaPacientes = pacienteRepository.findAll(new Sort(Direction.DESC, "numeroAfiliado"));
+			if (listaPacientes != null && listaPacientes.size() != 0) {
+				return listaPacientes.get(0);				
+			}
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+	
+	public PacienteDto getPacienteByUsuario(UsuarioDto usuario) {
+		try {
+			return pacienteRepository.findOneByUsuario(usuario);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
+	
+	
 }

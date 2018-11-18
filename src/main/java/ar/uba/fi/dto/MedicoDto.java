@@ -7,18 +7,58 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class MedicoDto {
 	@Id
 	private String id;
-	private String especialidad;
+	private EspecialidadDto especialidad;
 	private String nombre;
+	private String matricula;
+	private UsuarioDto usuario;
 	
-	public MedicoDto(String especialidad, String nombre) {
+	public MedicoDto(String id, EspecialidadDto especialidad, String nombre, String matricula) {
+		super();
+		this.id = id;
+		this.especialidad = especialidad;
+		this.nombre = nombre;
+		this.matricula = matricula;
+	}
+	
+	public MedicoDto(EspecialidadDto especialidad, String nombre, String matricula) {
+		super();
+		this.especialidad = especialidad;
+		this.nombre = nombre;
+		this.matricula = matricula;
+	}
+
+	public MedicoDto(String nombre, String matricula) {
+		super();
+		this.nombre = nombre;
+		this.matricula = matricula;
+	}
+
+	public MedicoDto() {}
+	
+	
+	public UsuarioDto getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioDto usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+	public MedicoDto(EspecialidadDto especialidad, String nombre) {
 		super();
 		this.especialidad = especialidad;
 		this.nombre = nombre;
 	}
-	public String getEspecialidad() {
+	public EspecialidadDto getEspecialidad() {
 		return especialidad;
 	}
-	public void setEspecialidad(String especialidad) {
+	public void setEspecialidad(EspecialidadDto especialidad) {
 		this.especialidad = especialidad;
 	}
 	public String getNombre() {

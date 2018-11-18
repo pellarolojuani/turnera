@@ -10,12 +10,26 @@ public class TurnosDto {
 	@Id
 	private String id;
 	private Date fecha;
-	private String especialidad;
-	private String estado;
-	private String medico;
+	private Integer hora;
+	private Integer minutos;
+	private EspecialidadDto especialidad;
+	private Boolean estado;
+	private MedicoDto medico;
+	private String fechaString;
+	private PacienteDto paciente;
+	private String numeroComprobante;
+	private String numeroComprobanteAnulado;
+	private Integer duracion;
+	//TODO este dato no hace falta que este en la base.
+	private String estadoMostrar;
+	private Boolean mostrarBotonAnular;
 	
 	
-	public TurnosDto(Date fecha, String especialidad, String estado, String medico) {
+	
+	public TurnosDto() {}
+	
+	
+	public TurnosDto(Date fecha, EspecialidadDto especialidad, Boolean estado, MedicoDto medico) {
 		super();
 		this.fecha = fecha;
 		this.especialidad = especialidad;
@@ -23,23 +37,77 @@ public class TurnosDto {
 		this.medico = medico;
 	}
 	
+	public TurnosDto(Date fecha, Boolean estado, PacienteDto paciente) {
+		super();
+		this.fecha = fecha;
+		this.estado = estado;
+		this.paciente = paciente;
+	}
 	
+	
+	public TurnosDto(Date fecha, EspecialidadDto especialidad, MedicoDto medico) {
+		super();
+		this.fecha = fecha;
+		this.especialidad = especialidad;
+		this.medico = medico;
+	}
+	
+	
+	
+	public TurnosDto(Date fecha, EspecialidadDto especialidad, Boolean estado, MedicoDto medico, PacienteDto paciente,
+			String numeroComprobante) {
+		super();
+		this.fecha = fecha;
+		this.especialidad = especialidad;
+		this.estado = estado;
+		this.medico = medico;
+		this.paciente = paciente;
+		this.numeroComprobante = numeroComprobante;
+	}
+
+	public TurnosDto(String id, Date fecha, EspecialidadDto especialidad, Boolean estado, MedicoDto medico,
+			String fechaString, PacienteDto paciente, String numeroComprobante) {
+		super();
+		this.id = id;
+		this.fecha = fecha;
+		this.especialidad = especialidad;
+		this.estado = estado;
+		this.medico = medico;
+		this.fechaString = fechaString;
+		this.paciente = paciente;
+		this.numeroComprobante = numeroComprobante;
+	}
+
+	public TurnosDto(Date fecha, EspecialidadDto especialidad, Boolean estado, MedicoDto medico, PacienteDto paciente,
+			String numeroComprobante, String numeroComprobanteAnulado, Integer duracion) {
+		super();
+		this.fecha = fecha;
+		this.especialidad = especialidad;
+		this.estado = estado;
+		this.medico = medico;
+		this.paciente = paciente;
+		this.numeroComprobante = numeroComprobante;
+		this.numeroComprobanteAnulado = numeroComprobanteAnulado;
+		this.duracion = duracion;
+	}
+
+
 	public Date getFecha() {
 		return fecha;
 	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public String getEspecialidad() {
+	public EspecialidadDto getEspecialidad() {
 		return especialidad;
 	}
-	public void setEspecialidad(String espacialidad) {
+	public void setEspecialidad(EspecialidadDto espacialidad) {
 		this.especialidad = espacialidad;
 	}
-	public String getEstado() {
+	public Boolean getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 
@@ -52,13 +120,94 @@ public class TurnosDto {
 	}
 
 
-	public String getMedico() {
+	public MedicoDto getMedico() {
 		return medico;
 	}
 
 
-	public void setMedico(String medico) {
+	public void setMedico(MedicoDto medico) {
 		this.medico = medico;
 	}
 
+	public String getFechaString() {
+		return fechaString;
+	}
+
+	public void setFechaString(String fechaString) {
+		this.fechaString = fechaString;
+	}
+
+	public PacienteDto getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(PacienteDto paciente) {
+		this.paciente = paciente;
+	}
+
+	public String getNumeroComprobante() {
+		return numeroComprobante;
+	}
+
+	public void setNumeroComprobante(String numeroComprobante) {
+		this.numeroComprobante = numeroComprobante;
+	}
+
+
+	public String getNumeroComprobanteAnulado() {
+		return numeroComprobanteAnulado;
+	}
+
+
+	public void setNumeroComprobanteAnulado(String numeroComprobanteAnulado) {
+		this.numeroComprobanteAnulado = numeroComprobanteAnulado;
+	}
+
+
+	public Integer getDuracion() {
+		return duracion;
+	}
+
+
+	public void setDuracion(Integer duracion) {
+		this.duracion = duracion;
+	}
+
+
+	public Integer getHora() {
+		return hora;
+	}
+
+
+	public void setHora(Integer hora) {
+		this.hora = hora;
+	}
+
+
+	public Integer getMinutos() {
+		return minutos;
+	}
+
+
+	public void setMinutos(Integer minutos) {
+		this.minutos = minutos;
+	}
+	
+	public String getEstadoMostrar() {
+		return estadoMostrar;
+	}
+
+	public void setEstadoMostrar(String estadoMostrar) {
+		this.estadoMostrar = estadoMostrar;
+	}
+
+
+	public Boolean getMostrarBotonAnular() {
+		return mostrarBotonAnular;
+	}
+
+
+	public void setMostrarBotonAnular(Boolean mostrarBotonAnular) {
+		this.mostrarBotonAnular = mostrarBotonAnular;
+	}
 }

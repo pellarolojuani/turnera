@@ -9,4 +9,6 @@ public interface UsuarioRepository  extends MongoRepository<UsuarioDto, String>{
 
 	public UsuarioDto findOneByNombreUsuario(String nombreUsuario);
 
+	public UsuarioDto findOneByNombreUsuarioAndContrasenia(String nombreUsuario, String contrasenia);
+
 }

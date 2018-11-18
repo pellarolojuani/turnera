@@ -59,4 +59,12 @@ public class MongoDBUsuarioFacade {
 		}
 		return null;
 	}
+	
+	public UsuarioDto getUsuarioByNombreUsuarioAndContrasenia(String nombreUsuario, String contrasenia) {
+		try {
+			return userRepository.findOneByNombreUsuarioAndContrasenia(nombreUsuario, contrasenia);
+		} catch (MongoException ex) {
+		}
+		return null;
+	}
 }

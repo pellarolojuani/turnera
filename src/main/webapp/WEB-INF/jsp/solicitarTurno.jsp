@@ -1,48 +1,163 @@
-<%@ include file="common/header.jspf" %>
-<%@ include file="common/navigation.jspf" %>
-
-	<div class="container">
-		<form name='r' action="buscarTurnosDisponibles" method='GET'>
-	<div class="span12">
-					<div class="control-group">
-						<label class="control-label">Especialidad:</label>
-						<div class="controls">
-							 <form:select path="especialidades" items="${especialidades}"/>
-						</div>
-						<div><label>FechaTurno: </label><input type="text" id="targetDate"></div>
-					</div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-success login-btn btn-block">Buscar Turno</button>
-        	</div>
-				</div>
-		</form>
-		<c:forEach items="${turnos}" var="turno">
-		<table class="table table-striped">
-			<caption>Your todos are</caption>
-			<thead>
-				<tr>
-					<th>Description</th>
-					<th>Target Date</th>
-					<th>Is it Done?</th>
-					<th></th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-					<tr>
-						<td>${todo.desc}</td>
-						<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy"/></td>
-						<td>${todo.done}</td>
-						<td><a type="button" class="btn btn-success"
-							href="/update-todo?id=${todo.id}">Update</a></td>
-						<td><a type="button" class="btn btn-warning"
-							href="/delete-todo?id=${todo.id}">Delete</a></td>
-					</tr>
-			</tbody>
-		</table>
-		</c:forEach>
-		<div>
-			<a class="button" href="/add-todo">Add a Todo</a>
-		</div>
+<%@ include file="common/navigation.jspf"%>
+<%@ include file="common/header.jspf"%>
+<div class="container">
+	<div class="form-group">
+		<label for="exampleFormControlSelect1">Especialidades</label>
+		<form:select class="form-control" id="especialidad" name="especialidades" path="especialidades" onchange="cargarMedicosPorEspecialidad();">
+		</form:select>
 	</div>
-<%@ include file="common/footer.jspf" %>
+
+	<div class="form-group">
+		<label for="exampleFormControlSelect2">Medicos</label>
+		<form:select class="form-control" id="medico" name="medicos" path="medicos">
+		</form:select>
+	</div>
+
+	<div class="form-group">
+		<!-- Date input -->
+		<label class="control-label" for="date">FechaTurno</label> <input class="form-control" id="datepickerSolicitar" name="fechaTurno" placeholder="MM/DD/YYY" type="text" />
+	</div>
+	<div class="form-group">
+		<button id="buscarTurno" class="btn btn-success login-btn btn-block" onclick="buscarTurno()">Buscar Turno</button>
+	</div>
+</div>
+<div class="form-group">
+	<table class="table table-striped">
+		<caption>Selecionar Turno</caption>
+		<thead>
+			<tr>
+				<th>Fecha</th>
+				<th>Medico</th>
+				<th>Especialidad</th>
+				<th>Duraci&oacute;n</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody id="tbodySolicitarTurno">
+		</tbody>
+	</table>
+
+</div>
+<%@ include file="turnoSolicitadoModal.jsp"%>
+<script>
+    $(document).ready(function () {
+        if (localStorage.getItem("permiso") === "medico") {
+            $("#tabOptions").append('<li><a href="/verTurnos">Ver Turnos</a></li>');
+            $("#tabOptions").append('<li><a href="/registrarTurnosInit">Registrar Turnos</a></li>');
+        }
+        
+        $.ajax({
+            type : "GET",
+            contentType : "application/json",
+            url : "/cargarEspecialidades",
+            dataType : "json",
+            cache : false,
+            async : false,
+            success : function (response) {
+                if (response !== null && response !== undefined) {
+                    $.each(response, function (index, value) {
+                        $("#especialidad").append(new Option(value.descripcion, value.codigo));
+                    });
+                }
+            }
+        });
+        cargarMedicosPorEspecialidad();
+    });
+    
+    function formattedDate(d, hora, minuto) {
+    	  let month = String(d.getMonth() + 1);
+    	  let day = String(d.getDate());
+    	  const year = String(d.getFullYear());
+
+    	  if (month.length < 2) month = '0' + month;
+    	  if (day.length < 2) day = '0' + day;
+    	  
+    	  let hour = hora;
+    	  if (hour< 2) hour =  '0' + hour;
+    	  
+    	  let minute = minuto;
+    	  if (minute < 2) minute =  '0' + minute;
+    	  return day +"/"+ month +"/"+ year +" "+hour +":" +minute;	  
+    	}
+
+    function cargarMedicosPorEspecialidad() {
+        $.ajax({
+            type : "GET",
+            async : false,
+            contentType : "application/json",
+            data : {
+                especialidad : $('#especialidad').val()
+            },
+            url : "/cargarMedicos",
+            dataType : "json",
+            cache : false,
+            success : function (response) {
+                if (response.result !== null && response.result !== undefined) {
+                    $("#medico").empty();
+                    $.each(response.result, function (index, value) {
+                        $("#medico").append(new Option(value.nombre, value.id));
+                    });
+                }
+            }
+        });
+    }
+
+    function buscarTurno() {
+        var especialidad = $('#especialidad').val();
+        var fechaTurno = $('#datepickerSolicitar').val();
+        var medico = $('#medico').val();
+        $("#tbodySolicitarTurno").empty();
+
+        $.ajax({
+            type : "GET",
+            contentType : "application/json",
+            url : "/buscarTurnosDisponibles",
+            dataType : "json",
+            data : {
+                especialidad : especialidad,
+                fechaTurno : fechaTurno,
+                medico : medico
+            },
+            cache : false,
+            success : function (response) {
+                var filas = response.length;
+                if (response != null && filas > 0) {
+
+                    for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
+                		var fecha = new Date(response[i].fecha);
+                		var fechaString = formattedDate(fecha,response[i].hora,response[i].minutos);
+                    	
+                        var nuevafila = "<tr><td>" + fechaString + "</td><td>" + response[i].medico.nombre + "</td><td>" + response[i].especialidad.descripcion + "</td><td>" + response[i].duracion + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
+
+                        $("#tbodySolicitarTurno").append(nuevafila);
+                    }
+                }
+            }
+        });
+    }
+
+    function solicitar(id) {
+        $.ajax({
+            type : "GET",
+            contentType : "application/json",
+            url : "/solicitar",
+            dataType : "json",
+            data : {
+                id : id
+            },
+            success : function (response) {
+                //TODO aca abro modal
+                if (response.resultado) {
+                    $('#mensajeTurno').text("Su turno fue solicitado con éxito. Comprobante: " + response.mensaje)
+                    $('#turnoSolicitado').modal('show');
+                } else {
+                    $('#mensajeTurno').text("No se pudo solicitar el turno, por favor vuelva a intentarlo.")
+                    $('#turnoSolicitado').modal('show');
+                }
+            }
+        });
+
+    }
+</script>
+<%@ include file="common/footer.jspf"%>
