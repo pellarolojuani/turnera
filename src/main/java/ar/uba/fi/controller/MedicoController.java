@@ -21,11 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import ar.uba.fi.dto.ComprobanteDto;
 import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.MedicoDto;
 import ar.uba.fi.dto.PacienteDto;
+import ar.uba.fi.dto.ResultadoDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.dto.UsuarioDto;
+import ar.uba.fi.facade.ComprobanteFacade;
 import ar.uba.fi.facade.EspecialidadFacade;
 import ar.uba.fi.facade.MedicoFacade;
 import ar.uba.fi.facade.TurnosFacade;
@@ -41,6 +44,9 @@ public class MedicoController {
 	private EspecialidadFacade especialidadFacade;
 	@Autowired
 	private MedicoFacade medicoFacade;
+	@Autowired
+	private ComprobanteFacade comprobanteFacade;
+
 
 	@RequestMapping(value = "/verTurnos", method = RequestMethod.GET)
 	public ModelAndView initSolicitarTurno(ModelMap model) {
@@ -82,19 +88,26 @@ public class MedicoController {
 	}
 
 	@RequestMapping(value = "/anularPorMedico", method = RequestMethod.GET)
-	public @ResponseBody Boolean anularPorMedico(@RequestParam String id) {
+	public @ResponseBody ResultadoDto anularPorMedico(@RequestParam String id) {
 
-		// TODO aca voy a la base y le cambio el estado al turno.
-		// inyectar servicios
-		System.out.println("voy a anular el turno id:" + id);
+		ComprobanteDto comprobante = comprobanteFacade.getMaxComprobante();
+		ComprobanteDto comprobanteNuevo = null;
 
-		// TurnosDto turno = turnosFacade.getTurnoById(id);
-		// turno.setEstado("???");
-		// turnosFacade.editarTurno(turno);
+		if (comprobante == null) {
+			comprobanteNuevo = new ComprobanteDto(1);
+		} else {
+			Integer contador = comprobante.getContador() + 1;
+			comprobanteNuevo = new ComprobanteDto(contador);
+		}
+		comprobanteFacade.crearComprobante(comprobanteNuevo);
+		TurnosDto turno = turnosFacade.getTurnoById(id);
+		turno.setEstado(false);
+		turno.setPaciente(null);
+		turno.setNumeroComprobanteAnulado(comprobanteNuevo.getContador().toString());
+		turnosFacade.editarTurno(turno);
 
-		Boolean resultadoAnularTurno = true;
-
-		return resultadoAnularTurno;
+		ResultadoDto resultado = new ResultadoDto(true, turno.getNumeroComprobanteAnulado());
+		return resultado;
 	}
 
 	@RequestMapping(value = "/infoPaciente", method = RequestMethod.GET)
