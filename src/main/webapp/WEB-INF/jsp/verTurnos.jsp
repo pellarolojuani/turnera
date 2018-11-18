@@ -48,6 +48,35 @@ $(document).ready(function () {
         $("#tabOptions").append('<li><a href="/verTurnos">Ver Turnos</a></li>');
         $("#tabOptions").append('<li><a href="/registrarTurnosInit">Registrar Turnos</a></li>');
     }
+   
+    var getDate = function (input) {
+        return new Date(input.date.valueOf());
+    }
+
+    $('#datepickerFechaDesde, #datepickerFechaHasta').datepicker({
+        format: "dd/mm/yyyy",
+        language: 'es'
+    });
+
+    $('#datepickerFechaDesde').datepicker({
+        startDate: '-1d',
+        endDate: '+35d',
+    }).on('changeDate',
+        function (selected) {
+            $('#datepickerFechaHasta').datepicker('setStartDate', getDate(selected));
+        });
+
+    $('#datepickerFechaHasta').datepicker({
+        startDate: '+6d',
+        endDate: '+36d',
+    }).on('changeDate',
+        function (selected) {
+            $('#datepickerFechaDesde').datepicker('setEndDate', getDate(selected));
+        });
+    
+    
+    
+    
 });
 
 	function buscarTurnoMedico() {
@@ -55,7 +84,7 @@ $(document).ready(function () {
 		var fechaDesde = $('#datepickerFechaDesde').val();
 		var fechaHasta = $('#datepickerFechaHasta').val();
 		$("#tbodyVerTurnos").empty();
-		
+		debugger;
 		if(fechaDesde != null && fechaDesde != ''){
 			if(fechaHasta != null && fechaHasta != ''){
 				$.ajax({
