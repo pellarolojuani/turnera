@@ -70,7 +70,7 @@ public class MongoDBTurnosFacade {
 		return null;
 	}
 
-	public List<TurnosDto> getTurnosBetweenDates(Date inicio, Date fin) {
+	public List<TurnosDto> getTurnosBetweenDates(Date inicio, Date fin, String ocupado) {
 		Criteria cri = null;
 		if (inicio != null) {
 			cri = Criteria.where("fecha").gte(inicio);
@@ -84,6 +84,10 @@ public class MongoDBTurnosFacade {
 				cri = cri.lte(fin);
 			}
 		}
+		if("on".equals(ocupado)) {
+			cri = cri.and("estado").is(true);
+		}
+		
 		Query query;
 		if (cri != null) {
 			query = new Query(cri);

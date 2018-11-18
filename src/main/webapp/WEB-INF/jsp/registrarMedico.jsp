@@ -43,7 +43,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<button type="button" id="submitButton" onclick="submitCrearMedico();" class="btn btn-success login-btn btn-block" disabled="disabled">Registrar</button>
+				<button type="button" id="submitButton" onclick="submitCrearMedico();" class="btn btn-success login-btn btn-block" >Registrar</button>
 			</div>
 			<label id="registrarMedico-errorLabel" style="display: none;" class="alert alert-danger"></label>
 			<div class="form-group">

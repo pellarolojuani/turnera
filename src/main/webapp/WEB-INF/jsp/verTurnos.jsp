@@ -18,6 +18,11 @@
 			placeholder="MM/DD/YYY" type="text" />
 	</div>
 	<div class="form-group">
+		<!-- Date input -->
+		<label class="control-label" for="checkbox">Ver solo turnos ocupados</label> 
+		 <input type="checkbox" id="ocupado" name="ocupado" > <br>
+	</div>
+	<div class="form-group">
 		<button id="buscarTurnoMedico" class="btn btn-success login-btn btn-block"
 			onclick="buscarTurnoMedico()">Buscar Turno</button>
 	</div>
@@ -83,6 +88,7 @@ $(document).ready(function () {
 
 		var fechaDesde = $('#datepickerFechaDesde').val();
 		var fechaHasta = $('#datepickerFechaHasta').val();
+		var ocupado = $('#ocupado').val();
 		$("#tbodyVerTurnos").empty();
 		debugger;
 		if(fechaDesde != null && fechaDesde != ''){
@@ -94,7 +100,8 @@ $(document).ready(function () {
 					dataType : "json",
 					data : {
 						fechaDesde : fechaDesde,
-						fechaHasta : fechaHasta
+						fechaHasta : fechaHasta,
+						ocupado : ocupado
 					},
 					cache : false,
 					success : function(response) {

@@ -1,6 +1,8 @@
 package ar.uba.fi.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +24,6 @@ import com.google.gson.Gson;
 import ar.uba.fi.dto.EspecialidadDto;
 import ar.uba.fi.dto.MedicoDto;
 import ar.uba.fi.dto.PacienteDto;
-import ar.uba.fi.dto.ResultadoDto;
 import ar.uba.fi.dto.TurnosDto;
 import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.facade.EspecialidadFacade;
@@ -60,24 +61,22 @@ public class MedicoController {
 
 	@RequestMapping(value = "/verProximosTurnos", method = RequestMethod.GET)
 	public @ResponseBody List<TurnosDto> verProximosTurnos(@RequestParam(name = "fechaDesde") String fechaDesde,
-			@RequestParam(name = "fechaHasta") String fechaHasta) {
+			@RequestParam(name = "fechaHasta") String fechaHasta, @RequestParam(name = "ocupado") String ocupado) {
 
-		PacienteDto p1 = new PacienteDto("1", "DNI", "22454666", "Masculino", null, "20/01/1965", null, "Jose Argento",
-				"pepe@argento.com", "453543-45345");
 
-		PacienteDto p2 = new PacienteDto("2", "DNI", "26455666", "Femenino", null, "30/03/1970", null, "Moni Argento",
-				"moni@argento.com", "453543-45345");
-
-		// TODO aca voy a la base y traigo los turnos segun los parametros.
-		TurnosDto turno1 = new TurnosDto(new Date(), true, p1);
-		turno1.setId("1");
-		turno1.setFechaString("20/12/2018" + " 11:00");
-		TurnosDto turno2 = new TurnosDto(new Date(), true, p2);
-		turno2.setId("2");
-		turno2.setFechaString("21/12/2018" + " 11:20");
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
-		turnos.add(turno1);
-		turnos.add(turno2);
+		
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
+		try {
+			Date fechaDesdeDate = dt.parse(fechaDesde);
+			Date fechaHastaDate = dt.parse(fechaHasta); 
+			
+			turnos = turnosFacade.getTurnosBetweenDates(fechaDesdeDate, fechaHastaDate, ocupado);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
 
 		return turnos;
 	}
