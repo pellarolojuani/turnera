@@ -8,12 +8,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
-	@Autowired
-    public void configureGlobalSecurity(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("admin")
-                .roles("USER", "ADMIN");
-    }
+//	@Autowired
+//    public void configureGlobalSecurity(AuthenticationManagerBuilder auth)
+//            throws Exception {
+//        auth.inMemoryAuthentication().withUser("admin").password("admin")
+//                .roles("USER", "ADMIN");
+//    }
 	
 //	@Override
 //    protected void configure(HttpSecurity http) throws Exception {
@@ -22,14 +22,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 //        		.and()
 //                .formLogin().loginPage("/login");
 //    }
-	
+	@Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        U userDetailsService = mongoUserDetails();
+        auth.userDetailsService(userDetailsService);
+    }
 	
 	//dejo este, provisorio, por q el otro no me manda al login de lucas!!!
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login").permitAll()
-                .antMatchers("/", "/*todo*/**").access("hasRole('USER')").and()
-                .formLogin();
+		http.authorizeRequests().antMatchers("/login").permitAll()
+      .access("hasRole('USER')")
+		.and()
+      .formLogin().loginPage("/login");
     }
 	
 }
