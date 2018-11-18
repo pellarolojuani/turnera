@@ -33,7 +33,7 @@
 		<thead>
 			<tr>
 				<th>Fecha</th>
-				<th>Estado</th>
+				<th>Ocupado</th>
 				<th>Paciente</th>
 				<th></th>
 				<th></th>
@@ -84,6 +84,22 @@ $(document).ready(function () {
     
 });
 
+function formattedDate(d, hora, minuto) {
+	  let month = String(d.getMonth() + 1);
+	  let day = String(d.getDate());
+	  const year = String(d.getFullYear());
+
+	  if (month.length < 2) month = '0' + month;
+	  if (day.length < 2) day = '0' + day;
+	  
+	  let hour = hora;
+	  if (hour< 2) hour =  '0' + hour;
+	  
+	  let minute = minuto;
+	  if (minute < 2) minute =  '0' + minute;
+	  return day +"/"+ month +"/"+ year +" "+hour +":" +minute;	  
+	}
+
 	function buscarTurnoMedico() {
 
 		var fechaDesde = $('#datepickerFechaDesde').val();
@@ -106,11 +122,22 @@ $(document).ready(function () {
 					cache : false,
 					success : function(response) {
 						var filas = response.length;
-						if (response != null && filas > 0) {
-					
+						if (response != null && filas > 0) {					
 							for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
-								var nuevafila = "<tr><td>" + response[i].fechaString
-										+ "</td><td>" + response[i].estado
+								
+		                		var fecha = new Date(response[i].fecha);
+		                		var fechaString = formattedDate(fecha,response[i].hora,response[i].minutos);
+		                		
+		                		var ocupado = "";
+		                		
+		                		if(response[i].estado){
+		                			ocupado = "Si";
+		                		} else {
+		                			ocupado = "No";
+		                		}
+								
+								var nuevafila = "<tr><td>" + fechaString
+										+ "</td><td>" + ocupado
 										+ "</td><td>" + response[i].paciente.nombreApellido
 										+ "</td><td><a type='button' class='btn btn-info' onclick=masInfoPaciente('"+response[i].paciente.id+"')>Info Paciente</a>"
 										+ "</td><td><a type='button' class='btn btn-warning' onclick=anularPorMedico('"+response[i].id+"') >Anular</a>"

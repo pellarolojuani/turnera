@@ -31,6 +31,7 @@ import ar.uba.fi.dto.UsuarioDto;
 import ar.uba.fi.facade.ComprobanteFacade;
 import ar.uba.fi.facade.EspecialidadFacade;
 import ar.uba.fi.facade.MedicoFacade;
+import ar.uba.fi.facade.PacientesFacade;
 import ar.uba.fi.facade.TurnosFacade;
 import ar.uba.fi.util.AjaxResult;
 import ar.uba.fi.util.DateUtil;
@@ -46,6 +47,9 @@ public class MedicoController {
 	private MedicoFacade medicoFacade;
 	@Autowired
 	private ComprobanteFacade comprobanteFacade;
+	
+	@Autowired
+	private PacientesFacade pacientesFacade;
 
 
 	@RequestMapping(value = "/verTurnos", method = RequestMethod.GET)
@@ -112,9 +116,8 @@ public class MedicoController {
 
 	@RequestMapping(value = "/infoPaciente", method = RequestMethod.GET)
 	public @ResponseBody PacienteDto infoPaciente(@RequestParam String id) {
-		PacienteDto p1 = new PacienteDto("1", "DNI", "22454666", "Masculino", null, "20/01/1965", null, "Jose Argento",
-				"pepe@argento.com", "453543-45345");
-		return p1;
+		PacienteDto paciente = pacientesFacade.getPacienteById(id);	
+		return paciente;
 	}
 
 	@RequestMapping(value = "/cargarEspecialidades", method = RequestMethod.GET)
