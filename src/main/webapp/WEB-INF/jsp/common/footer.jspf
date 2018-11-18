@@ -34,12 +34,7 @@
 		  weekStart: 0
 
 		});
-	
-	
-	$('#datepickerRegistrar').datepicker({
-		  format: "dd/mm/yyyy"
-		});
-	
+
 	
 	
 </script>
