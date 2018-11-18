@@ -2,6 +2,9 @@
 <%@ include file="common/header.jspf"%>
 <div class="container">
 	<div class="form-group">
+		<label id="login-errorLabel" style="display: none;" class="alert alert-danger"></label>
+	</div> 
+	<div class="form-group">
 		<!-- Date input -->
 		<label class="control-label" for="date">Fecha Desde</label> <input
 			class="form-control" id="datepickerFechaDesde" name="fechaDesde"
@@ -52,34 +55,50 @@ $(document).ready(function () {
 		var fechaDesde = $('#datepickerFechaDesde').val();
 		var fechaHasta = $('#datepickerFechaHasta').val();
 		$("#tbodyVerTurnos").empty();
-
-		$.ajax({
-			type : "GET",
-			contentType : "application/json",
-			url : "/verProximosTurnos",
-			dataType : "json",
-			data : {
-				fechaDesde : fechaDesde,
-				fechaHasta : fechaHasta
-			},
-			cache : false,
-			success : function(response) {
-				var filas = response.length;
-				if (response != null && filas > 0) {
-			
-					for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
-						var nuevafila = "<tr><td>" + response[i].fechaString
-								+ "</td><td>" + response[i].estado
-								+ "</td><td>" + response[i].paciente.nombreApellido
-								+ "</td><td><a type='button' class='btn btn-info' onclick=masInfoPaciente('"+response[i].paciente.id+"')>Info Paciente</a>"
-								+ "</td><td><a type='button' class='btn btn-warning' onclick=anularPorMedico('"+response[i].id+"') >Anular</a>"
-								+ "</td></tr>"
-
-						$("#tbodyVerTurnos").append(nuevafila);
+		
+		if(fechaDesde != null && fechaDesde != ''){
+			if(fechaHasta != null && fechaHasta != ''){
+				$.ajax({
+					type : "GET",
+					contentType : "application/json",
+					url : "/verProximosTurnos",
+					dataType : "json",
+					data : {
+						fechaDesde : fechaDesde,
+						fechaHasta : fechaHasta
+					},
+					cache : false,
+					success : function(response) {
+						var filas = response.length;
+						if (response != null && filas > 0) {
+					
+							for (i = 0; i < filas; i++) { //cuenta la cantidad de registros
+								var nuevafila = "<tr><td>" + response[i].fechaString
+										+ "</td><td>" + response[i].estado
+										+ "</td><td>" + response[i].paciente.nombreApellido
+										+ "</td><td><a type='button' class='btn btn-info' onclick=masInfoPaciente('"+response[i].paciente.id+"')>Info Paciente</a>"
+										+ "</td><td><a type='button' class='btn btn-warning' onclick=anularPorMedico('"+response[i].id+"') >Anular</a>"
+										+ "</td></tr>"
+		
+								$("#tbodyVerTurnos").append(nuevafila);
+							}
+						}
 					}
-				}
+				});
+			} else{
+	    	  	 $('#login-errorLabel').text("Debe seleccionar una fecha de turno hasta.");
+	             $('#login-errorLabel').show();
+	             setTimeout(function () {
+	                 $('#login-errorLabel').hide();
+	             }, 5000); 
 			}
-		});
+		} else{
+	   	  	 $('#login-errorLabel').text("Debe seleccionar una fecha de turno desde.");
+	         $('#login-errorLabel').show();
+	         setTimeout(function () {
+	             $('#login-errorLabel').hide();
+	         }, 5000); 
+		}
 	}
 	
 	function anularPorMedico(id){
