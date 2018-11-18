@@ -6,7 +6,7 @@
 	</div> 
 	<div class="form-group">
 		<!-- Date input -->
-		<label class="control-label" for="date">FechaTurno</label> <input class="form-control" id="datepickerRegistrar" name="fechaRegistroTurno" placeholder="MM/DD/YYY" type="text" />
+		<label class="control-label" for="date">FechaTurno</label> <input class="form-control" id="datepickerRegistrar" name="fechaRegistroTurno" placeholder="MM/DD/YYYY" type="text" />
 	</div>
 	
 	<div class="form-group">
@@ -64,6 +64,14 @@ $(document).ready(function () {
         $("#tabOptions").append('<li><a href="/verTurnos">Ver Turnos</a></li>');
         $("#tabOptions").append('<li><a href="/registrarTurnosInit">Registrar Turnos</a></li>');
     }
+    
+
+	$('#datepickerRegistrar').datepicker({
+		  format: "dd/mm/yyyy",
+	        startDate: '-0d',
+	        endDate: '+35d',
+		});
+	
 });
 
 function formattedDate(d, hora, minuto) {
