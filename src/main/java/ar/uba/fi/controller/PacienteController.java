@@ -196,5 +196,11 @@ public class PacienteController {
 
 		}
 	}
+	
+	@RequestMapping(value = "/infoMedico", method = RequestMethod.GET)
+	public @ResponseBody MedicoDto infoPaciente(@RequestParam String id) {
+		MedicoDto medico = medicoFacade.getMedicoById(id);	
+		return medico;
+	}
 
 }

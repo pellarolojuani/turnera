@@ -32,6 +32,7 @@
 				<th>Duraci&oacute;n</th>
 				<th></th>
 				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody id="tbodySolicitarTurno">
@@ -40,6 +41,7 @@
 
 </div>
 <%@ include file="turnoSolicitadoModal.jsp"%>
+<%@ include file="infoMedicoModal.jsp"%>
 <script>
     $(document).ready(function () {
         if (localStorage.getItem("permiso") === "medico") {
@@ -128,7 +130,9 @@
                 		var fecha = new Date(response[i].fecha);
                 		var fechaString = formattedDate(fecha,response[i].hora,response[i].minutos);
                     	
-                        var nuevafila = "<tr><td>" + fechaString + "</td><td>" + response[i].medico.nombre + "</td><td>" + response[i].especialidad.descripcion + "</td><td>" + response[i].duracion + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a>" + "</td></tr>"
+                        var nuevafila = "<tr><td>" + fechaString + "</td><td>" + response[i].medico.nombre + "</td><td>" + response[i].especialidad.descripcion + "</td><td>" + response[i].duracion +
+                        "</td><td><a type='button' class='btn btn-info ' onclick=masInfoMedico('" + response[i].medico.id + "') >Info Medico</a>" 
+                        + "</td><td><a type='button' class='btn btn-warning' onclick=solicitar('" + response[i].id + "') >Solicitar</a></td></tr>";
 
                         $("#tbodySolicitarTurno").append(nuevafila);
                     }
@@ -159,5 +163,36 @@
         });
 
     }
+    
+    
+	function limiarModalMasInfo(){
+		$('#nombreLabel').text("");
+		$('#especialidadLabel').text("");
+		$('#matriculaLabel').text("");
+	}
+	
+	function masInfoMedico(id){
+		$.ajax({
+			type : "GET",
+			contentType : "application/json",
+			url : "/infoMedico",
+			dataType : "json",
+			data : {
+				id : id
+			},
+			success : function(response) {
+				//TODO aca abro modal
+				if(response != null){
+					limiarModalMasInfo();
+					$('#nombreLabel').text(response.nombre);
+					$('#especialidadLabel').text(response.especialidad.descripcion);
+					$('#matriculaLabel').text(response.matricula);
+					
+					$('#infoMedico').modal('show');
+				}
+			}
+		});
+		
+	}
 </script>
 <%@ include file="common/footer.jspf"%>
