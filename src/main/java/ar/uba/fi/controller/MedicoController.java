@@ -216,7 +216,7 @@ public class MedicoController {
 					turno6.setEstado(false);
 					turno6.setFecha(targetTimeFecha);
 					turno6.setHora(i);
-					turno6.setMinutos(60);
+					turno6.setMinutos(50);
 					turno6.setDuracion(10);
 					turnos.add(turno6);
 					turnosFacade.crearTurno(turno6);
