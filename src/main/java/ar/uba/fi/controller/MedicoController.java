@@ -222,7 +222,7 @@ public class MedicoController {
 					turnosFacade.crearTurno(turno6);
 				}
 			} else if (duracionInt == 15) {
-				for (Integer i = horaDesde; i <= horaHasta; i++) {
+				for (Integer i = horaDesde; i < horaHasta; i++) {
 					TurnosDto turno1 = new TurnosDto();
 					turno1.setMedico(medico);
 					turno1.setEspecialidad(medico.getEspecialidad());
@@ -265,7 +265,7 @@ public class MedicoController {
 					turnosFacade.crearTurno(turno4);
 				}
 			} else if (duracionInt == 20) {
-				for (Integer i = horaDesde; i <= horaHasta; i++) {
+				for (Integer i = horaDesde; i < horaHasta; i++) {
 					TurnosDto turno1 = new TurnosDto();
 					turno1.setMedico(medico);
 					turno1.setEspecialidad(medico.getEspecialidad());
@@ -298,7 +298,7 @@ public class MedicoController {
 					turnosFacade.crearTurno(turno3);
 				}
 			} else if (duracionInt == 30) {
-				for (Integer i = horaDesde; i <= horaHasta; i++) {
+				for (Integer i = horaDesde; i < horaHasta; i++) {
 					TurnosDto turno1 = new TurnosDto();
 					turno1.setMedico(medico);
 					turno1.setEspecialidad(medico.getEspecialidad());
