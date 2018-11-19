@@ -22,7 +22,7 @@
 	</div>
 </div>
 <div class="form-group">
-	<table class="table table-striped">
+	<table class="table table-striped" style="margin-left: 30px;">
 		<caption>Selecionar Turno</caption>
 		<thead>
 			<tr>
