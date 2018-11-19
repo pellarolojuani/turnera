@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ include file="common/navigation.jspf"%>
+<%@ include file="common/header.jspf"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,6 +59,7 @@
     $(document).ready(function () {
         if (localStorage.getItem("permiso") === "admin") {
             $('#submitButton').prop('disabled', false);
+            $("#tabOptions").append('<li><a href="/registrarMedico">Registrar Medico</a></li>');
         }
         $.ajax({
             type : "GET",
