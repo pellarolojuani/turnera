@@ -60,6 +60,7 @@
         if (localStorage.getItem("permiso") === "admin") {
             $('#submitButton').prop('disabled', false);
             $("#tabOptions").append('<li><a href="/registrarMedico">Registrar Medico</a></li>');
+            $("#tabOptions").append('<li><a href="/eliminarMedico">Eliminar Medico</a></li>');
         }
         $.ajax({
             type : "GET",

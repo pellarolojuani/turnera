@@ -35,7 +35,7 @@
             </div>
         </div>        
         <div class="form-group">
-              <button type="submit" onclick="checkearUsuario();" class="btn btn-primary login-btn btn-block">Ingresar</button>
+              <button type="submit" onclick="checkearUsuario();" id="ingresar" class="btn btn-primary login-btn btn-block">Ingresar</button>
         </div>
    		<br></br>
         <div class="clearfix">
@@ -47,7 +47,6 @@
 </body>
 
 <script>
-
 
     $(document).ready(function () {
         
@@ -80,7 +79,7 @@
         });
     }
     
-    
+
     
 </script>
 </html> 

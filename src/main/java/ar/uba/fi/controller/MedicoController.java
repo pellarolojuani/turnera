@@ -126,6 +126,25 @@ public class MedicoController {
 	public @ResponseBody List<EspecialidadDto> cargarEspecialidades() {
 		return especialidadFacade.getAllEspecialidads();
 	}
+	
+	
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/cargarTodosLosMedicos")
+	private void cargarMedicos(HttpServletRequest request, HttpServletResponse response, ModelMap model)
+			throws IOException {
+		AjaxResult result = new AjaxResult();
+		try {
+			
+			result.setResult(medicoFacade.getAllMedicos());
+			result.setMessage("DONE.");
+		} catch (Exception ex) {
+			result.setErrorCode(1);
+			result.setMessage("Error al cargar medicos");
+		}
+		Gson gson = new Gson();
+		String json = gson.toJson(result);
+		response.setContentType("application/json");
+		response.getWriter().write(json);
+	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, value = "/cargarMedicos")
 	private void registrar(HttpServletRequest request, HttpServletResponse response, ModelMap model)
@@ -323,6 +342,27 @@ public class MedicoController {
 			}
 		}
 		return turnos;
+	}
+	
+	@RequestMapping(value = "/eliminarMedico", method = RequestMethod.GET)
+	public ModelAndView initEliminarMedico(ModelMap model) {
+		
+		ModelAndView mv = new ModelAndView("eliminarMedico");
+		
+		List<MedicoDto> medicos = medicoFacade.getAllMedicos();
+		
+		mv.addObject("medicos", medicos);
+
+		return mv;
+	}
+	@RequestMapping(value = "/darBajaMedico", method = RequestMethod.GET)
+	public @ResponseBody ResultadoDto eliminarMedico(@RequestParam(name = "medico") String medicoId) {
+
+		MedicoDto medico=medicoFacade.getMedicoById(medicoId);
+		medicoFacade.removerMedico(medico);
+		
+		ResultadoDto resultado = new ResultadoDto(true, "El medico se ha dado de baja correctamente.");
+		return resultado;
 	}
 
 }

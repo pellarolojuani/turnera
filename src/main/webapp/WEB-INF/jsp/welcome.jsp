@@ -12,6 +12,7 @@
         	  $("#tabOptions").append('<li><a href="/misTurnos">Mis Turnos</a></li> ');
         }else {
         	 $("#tabOptions").append('<li><a href="/registrarMedico">Registrar Medico</a></li>');
+        	 $("#tabOptions").append('<li><a href="/eliminarMedico">Eliminar Medico</a></li>');
         }
     });
 </script>
