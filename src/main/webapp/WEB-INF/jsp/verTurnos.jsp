@@ -34,6 +34,7 @@
 			<tr>
 				<th>Fecha</th>
 				<th>Ocupado</th>
+				<th>Duraci&oacute;n</th>
 				<th>Paciente</th>
 				<th></th>
 				<th></th>
@@ -104,7 +105,13 @@ function formattedDate(d, hora, minuto) {
 
 		var fechaDesde = $('#datepickerFechaDesde').val();
 		var fechaHasta = $('#datepickerFechaHasta').val();
-		var ocupado = $('#ocupado').val();
+		var ocupado = "";
+		
+		if($('#ocupado').prop('checked')){
+			var ocupado = "on";
+		}
+		
+		var ocupado 
 		$("#tbodyVerTurnos").empty();
 		debugger;
 		if(fechaDesde != null && fechaDesde != ''){
@@ -135,14 +142,26 @@ function formattedDate(d, hora, minuto) {
 		                		} else {
 		                			ocupado = "No";
 		                		}
-								
+	
+		                		var nombreApellido = "";
+		                		if(response[i].paciente != null && response[i].paciente.nombreApellido != null){
+		                			nombreApellido = response[i].paciente.nombreApellido;
+		                		}
+		                							
 								var nuevafila = "<tr><td>" + fechaString
 										+ "</td><td>" + ocupado
-										+ "</td><td>" + response[i].paciente.nombreApellido
-										+ "</td><td><a type='button' class='btn btn-info' onclick=masInfoPaciente('"+response[i].paciente.id+"')>Info Paciente</a>"
-										+ "</td><td><a type='button' class='btn btn-warning' onclick=anularPorMedico('"+response[i].id+"') >Anular</a>"
-										+ "</td></tr>"
-		
+										+ "</td><td>" + response[i].duracion
+										+ "</td><td>" + nombreApellido
+										+ "</td>";
+										
+										if(response[i].paciente != null && response[i].paciente.nombreApellido != null){
+											nuevafila+=	"<td><a type='button' class='btn btn-info' onclick=masInfoPaciente('"+response[i].paciente.id+"')>Info Paciente</a></td>"
+											+"<td><a type='button' class='btn btn-warning' onclick=anularPorMedico('"+response[i].id+"') >Anular</a>"
+											+ "</td></tr>";
+										} else {
+											nuevafila+=	"<td></td><td></td></tr>";
+										}
+										
 								$("#tbodyVerTurnos").append(nuevafila);
 							}
 						}
