@@ -10,7 +10,7 @@
 <script src="js/bootstrap.min.js"></script>
 <link href="css/bootstrap.min.css"  rel="stylesheet">
 <link href="css/styles.css"  rel="stylesheet">
-<script src="js/solicitarTurno.js"></script>
+<!-- <script src="js/solicitarTurno.js"></script> -->
 
 
 </head>
