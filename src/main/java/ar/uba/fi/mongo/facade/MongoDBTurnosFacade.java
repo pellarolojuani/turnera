@@ -96,6 +96,38 @@ public class MongoDBTurnosFacade {
 		}
 		return mongoTemplate.find(query, TurnosDto.class);
 	}
+	
+	
+	public List<TurnosDto> getTurnosBetweenDatesAndMedico(Date inicio, Date fin, String ocupado, MedicoDto medico) {
+		Criteria cri = null;
+		if (inicio != null) {
+			cri = Criteria.where("fecha").gte(inicio);
+		}
+		if (cri == null) {
+			if (fin != null) {
+				cri = Criteria.where("fecha").lte(fin);
+			}
+		} else {
+			if (fin != null) {
+				cri = cri.lte(fin);
+			}
+		}
+		if("on".equals(ocupado)) {
+			cri = cri.and("estado").is(true);
+		}
+		
+		if(medico != null) {
+			cri = cri.and("medico").in(medico);
+		}
+		
+		Query query;
+		if (cri != null) {
+			query = new Query(cri);
+		} else {
+			query = new Query();
+		}
+		return mongoTemplate.find(query, TurnosDto.class);
+	}
 
 	public List<TurnosDto> getTurnosByEspecialidad(EspecialidadDto especialidad) {
 		try {

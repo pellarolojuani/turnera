@@ -49,6 +49,12 @@ public class TurnosFacade {
 		return turnoFacade.getTurnosBetweenDates(inicio, fin, ocupado);
 	}
 
+	public List<TurnosDto> getTurnosBetweenDatesAndMedico(Date inicio, Date fin, String ocupado, MedicoDto medico) {
+		return turnoFacade.getTurnosBetweenDatesAndMedico(inicio, fin, ocupado, medico);
+	}
+
+	
+	
 	public List<TurnosDto> getTurnosByEspecialidad(EspecialidadDto especialidad) {
 		return turnoFacade.getTurnosByEspecialidad(especialidad);
 	}

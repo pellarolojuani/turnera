@@ -71,8 +71,10 @@ public class MedicoController {
 
 	@RequestMapping(value = "/verProximosTurnos", method = RequestMethod.GET)
 	public @ResponseBody List<TurnosDto> verProximosTurnos(@RequestParam(name = "fechaDesde") String fechaDesde,
-			@RequestParam(name = "fechaHasta") String fechaHasta, @RequestParam(name = "ocupado") String ocupado) {
+			@RequestParam(name = "fechaHasta") String fechaHasta, @RequestParam(name = "ocupado") String ocupado, HttpServletRequest request) {
 
+		UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuario");
+		MedicoDto medico = medicoFacade.getMedicoByUsuario(usuario);
 
 		List<TurnosDto> turnos = new ArrayList<TurnosDto>();
 		
@@ -81,7 +83,7 @@ public class MedicoController {
 			Date fechaDesdeDate = dt.parse(fechaDesde);
 			Date fechaHastaDate = dt.parse(fechaHasta); 
 			
-			turnos = turnosFacade.getTurnosBetweenDates(fechaDesdeDate, fechaHastaDate, ocupado);
+			turnos = turnosFacade.getTurnosBetweenDatesAndMedico(fechaDesdeDate, fechaHastaDate, ocupado, medico);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
