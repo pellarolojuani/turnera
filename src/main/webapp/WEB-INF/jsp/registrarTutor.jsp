@@ -8,12 +8,10 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/styles.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
-
 </head>
 <body>
 	<div class="usuario-form">
 
-<%-- 		<form:form action="registroMedico" method='POST' modelAttribute="registroMedico"> --%>
 			<c:if test="${not empty errMsg}">
 				<h4 class="error message" style="width: 800px">${errMsg}</h4>
 			</c:if>
@@ -29,24 +27,23 @@
 		</div>
 			<div class="form-group">
 				<div class="input-group">
-					<label class="control-label" for="date">Nombre y Apellido:</label> <input type="text" class="form-control" id="nombre" required="required" maxlength="100">
+					<label class="control-label" for="nombre">Nombre:</label> <input type="text" class="form-control" id="nombre" required="required" maxlength="100">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
-					<label class="control-label" for="especialidad">Especialidad:</label> <select class="form-control" id="especialidad" name="especialidad">
-					</select>
+					<label class="control-label" for="apellido">Apellido:</label> <input type="text" class="form-control" id="apellido" required="required" maxlength="100">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
-					<label class="control-label" for="matricula">Matricula:</label> <input type="text" class="form-control" id="matricula" required="required">
+					<label class="control-label" for="dni">DNI:</label><input type="text" class="form-control" id="dni" required="required" maxlength="100">
 				</div>
 			</div>
 			<div class="form-group">
-				<button type="button" id="submitButton" onclick="submitCrearMedico();" class="btn btn-success login-btn btn-block" >Registrar</button>
+				<button type="button" id="submitButton" onclick="submitCrearTutor();" class="btn btn-success login-btn btn-block" >Registrar</button>
 			</div>
-			<label id="registrarMedico-errorLabel" style="display: none;" class="alert alert-danger"></label>
+			<label id="registrarTutor-errorLabel" style="display: none;" class="alert alert-danger"></label>
 			<div class="form-group">
 				<a type='button' class="btn btn-danger login-btn btn-block" href="/login">Volver</a>
 			</div>
@@ -59,26 +56,17 @@
     $(document).ready(function () {
         if (localStorage.getItem("permiso") === "admin") {
             $('#submitButton').prop('disabled', false);
-            $("#tabOptions").append('<li><a href="/registrarMedico">Registrar Medico</a></li>');
-            $("#tabOptions").append('<li><a href="/eliminarMedico">Eliminar Medico</a></li>');
+            $("#tabOptions").append('<li><a href="/registrarAlumno">Registrar Alumno</a></li>');
+            $("#tabOptions").append('<li><a href="/eliminarAlumno">Eliminar Alumno</a></li>');
+            $("#tabOptions").append('<li><a href="/registrarTutor">Registrar Tutor</a></li>');
+            $("#tabOptions").append('<li><a href="/eliminarTutor">Eliminar Tutor</a></li>');
+            $("#tabOptions").append('<li><a href="/registrarDocente">Registrar Docente</a></li>');
+            $("#tabOptions").append('<li><a href="/eliminarDocente">Eliminar Docente</a></li>');
         }
-        $.ajax({
-            type : "GET",
-            contentType : "application/json",
-            url : "/cargarEspecialidades",
-            dataType : "json",
-            cache : false,
-            success : function (response) {
-                if (response !== null && response !== undefined) {
-                    $.each(response, function (index, value) {
-                        $("#especialidad").append(new Option(value.descripcion, value.codigo));
-                    });
-                }
-            }
-        });
+        
     });
     
-    function submitCrearMedico() {
+    function submitCrearTutor() {
         $.ajax({
             type : "GET",
             contentType : "application/json",
@@ -86,10 +74,10 @@
                 "usuario" : $('#nombreUsuario').val(),
                 "contrasenia" : $('#contrasenia').val(),
                 "nombre" : $('#nombre').val(),
-                "especialidad" : $('#especialidad').val(),
-                "matricula" : $('#matricula').val()
+                "apellido" : $('#apellido').val(),
+                "dni" : $('#dni').val()
             },
-            url : "/registroMedico",
+            url : "/registroTutor",
             dataType : "json",
             cache : false,
             success : function (response) {
@@ -97,10 +85,10 @@
                     if (response.result) {
                         window.location.replace("/login");
                     } else {
-                        $('#registrarMedico-errorLabel').text(response.message);
-                        $('#registrarMedico-errorLabel').show();
+                        $('#registrarTutor-errorLabel').text(response.message);
+                        $('#registrarTutor-errorLabel').show();
                         setTimeout(function () {
-                            $('#registrarMedico-errorLabel').hide();
+                            $('#registrarTutor-errorLabel').hide();
                         }, 5000);
                     }
                 }

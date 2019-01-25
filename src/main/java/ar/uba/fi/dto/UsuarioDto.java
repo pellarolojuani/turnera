@@ -9,7 +9,7 @@ public class UsuarioDto {
 	private String id;
 	private String nombreUsuario;
 	private String contrasenia;
-	private String permiso;		// puede ser usuario, medico o admin
+	private String permiso;		// puede ser alumno, docente, tutor o admin
 	
 	public UsuarioDto(String nombreUsuario, String contrasenia) {
 		super();
