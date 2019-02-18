@@ -62,6 +62,7 @@
             $("#tabOptions").append('<li><a href="/eliminarTutor">Eliminar Tutor</a></li>');
             $("#tabOptions").append('<li><a href="/registrarDocente">Registrar Docente</a></li>');
             $("#tabOptions").append('<li><a href="/eliminarDocente">Eliminar Docente</a></li>');
+            $("#tabOptions").append('<li><a href="/buzonDeEntrada">Mensajes</a></li>');
         }
         
     });

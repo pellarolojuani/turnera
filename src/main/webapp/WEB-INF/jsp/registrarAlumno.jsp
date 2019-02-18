@@ -55,7 +55,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<button type="button" id="submitButton" onclick="submitCrearMedico();" class="btn btn-success login-btn btn-block" >Registrar</button>
+				<button type="button" id="submitButton" onclick=$("#tabOptions").append('<li><a href="/buzonDeEntrada">Mensajes</a></li>');"submitCrearMedico();" class="btn btn-success login-btn btn-block" >Registrar</button>
 			</div>
 			<label id="registrarAlumno-errorLabel" style="display: none;" class="alert alert-danger"></label>
 			<div class="form-group">
@@ -76,6 +76,7 @@
             $("#tabOptions").append('<li><a href="/eliminarTutor">Eliminar Tutor</a></li>');
             $("#tabOptions").append('<li><a href="/registrarDocente">Registrar Docente</a></li>');
             $("#tabOptions").append('<li><a href="/eliminarDocente">Eliminar Docente</a></li>');
+            $("#tabOptions").append('<li><a href="/buzonDeEntrada">Mensajes</a></li>');
         }
         
         for (var i = 1; i < 6; i++) {

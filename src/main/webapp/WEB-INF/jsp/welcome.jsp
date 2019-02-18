@@ -22,6 +22,7 @@
             $("#tabOptions").append('<li><a href="/eliminarTutor">Eliminar Tutor</a></li>');
             $("#tabOptions").append('<li><a href="/registrarDocente">Registrar Docente</a></li>');
             $("#tabOptions").append('<li><a href="/eliminarDocente">Eliminar Docente</a></li>');
+            $("#tabOptions").append('<li><a href="/buzonDeEntrada">Mensajes</a></li>');
         } else if (localStorage.getItem("permiso") === "alumno") {
             //             $("#tabOptions").append('<li><a href="/solicitarTurno">Solicitar Turno</a></li>');
             //             $("#tabOptions").append('<li><a href="/misTurnos">Mis Turnos</a></li> ');

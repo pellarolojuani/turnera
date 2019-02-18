@@ -36,6 +36,7 @@
             $("#tabOptions").append('<li><a href="/eliminarTutor">Eliminar Tutor</a></li>');
             $("#tabOptions").append('<li><a href="/registraDocente">Registrar Docente</a></li>');
             $("#tabOptions").append('<li><a href="/eliminarDocente">Eliminar Docente</a></li>');
+            $("#tabOptions").append('<li><a href="/buzonDeEntrada">Mensajes</a></li>');
         }
         
      
